@@ -1,9 +1,6 @@
 <template>
   <div>
-    <b-alert
-      variant="primary"
-      show
-    >
+    <b-alert variant="primary" show>
       <div class="alert-body">
         <p>
           <strong>Info: </strong>
@@ -12,7 +9,8 @@
             class="alert-link"
             href="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/guide/layout/page-layout-examples.html#boxed-content"
             target="_blank"
-          >Boxed Layout documentation</b-link>
+            >Boxed Layout documentation</b-link
+          >
           <span> for more details.</span>
         </p>
       </div>
@@ -22,8 +20,8 @@
 </template>
 
 <script>
-import Ecommerce from '@/views/dashboard/ecommerce/Ecommerce.vue'
-import { BAlert, BLink } from 'bootstrap-vue'
+import Ecommerce from "@/views2/dashboard/ecommerce/Ecommerce.vue";
+import { BAlert, BLink } from "bootstrap-vue";
 
 export default {
   components: {
@@ -34,13 +32,13 @@ export default {
   data() {
     return {
       contentWidth: this.$store.state.appConfig.layout.contentWidth,
-    }
+    };
   },
   created() {
-    this.$store.commit('appConfig/UPDATE_CONTENT_WIDTH', 'boxed')
+    this.$store.commit("appConfig/UPDATE_CONTENT_WIDTH", "boxed");
   },
   destroyed() {
-    this.$store.commit('appConfig/UPDATE_CONTENT_WIDTH', this.contentWidth)
+    this.$store.commit("appConfig/UPDATE_CONTENT_WIDTH", this.contentWidth);
   },
-}
+};
 </script>
