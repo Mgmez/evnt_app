@@ -16,7 +16,7 @@
           Welcome To Corvux! 👋
         </b-card-title>
         <b-card-text class="mb-2">
-          Please sign-in to your account and start the adventure
+          Inicia sesión para comenzar la aventura
         </b-card-text>
 
         <!-- form -->
@@ -130,27 +130,15 @@
         <div class="auth-footer-btn d-flex justify-content-center">
           <b-button
             href="javascript:void(0)"
-            variant="facebook"
-          >
-            <feather-icon icon="FacebookIcon" />
-          </b-button>
-          <b-button
-            href="javascript:void(0)"
-            variant="twitter"
-          >
-            <feather-icon icon="TwitterIcon" />
-          </b-button>
-          <b-button
-            href="javascript:void(0)"
             variant="google"
           >
             <feather-icon icon="MailIcon" />
           </b-button>
           <b-button
             href="javascript:void(0)"
-            variant="github"
+            variant="facebook"
           >
-            <feather-icon icon="GithubIcon" />
+            <feather-icon icon="FacebookIcon" />
           </b-button>
         </div>
       </b-card>
