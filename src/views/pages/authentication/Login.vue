@@ -7,7 +7,7 @@
         <b-link class="brand-logo">
           <vuexy-logo />
 
-          <h2 class="brand-text text-primary ml-1">
+          <h2 class="brand-text text-dark ml-1">
             Corvux
           </h2>
         </b-link>
@@ -54,9 +54,11 @@
             <!-- password -->
             <b-form-group>
               <div class="d-flex justify-content-between">
-                <label for="password">Password</label>
+                <label
+                  for="password"
+                >Password</label>
                 <b-link :to="{name:'auth-forgot-password-v1'}">
-                  <small>Forgot Password?</small>
+                  <small class="text-secondary">Forgot Password?</small>
                 </b-link>
               </div>
               <validation-provider
@@ -107,6 +109,7 @@
               type="submit"
               block
               :disabled="invalid"
+              @click="login"
             >
               Sign in
             </b-button>
@@ -131,12 +134,14 @@
           <b-button
             href="javascript:void(0)"
             variant="google"
+            @click="loginWithGoogle"
           >
             <feather-icon icon="MailIcon" />
           </b-button>
           <b-button
             href="javascript:void(0)"
             variant="facebook"
+            @click="loginWithFacebook"
           >
             <feather-icon icon="FacebookIcon" />
           </b-button>
@@ -155,6 +160,9 @@ import {
 import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
+
+import sso from '@/auth/sso'
+import useJwt from '@/auth/jwt/useJwt'
 
 export default {
   components: {
@@ -188,6 +196,41 @@ export default {
   computed: {
     passwordToggleIcon() {
       return this.passwordFieldType === 'password' ? 'EyeIcon' : 'EyeOffIcon'
+    },
+  },
+  async created() {
+    const { hash } = window.location
+
+    if (hash === '') return
+
+    const user = await sso.parseHash(hash)
+    this.setNewSession(user)
+  },
+  methods: {
+    login() {
+      const result = sso.login(this.userEmail, this.password)
+      console.log(result)
+    },
+    loginWithGoogle() {
+      sso.loginWithGoogle()
+    },
+    loginWithFacebook() {
+      sso.loginWithFacebook()
+    },
+    setNewSession(session) {
+      const user = session
+      useJwt.setToken(user.accessToken)
+      useJwt.setRefreshToken(user.refreshToken)
+      user.idTokenPayload.ability = [
+        {
+          action: 'manage',
+          subject: 'all',
+        },
+      ]
+      localStorage.setItem('userData', JSON.stringify(user.idTokenPayload))
+
+      this.$ability.update(user.idTokenPayload.ability)
+      this.$router.push('/')
     },
   },
 }

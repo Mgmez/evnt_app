@@ -1,6 +1,9 @@
 <template>
   <div>
-    <b-alert variant="primary" show>
+    <b-alert
+      variant="primary"
+      show
+    >
       <div class="alert-body">
         <p>
           <strong>Info: </strong>
@@ -9,8 +12,7 @@
             class="alert-link"
             href="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/guide/layout/page-layout-examples.html#layout-without-menu"
             target="blank"
-            >Layout Without Navigation Menu documentation</b-link
-          >
+          >Layout Without Navigation Menu documentation</b-link>
           <span> for more details.</span>
         </p>
       </div>
@@ -20,8 +22,8 @@
 </template>
 
 <script>
-import Ecommerce from "@/views2/dashboard/ecommerce/Ecommerce.vue";
-import { BAlert, BLink } from "bootstrap-vue";
+import Ecommerce from '@/views2/dashboard/ecommerce/Ecommerce.vue'
+import { BAlert, BLink } from 'bootstrap-vue'
 
 export default {
   components: {
@@ -32,13 +34,13 @@ export default {
   data() {
     return {
       menuHidden: this.$store.state.appConfig.layout.menu.hidden,
-    };
+    }
   },
   created() {
-    this.$store.commit("appConfig/UPDATE_NAV_MENU_HIDDEN", true);
+    this.$store.commit('appConfig/UPDATE_NAV_MENU_HIDDEN', true)
   },
   destroyed() {
-    this.$store.commit("appConfig/UPDATE_NAV_MENU_HIDDEN", this.menuHidden);
+    this.$store.commit('appConfig/UPDATE_NAV_MENU_HIDDEN', this.menuHidden)
   },
-};
+}
 </script>
