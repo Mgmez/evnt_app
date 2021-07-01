@@ -30,13 +30,13 @@ tag
 tagVariant
 
 */
-// import dashboard from './dashboard'
-// import appsAndPages from './apps-and-pages'
-// import others from './others'
-// import chartsAndMaps from './charts-and-maps'
-// import uiElements from './ui-elements'
-// import formAndTable from './forms-and-table'
+import dashboard from './dashboard'
+import appsAndPages from './apps-and-pages'
+import others from './others'
+import chartsAndMaps from './charts-and-maps'
+import uiElements from './ui-elements'
+import formAndTable from './forms-and-table'
 import admin from './routes/administration'
 
 // Array of sections
-export default [...admin] // ...dashboard, ...appsAndPages, ...uiElements, ...formAndTable, ...chartsAndMaps, ...others
+export default [...admin, ...dashboard, ...appsAndPages, ...uiElements, ...formAndTable, ...chartsAndMaps, ...others]

@@ -7,13 +7,13 @@
         <b-link class="brand-logo">
           <vuexy-logo />
 
-          <h2 class="brand-text text-dark ml-1">
-            Corvux
+          <h2 class="brand-text ml-1">
+            Evnt
           </h2>
         </b-link>
 
         <b-card-title class="mb-1">
-          Welcome To Corvux! 👋
+          Welcome To Evnt! 👋
         </b-card-title>
         <b-card-text class="mb-2">
           Inicia sesión para comenzar la aventura

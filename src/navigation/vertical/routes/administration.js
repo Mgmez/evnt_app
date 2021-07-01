@@ -4,7 +4,7 @@ export default [
   },
   {
     title: 'Users',
-    route: '',
+    route: 'users',
     icon: 'UsersIcon',
   },
 ]
