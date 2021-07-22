@@ -91,7 +91,7 @@
                 size="32"
                 :src="data.item.avatar"
                 :text="avatarText(data.item.firstName)"
-                :variant="`light-${resolveUserRoleVariant(data.item.role.name.name)}`"
+                :variant="`light-${resolveUserRoleVariant(data.item.role.name)}`"
                 :to="{ name: 'apps-users-view', params: { id: data.item.id } }"
               />
             </template>
@@ -260,18 +260,14 @@ export default {
     const isAddNewUserSidebarActive = ref(false)
 
     const roleOptions = [
-      { label: 'Admin', value: 'admin' },
-      { label: 'Author', value: 'author' },
-      { label: 'Editor', value: 'editor' },
-      { label: 'Maintainer', value: 'maintainer' },
-      { label: 'Subscriber', value: 'subscriber' },
+      { label: 'Administrator', value: 'administrator' },
+      { label: 'Provider', value: 'provider' },
+      { label: 'Customer', value: 'customer' },
     ]
 
     const planOptions = [
-      { label: 'Basic', value: 'basic' },
-      { label: 'Company', value: 'company' },
+      { label: 'Free', value: 'free' },
       { label: 'Enterprise', value: 'enterprise' },
-      { label: 'Team', value: 'team' },
     ]
 
     const statusOptions = [

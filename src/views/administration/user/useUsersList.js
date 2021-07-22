@@ -89,6 +89,10 @@ export default function useUsersList() {
   // *===============================================---*
 
   const resolveUserRoleVariant = role => {
+    if (role === 'Administrator') return 'primary'
+    if (role === 'Provider') return 'warning'
+    if (role === 'Customer') return 'success'
+
     if (role === 'Normal') return 'primary'
     if (role === 'author') return 'warning'
     if (role === 'maintainer') return 'success'
@@ -98,9 +102,12 @@ export default function useUsersList() {
   }
 
   const resolveUserRoleIcon = role => {
+    if (role === 'Administrator') return 'DatabaseIcon'
+    if (role === 'Provider') return 'SettingsIcon'
+    if (role === 'Customer') return 'UserIcon'
+
     if (role === 'subscriber') return 'UserIcon'
     if (role === 'author') return 'SettingsIcon'
-    if (role === 'maintainer') return 'DatabaseIcon'
     if (role === 'editor') return 'Edit2Icon'
     if (role === 'SiteAdmin') return 'ServerIcon'
     return 'UserIcon'

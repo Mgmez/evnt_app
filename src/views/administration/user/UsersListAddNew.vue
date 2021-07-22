@@ -39,54 +39,6 @@
           @reset.prevent="resetForm"
         >
 
-          <!-- Full Name -->
-          <validation-provider
-            #default="validationContext"
-            name="Full Name"
-            rules="required"
-          >
-            <b-form-group
-              label="Full Name"
-              label-for="full-name"
-            >
-              <b-form-input
-                id="full-name"
-                v-model="userData.fullName"
-                autofocus
-                :state="getValidationState(validationContext)"
-                trim
-                placeholder="John Doe"
-              />
-
-              <b-form-invalid-feedback>
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
-          <!-- Username -->
-          <validation-provider
-            #default="validationContext"
-            name="Username"
-            rules="required|alpha-num"
-          >
-            <b-form-group
-              label="Username"
-              label-for="username"
-            >
-              <b-form-input
-                id="username"
-                v-model="userData.username"
-                :state="getValidationState(validationContext)"
-                trim
-              />
-
-              <b-form-invalid-feedback>
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
           <!-- Email -->
           <validation-provider
             #default="validationContext"
@@ -110,71 +62,25 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Company -->
+          <!-- Password -->
           <validation-provider
             #default="validationContext"
-            name="Contact"
+            name="Password"
             rules="required"
           >
             <b-form-group
-              label="Contact"
-              label-for="contact"
+              label="Password"
+              label-for="password"
             >
               <b-form-input
-                id="contact"
-                v-model="userData.contact"
+                id="password"
+                v-model="userData.password"
                 :state="getValidationState(validationContext)"
                 trim
+                type="password"
               />
 
               <b-form-invalid-feedback>
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
-          <!-- Company -->
-          <validation-provider
-            #default="validationContext"
-            name="Company"
-            rules="required"
-          >
-            <b-form-group
-              label="Company"
-              label-for="company"
-            >
-              <b-form-input
-                id="company"
-                v-model="userData.company"
-                :state="getValidationState(validationContext)"
-                trim
-              />
-
-              <b-form-invalid-feedback>
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
-          <!-- Country -->
-          <validation-provider
-            #default="validationContext"
-            name="Country"
-            rules="required"
-          >
-            <b-form-group
-              label="Country"
-              label-for="country"
-              :state="getValidationState(validationContext)"
-            >
-              <v-select
-                v-model="userData.country"
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                :options="countries"
-                :clearable="false"
-                input-id="country"
-              />
-              <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>

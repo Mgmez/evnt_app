@@ -3,12 +3,13 @@ import { buildUserServiceUrl } from '@/constants/urls'
 
 export default {
   namespaced: true,
-  state: {},
+  state: {
+    _roles: [],
+  },
   getters: {},
   mutations: {},
   actions: {
     fetchUsers(ctx, queryParams) {
-      console.log(queryParams)
       return new Promise((resolve, reject) => {
         axios
           .get(buildUserServiceUrl('/user'), { params: queryParams })
@@ -31,6 +32,10 @@ export default {
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
+    },
+    async fetchRoles() {
+      const { data } = await axios.get(buildUserServiceUrl('/role'), { params: { page: 1, limit: 10 } })
+      console.log(data)
     },
   },
 }
