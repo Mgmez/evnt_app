@@ -39,19 +39,19 @@
           @reset.prevent="resetForm"
         >
 
-          <!-- Email -->
+          <!-- First Name -->
           <validation-provider
             #default="validationContext"
-            name="Email"
-            rules="required|email"
+            name="First Name"
+            rules="required"
           >
             <b-form-group
-              label="Email"
-              label-for="email"
+              label="First Name"
+              label-for="firstName"
             >
               <b-form-input
-                id="email"
-                v-model="userData.email"
+                id="firstName"
+                v-model="userData.firstName"
                 :state="getValidationState(validationContext)"
                 trim
               />
@@ -62,22 +62,21 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Password -->
+          <!-- Last Name -->
           <validation-provider
             #default="validationContext"
-            name="Password"
+            name="Last Name"
             rules="required"
           >
             <b-form-group
-              label="Password"
-              label-for="password"
+              label="Last Name"
+              label-for="firstName"
             >
               <b-form-input
-                id="password"
-                v-model="userData.password"
+                id="lastName"
+                v-model="userData.lastName"
                 :state="getValidationState(validationContext)"
                 trim
-                type="password"
               />
 
               <b-form-invalid-feedback>
@@ -86,49 +85,48 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- User Role -->
+          <!-- Birth Date -->
           <validation-provider
             #default="validationContext"
-            name="User Role"
+            name="Birth Day"
             rules="required"
           >
             <b-form-group
-              label="User Role"
-              label-for="user-role"
+              label="Birth Day"
+              label-for="firstName"
+            >
+              <b-form-input
+                id="birthdayDate"
+                v-model="userData.birthdayDate"
+                :state="getValidationState(validationContext)"
+                trim
+                type="date"
+              />
+
+              <b-form-invalid-feedback>
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+
+          <!-- User -->
+          <validation-provider
+            #default="validationContext"
+            name="User"
+            rules="required"
+          >
+            <b-form-group
+              label="User"
+              label-for="user"
               :state="getValidationState(validationContext)"
             >
               <v-select
-                v-model="userData.role"
+                v-model="userData.user"
                 :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                 :options="roleOptions"
                 :reduce="val => val.value"
                 :clearable="false"
-                input-id="user-role"
-              />
-              <b-form-invalid-feedback :state="getValidationState(validationContext)">
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
-          <!-- Plan -->
-          <validation-provider
-            #default="validationContext"
-            name="Plan"
-            rules="required"
-          >
-            <b-form-group
-              label="Plan"
-              label-for="plan"
-              :state="getValidationState(validationContext)"
-            >
-              <v-select
-                v-model="userData.plan"
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                :options="planOptions"
-                :reduce="val => val.value"
-                :clearable="false"
-                input-id="plan"
+                input-id="user"
               />
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
@@ -232,7 +230,7 @@ export default {
     }
 
     const onSubmit = () => {
-      store.dispatch('app-user/addUser', userData.value)
+      store.dispatch('app-user/addCustomer', userData.value)
         .then(() => {
           emit('refetch-data')
           emit('update:is-add-new-user-sidebar-active', false)

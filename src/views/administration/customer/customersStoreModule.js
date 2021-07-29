@@ -7,7 +7,7 @@ export default {
     roles: [],
   },
   getters: {
-    getRoles(state) {
+    getUsers(state) {
       return state.roles
     },
   },
@@ -17,62 +17,53 @@ export default {
     },
   },
   actions: {
-    fetchUsers(ctx, queryParams) {
+    fetchCustomers(ctx, queryParams) {
       return new Promise((resolve, reject) => {
         axios
-          .get(buildServiceUrl('/user'), { params: queryParams })
+          .get(buildServiceUrl('/customer'), { params: queryParams })
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
     },
-    fetchUser(ctx, { id }) {
+    fetchCustomer(ctx, { id }) {
       console.log(id)
       return new Promise((resolve, reject) => {
         axios
-          .get(buildServiceUrl(`/user/${id}`))
+          .get(buildServiceUrl(`/customer/${id}`))
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
     },
-    addUser(ctx, userData) {
+    addCustomer(ctx, customerData) {
       axios
-        .post(buildServiceUrl('/user'), userData)
+        .post(buildServiceUrl('/customer'), customerData)
         .then(response => console.log(response))
         .catch(error => console.log(error))
     },
-    updateUser(ctx, { id, data }) {
+    updateCustomer(ctx, { id, data }) {
+      const payload = data
       console.log(id)
       console.log(data)
-      const email = new Promise((resolve, reject) => {
+      const update = new Promise((resolve, reject) => {
+        delete payload.user
         axios
-          .patch(buildServiceUrl(`/user/email/${id}`), { email: data.email })
+          .patch(buildServiceUrl(`/customer/${id}`), payload)
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
-      const role = new Promise((resolve, reject) => {
-        axios
-          .patch(buildServiceUrl(`/user/role/${id}`), { role: data.role.name })
-          .then(response => resolve(response))
-          .catch(error => reject(error))
-      })
-      if (data.email !== '' || data.email !== undefined) {
-        Promise.resolve(email)
-      }
-      if (data.role !== '' || data.role !== undefined) {
-        Promise.resolve(role)
-      }
+      Promise.resolve(update)
     },
-    deleteUser(ctx, id) {
+    deleteCustomer(ctx, id) {
       return new Promise((resolve, reject) => {
         axios
-          .delete(buildServiceUrl(`/user/${id}`))
+          .delete(buildServiceUrl(`/customer/${id}`))
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
     },
     fetchRoles(ctx) {
-      axios.get(buildServiceUrl('/role'), { params: { page: 1, limit: 10 } })
-        .then(response => ctx.commit('setRoles', response.data.items.map(e => ({ label: e.name, value: e.id }))))
+      axios.get(buildServiceUrl('/user'), { params: { page: 1, limit: 10 } })
+        .then(response => ctx.commit('setRoles', response.data.items.map(e => ({ label: e.email, value: e.id }))))
         .catch(error => console.log(error))
     },
   },

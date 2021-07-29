@@ -41,7 +41,6 @@
           class="mt-2 pt-75"
         />
       </b-tab>
-
     </b-tabs>
   </component>
 </template>
@@ -53,7 +52,7 @@ import {
 import { ref, onUnmounted } from '@vue/composition-api'
 import router from '@/router'
 import store from '@/store'
-import userStoreModule from '../userStoreModule'
+import userStoreModule from './userStoreModule'
 import UserEditTabAccount from './UserEditTabAccount.vue'
 
 export default {

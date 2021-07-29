@@ -34,14 +34,13 @@
             size="16"
             class="mr-0 mr-sm-50"
           />
-          <span class="d-none d-sm-inline">Account</span>
+          <span class="d-none d-sm-inline">Customer</span>
         </template>
-        <user-edit-tab-account
+        <customers-edit-tab-account
           :user-data="userData"
           class="mt-2 pt-75"
         />
       </b-tab>
-
     </b-tabs>
   </component>
 </template>
@@ -53,8 +52,8 @@ import {
 import { ref, onUnmounted } from '@vue/composition-api'
 import router from '@/router'
 import store from '@/store'
-import userStoreModule from '../userStoreModule'
-import UserEditTabAccount from './UserEditTabAccount.vue'
+import customersStoreModule from './customersStoreModule'
+import CustomersEditTabAccount from './CustomersEditTabAccount.vue'
 
 export default {
   components: {
@@ -64,7 +63,7 @@ export default {
     BAlert,
     BLink,
 
-    UserEditTabAccount,
+    CustomersEditTabAccount,
   },
   setup() {
     const userData = ref(null)
@@ -72,14 +71,14 @@ export default {
     const USER_APP_STORE_MODULE_NAME = 'app-user'
 
     // Register module
-    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) store.registerModule(USER_APP_STORE_MODULE_NAME, userStoreModule)
+    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) store.registerModule(USER_APP_STORE_MODULE_NAME, customersStoreModule)
 
     // UnRegister on leave
     onUnmounted(() => {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
 
-    store.dispatch('app-user/fetchUser', { id: router.currentRoute.params.id })
+    store.dispatch('app-user/fetchCustomer', { id: router.currentRoute.params.id })
       .then(response => { userData.value = response.data })
       .catch(error => {
         if (error.response.status === 404) {

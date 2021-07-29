@@ -2,9 +2,9 @@
 
   <div>
 
-    <user-list-add-new
+    <customers-list-add-new
       :is-add-new-user-sidebar-active.sync="isAddNewUserSidebarActive"
-      :role-options="$store.getters['app-user/getRoles']"
+      :role-options="$store.getters['app-user/getUsers']"
       :plan-options="planOptions"
       @refetch-data="refetchData"
     />
@@ -52,7 +52,7 @@
                 variant="primary"
                 @click="isAddNewUserSidebarActive = true"
               >
-                <span class="text-nowrap">Add User</span>
+                <span class="text-nowrap">Add Customer</span>
               </b-button>
             </div>
           </b-col>
@@ -63,7 +63,7 @@
       <b-table
         ref="refUserListTable"
         class="position-relative"
-        :items="fetchUsers"
+        :items="fetchCustomers"
         responsive
         :fields="tableColumns"
         primary-key="id"
@@ -81,7 +81,7 @@
                 size="32"
                 :src="data.item.avatar"
                 :text="avatarText(data.item.firstName)"
-                :variant="`light-${resolveUserRoleVariant(data.item.role.name)}`"
+                :variant="`light-${resolveUserRoleVariant(data.item.user.role.name)}`"
                 :to="{ name: 'apps-users-view', params: { id: data.item.id } }"
               />
             </template>
@@ -95,35 +95,32 @@
           </b-media>
         </template>
 
-        <!-- Column: Role -->
-        <template #cell(role)="data">
+        <!-- Column: First Name -->
+        <template #cell(email)="data">
           <div class="text-nowrap">
-            <feather-icon
-              :icon="resolveUserRoleIcon(data.item.role.name)"
-              size="18"
-              class="mr-50"
-              :class="`text-${resolveUserRoleVariant(data.item.role.name)}`"
-            />
-            <span class="align-text-top text-capitalize">{{ data.item.role.name }}</span>
+            <span class="align-text-top text-capitalize">{{ data.item.user.email }}</span>
           </div>
         </template>
 
-        <!-- Column: Plan -->
-        <template #cell(plan)="data">
+        <!-- Column: First Name -->
+        <template #cell(firstName)="data">
           <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">{{ data.item.plan }}</span>
+            <span class="align-text-top text-capitalize">{{ data.item.firstName }}</span>
           </div>
         </template>
 
-        <!-- Column: Status -->
-        <template #cell(status)="data">
-          <b-badge
-            pill
-            :variant="`light-${resolveUserStatusVariant(data.item.isActive || true)}`"
-            class="text-capitalize"
-          >
-            {{ data.item.isActive || true ? 'Active' : 'Inactive' }}
-          </b-badge>
+        <!-- Column: First Name -->
+        <template #cell(lastName)="data">
+          <div class="text-nowrap">
+            <span class="align-text-top text-capitalize">{{ data.item.lastName }}</span>
+          </div>
+        </template>
+
+        <!-- Column: First Name -->
+        <template #cell(birthDay)="data">
+          <div class="text-nowrap">
+            <span class="align-text-top text-capitalize">{{ data.item.birthdayDate }}</span>
+          </div>
         </template>
 
         <!-- Column: Actions -->
@@ -142,7 +139,7 @@
               />
             </template>
 
-            <b-dropdown-item :to="{ name: 'users-edit', params: { id: data.item.id } }">
+            <b-dropdown-item :to="{ name: 'customers-edit', params: { id: data.item.id } }">
               <feather-icon icon="EditIcon" />
               <span class="align-middle ml-50">Edit</span>
             </b-dropdown-item>
@@ -206,20 +203,19 @@
 
 <script>
 import {
-  BCard, BRow, BCol, BFormInput, BButton, BTable, BMedia, BAvatar, BLink,
-  BBadge, BDropdown, BDropdownItem, BPagination,
+  BCard, BRow, BCol, BFormInput, BButton, BTable, BMedia, BAvatar, BLink, BDropdown, BDropdownItem, BPagination,
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import store from '@/store'
 import { ref, onUnmounted } from '@vue/composition-api'
 import { avatarText } from '@core/utils/filter'
-import useUsersList from './useUsersList'
-import userStoreModule from './userStoreModule'
-import UserListAddNew from './UsersListAddNew.vue'
+import useCustomersList from './useCustomersList'
+import customersStoreModule from './customersStoreModule'
+import CustomersListAddNew from './CustomersListAddNew.vue'
 
 export default {
   components: {
-    UserListAddNew,
+    CustomersListAddNew,
 
     BCard,
     BRow,
@@ -230,7 +226,6 @@ export default {
     BMedia,
     BAvatar,
     BLink,
-    BBadge,
     BDropdown,
     BDropdownItem,
     BPagination,
@@ -241,14 +236,12 @@ export default {
     const USER_APP_STORE_MODULE_NAME = 'app-user'
 
     // Register module
-    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) store.registerModule(USER_APP_STORE_MODULE_NAME, userStoreModule)
+    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) store.registerModule(USER_APP_STORE_MODULE_NAME, customersStoreModule)
 
     // UnRegister on leave
     onUnmounted(() => {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
-
-    console.log(store)
 
     const isAddNewUserSidebarActive = ref(false)
 
@@ -264,7 +257,7 @@ export default {
     ]
 
     const {
-      fetchUsers,
+      fetchCustomers,
       tableColumns,
       perPage,
       currentPage,
@@ -286,7 +279,7 @@ export default {
       roleFilter,
       planFilter,
       statusFilter,
-    } = useUsersList()
+    } = useCustomersList()
 
     const roleOptions = [
       { label: 'Admin', value: 'admin' },
@@ -297,9 +290,9 @@ export default {
     ]
 
     const onDelete = id => {
-      store.dispatch('app-user/deleteUser', id)
+      store.dispatch('app-user/deleteCustomer', id)
         .then(() => {
-          emit('app-user/fetchUsers')
+          emit('app-user/fetchCustomers')
           emit('refetch-data')
           refetchData()
         }).catch(e => console.log(e))
@@ -311,7 +304,7 @@ export default {
       // Sidebar
       isAddNewUserSidebarActive,
 
-      fetchUsers,
+      fetchCustomers,
       tableColumns,
       perPage,
       currentPage,

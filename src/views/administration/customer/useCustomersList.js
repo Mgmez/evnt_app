@@ -1,6 +1,5 @@
 import { ref, watch, computed } from '@vue/composition-api'
 import store from '@/store'
-import { title } from '@core/utils/filter'
 
 // Notification
 import { useToast } from 'vue-toastification/composition'
@@ -16,14 +15,9 @@ export default function useUsersList() {
   const tableColumns = [
     { key: 'user', sortable: true },
     { key: 'email', sortable: true },
-    { key: 'role', sortable: true },
-    {
-      key: 'plan',
-      label: 'Plan',
-      formatter: title,
-      sortable: true,
-    },
-    { key: 'status', sortable: true },
+    { key: 'firstName', sortable: true },
+    { key: 'lastName', sortable: true },
+    { key: 'birthDay', sortable: true },
     { key: 'actions' },
   ]
   const perPage = ref(10)
@@ -56,9 +50,9 @@ export default function useUsersList() {
 
   store.dispatch('app-user/fetchRoles')
 
-  const fetchUsers = (ctx, callback) => {
+  const fetchCustomers = (ctx, callback) => {
     store
-      .dispatch('app-user/fetchUsers', {
+      .dispatch('app-user/fetchCustomers', {
         q: searchQuery.value,
         limit: perPage.value,
         page: currentPage.value,
@@ -120,7 +114,7 @@ export default function useUsersList() {
   }
 
   return {
-    fetchUsers,
+    fetchCustomers,
     tableColumns,
     perPage,
     currentPage,
