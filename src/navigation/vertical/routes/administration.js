@@ -3,6 +3,11 @@ export default [
     header: 'Administration',
   },
   {
+    title: 'Roles',
+    route: 'roles',
+    icon: 'LockIcon',
+  },
+  {
     title: 'Usuarios',
     route: 'users',
     icon: 'UsersIcon',
@@ -23,8 +28,8 @@ export default [
     icon: 'TagIcon',
   },
   {
-    title: 'Sub-Categorias',
-    route: 'subCategories',
+    title: 'Sub Categorias',
+    route: 'subcategories',
     icon: 'LayersIcon',
   },
 ]
