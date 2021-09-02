@@ -1,5 +1,6 @@
 import axios from '@axios'
 import { buildServiceUrl } from '@/constants/urls'
+import moment from 'moment'
 
 export default {
   namespaced: true,
@@ -21,7 +22,15 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(buildServiceUrl('/customer'), { params: queryParams })
-          .then(response => resolve(response))
+          .then(response => {
+            const res = response
+            const dates = response.data.items.map(e => {
+              e.birthdayDate = moment(e.birthdayDate).format('DD/MM/YYYY')
+              return e
+            })
+            res.data.items = dates
+            resolve(res)
+          })
           .catch(error => reject(error))
       })
     },

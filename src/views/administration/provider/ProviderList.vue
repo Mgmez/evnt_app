@@ -193,7 +193,7 @@ export default {
 
     vSelect,
   },
-  setup(props, { emit }) {
+  setup() {
     const USER_APP_STORE_MODULE_NAME = 'app-user'
 
     // Register module
@@ -250,18 +250,7 @@ export default {
       { label: 'Subscriber', value: 'subscriber' },
     ]
 
-    const onDelete = id => {
-      store.dispatch('app-user/deleteCustomer', id)
-        .then(() => {
-          emit('app-user/fetchCustomers')
-          emit('refetch-data')
-          refetchData()
-        }).catch(e => console.log(e))
-    }
-
     return {
-      onDelete,
-
       // Sidebar
       isAddNewUserSidebarActive,
 
@@ -295,6 +284,32 @@ export default {
       planFilter,
       statusFilter,
     }
+  },
+  methods: {
+    onDelete(id) {
+      console.log(this)
+      this.$swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then(result => {
+        if (result.isConfirmed) {
+          this.$store.dispatch('app-user/deleteCustomer', id)
+            .then(() => {
+              this.refetchData()
+            }).catch(e => console.log(e))
+          this.$swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success',
+          )
+        }
+      })
+    },
   },
 }
 </script>
