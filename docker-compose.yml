@@ -1,0 +1,13 @@
+version: "3"
+services:
+  vue-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /usr/src/app/
+    ports:
+      - "80:8080"
+    container_name: vue-ui
+    entrypoint: ["npm", "run", "serve"]
+    volumes:
+      - .:/usr/src/app/
