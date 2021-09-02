@@ -4,6 +4,6 @@ services:
     image: flashspys/nginx-static
     container_name: example.org
     ports:
-      - 8080:80
+      - 80:80
     volumes:
       - ./dist:/static
