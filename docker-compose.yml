@@ -1,9 +1,9 @@
 version: "3"
 services:
   example.org:
-    image: flashspys/nginx-static
+    image: steebchen/nginx-spa:stable
     container_name: example.org
     ports:
       - 80:80
     volumes:
-      - ./dist:/static
+      - ./dist:/app
