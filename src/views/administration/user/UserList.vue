@@ -81,7 +81,7 @@
                 size="32"
                 :src="data.item.avatar"
                 :text="avatarText(data.item.firstName)"
-                :variant="`light-${resolveUserRoleVariant(data.item.role.name)}`"
+                :variant="`light-${resolveUserRoleVariant(data.item.name)}`"
                 :to="{ name: 'apps-users-view', params: { id: data.item.id } }"
               />
             </template>
@@ -99,12 +99,12 @@
         <template #cell(role)="data">
           <div class="text-nowrap">
             <feather-icon
-              :icon="resolveUserRoleIcon(data.item.role.name)"
+              :icon="resolveUserRoleIcon(data.item.name)"
               size="18"
               class="mr-50"
-              :class="`text-${resolveUserRoleVariant(data.item.role.name)}`"
+              :class="`text-${resolveUserRoleVariant(data.item.name)}`"
             />
-            <span class="align-text-top text-capitalize">{{ data.item.role.name }}</span>
+            <span class="align-text-top text-capitalize">{{ data.item.name }}</span>
           </div>
         </template>
 

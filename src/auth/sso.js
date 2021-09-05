@@ -6,8 +6,8 @@ class SSO {
       domain: 'corvux.us.auth0.com',
       clientID: 'pZMfX5rRrut76LLRQN5UnALov7yqCeYj',
       audience: 'https://corvux.us.auth0.com/api/v2/',
-      redirectUri: 'https://evnt.andresg.me/login',
-      // redirectUri: 'http://localhost:8080/login',
+      // redirectUri: 'https://evnt.andresg.me/login',
+      redirectUri: 'http://localhost:8080/login',
       scope: 'openid email profile',
       responseType: 'token id_token',
     })

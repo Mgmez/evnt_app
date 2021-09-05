@@ -81,7 +81,7 @@
                 size="32"
                 :src="data.item.avatar"
                 :text="avatarText(data.item.firstName)"
-                :variant="`light-${resolveUserRoleVariant(data.item.user.role.name)}`"
+                :variant="`light-${resolveUserRoleVariant(data.item.user.name)}`"
                 :to="{ name: 'apps-users-view', params: { id: data.item.id } }"
               />
             </template>
