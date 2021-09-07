@@ -9,4 +9,14 @@ export default [
       redirectIfLoggedIn: true,
     },
   },
+  {
+    path: '/auth-register-v1',
+    name: 'auth-register-v1',
+    component: () => import('@/views/pages/register/ProfileSelector.vue'),
+    meta: {
+      layout: 'full',
+      resource: 'Auth',
+      redirectIfLoggedIn: true,
+    },
+  },
 ]
