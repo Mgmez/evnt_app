@@ -115,7 +115,7 @@
               type="submit"
               block
               :disabled="invalid"
-              @click="login"
+              @click="registerUser"
             >
               Registrate
             </b-button>
@@ -178,11 +178,7 @@ export default {
     this.fetchRoles()
   },
   methods: {
-    login() {
-      console.log('result')
-      console.log(this.selectedRole)
-      console.log(this.userEmail)
-      console.log(this.password)
+    registerUser() {
       const data = {
         email: this.userEmail,
         password: this.password,
@@ -190,7 +186,16 @@ export default {
         plan: 'free',
       }
       axios.post(buildServiceUrl('/user'), data)
-        .then(response => console.log(response))
+        .then(response => {
+          console.log(response)
+          localStorage.setItem('lastNewUser', JSON.stringify(response.data))
+
+          if (response.data.role.name === 'Proveedor') {
+            this.$router.push('/auth-register-v1/provider')
+          } else {
+            this.$router.push('/auth-register-v1/customer')
+          }
+        })
         .catch(error => console.log(error))
     },
     async fetchRoles() {

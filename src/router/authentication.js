@@ -19,4 +19,24 @@ export default [
       redirectIfLoggedIn: true,
     },
   },
+  {
+    path: '/auth-register-v1/customer',
+    name: 'customer-register-v1',
+    component: () => import('@/views/pages/register/Customer.vue'),
+    meta: {
+      layout: 'full',
+      resource: 'Auth',
+      redirectIfLoggedIn: true,
+    },
+  },
+  {
+    path: '/auth-register-v1/provider',
+    name: 'provider-register-v1',
+    component: () => import('@/views/pages/register/Provider.vue'),
+    meta: {
+      layout: 'full',
+      resource: 'Auth',
+      redirectIfLoggedIn: true,
+    },
+  },
 ]
