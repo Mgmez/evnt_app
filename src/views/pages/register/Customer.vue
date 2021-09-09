@@ -31,7 +31,7 @@
 
             <!-- firstName -->
             <b-form-group
-              label-for="status"
+              label-for="firstName"
               label="Nombres"
             >
               <validation-provider
@@ -53,7 +53,7 @@
 
             <!-- lastName -->
             <b-form-group
-              label-for="status"
+              label-for="lastName"
               label="Apellidos"
             >
               <validation-provider
@@ -75,7 +75,7 @@
 
             <!-- birthdate -->
             <b-form-group
-              label-for="status"
+              label-for="example-datepicker"
               label="Fecha de nacimiento"
             >
               <validation-provider
@@ -162,11 +162,6 @@ export default {
   },
   methods: {
     registerPersonalData() {
-      console.log(this.firstName)
-      console.log(this.lastName)
-      console.log(this.birthdate)
-      console.log(this.userData.id)
-
       const data = {
         firstName: this.firstName,
         lastName: this.lastName,

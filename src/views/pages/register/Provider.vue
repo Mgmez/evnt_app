@@ -29,30 +29,76 @@
             @submit.prevent
           >
 
-            <!--  -->
+            <!-- Media -->
+            <b-media class="mb-2">
+              <template #aside>
+                <b-avatar
+                  ref="previewEl"
+                  size="90px"
+                  rounded
+                />
+              </template>
+              <div class="d-flex flex-wrap">
+                <b-button
+                  variant="primary"
+                  @click="$refs.refInputEl.click()"
+                >
+                  <input
+                    ref="refInputEl"
+                    type="file"
+                    class="d-none"
+                    @input="inputImageRenderer"
+                    @change="uploadImage"
+                  >
+                  <span class="d-none d-sm-inline">Añadir</span>
+                  <feather-icon
+                    icon="EditIcon"
+                    class="d-inline d-sm-none"
+                  />
+                </b-button>
+              </div>
+            </b-media>
+
+            <!-- NAME -->
             <b-form-group
-              label-for="status"
-              label="LABEL1"
+              label-for="name"
+              label="Nombre de tu empresa"
             >
               <validation-provider
                 #default="{ errors }"
-                name="Profile"
+                name="Name"
                 rules="required"
               >
+                <b-form-input
+                  id="name"
+                  v-model="name"
+                  class="form-control-merge"
+                  :state="errors.length > 0 ? false:null"
+                  name="name"
+                  placeholder="Nombre de tu empresa"
+                />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
-            <!--  -->
+            <!-- DESCRIPTION -->
             <b-form-group
-              label-for="email"
-              label="LABEL2"
+              label-for="description"
+              label="Descripcion de tu empresa"
             >
               <validation-provider
                 #default="{ errors }"
-                name="Email"
+                name="Descripcion"
                 rules="required"
               >
+                <b-form-textarea
+                  id="description"
+                  v-model="description"
+                  class="form-control-merge"
+                  :state="errors.length > 0 ? false:null"
+                  name="description"
+                  placeholder="Descripcion de tus servicios"
+                />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
@@ -62,7 +108,7 @@
               type="submit"
               block
               :disabled="invalid"
-              @click="login"
+              @click="registerProvider"
             >
               Enviar datos
             </b-button>
@@ -77,19 +123,21 @@
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
-  BButton, BForm, BFormGroup, BCard, BLink, BCardTitle, BCardText,
+  BButton, BMedia, BAvatar, BForm, BFormGroup, BCard, BLink, BCardTitle, BCardText, BFormInput, BFormTextarea,
 } from 'bootstrap-vue'
 import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
-// import axios from 'axios'
-// import { buildServiceUrl } from '@/constants/urls'
+import axios from 'axios'
+import { buildServiceUrl } from '@/constants/urls'
 
 export default {
   components: {
     // BSV
     BButton,
     BForm,
+    BMedia,
+    BAvatar,
     BFormGroup,
     BCard,
     BCardTitle,
@@ -97,16 +145,16 @@ export default {
     VuexyLogo,
     BCardText,
     ValidationProvider,
+    BFormTextarea,
+    BFormInput,
     ValidationObserver,
   },
   mixins: [togglePasswordVisibility],
   data() {
     return {
-      status: '',
-      userEmail: '',
-      password: '',
-      roles: [],
-      selectedRole: '',
+      name: '',
+      description: '',
+      inputImageRenderer: '',
       userData: JSON.parse(localStorage.getItem('lastNewUser')),
       // validation rules
       required,
@@ -116,6 +164,29 @@ export default {
   mounted() {
   },
   methods: {
+    uploadImage(event) {
+      console.log(event.target.files)
+      const data = {
+        file: event.target.files[0],
+      }
+      axios.post(buildServiceUrl('/media/image'), data)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => console.log(error))
+    },
+    registerProvider() {
+      const data = {
+        name: this.name,
+        description: this.description,
+        user: this.userData.id,
+      }
+      axios.post(buildServiceUrl('/provider'), data)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => console.log(error))
+    },
   },
 }
 </script>
