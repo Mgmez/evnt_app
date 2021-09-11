@@ -30,15 +30,18 @@
           >
 
             <!-- Media -->
-            <b-media class="mb-2">
+            <b-media class="mb-2  align-items-end">
               <template #aside>
                 <b-avatar
                   ref="previewEl"
+                  :src="logo_url"
                   size="90px"
                   rounded
                 />
               </template>
-              <div class="d-flex flex-wrap">
+              <div
+                class="d-flex flex-wrap"
+              >
                 <b-button
                   variant="primary"
                   @click="$refs.refInputEl.click()"
@@ -155,7 +158,9 @@ export default {
       name: '',
       description: '',
       inputImageRenderer: '',
+      logo_url: '',
       userData: JSON.parse(localStorage.getItem('lastNewUser')),
+      token: JSON.parse(localStorage.getItem('token')),
       // validation rules
       required,
     }
@@ -165,13 +170,17 @@ export default {
   },
   methods: {
     uploadImage(event) {
-      console.log(event.target.files)
-      const data = {
-        file: event.target.files[0],
-      }
-      axios.post(buildServiceUrl('/media/image'), data)
+      console.log(event.target.files[0])
+
+      const file = event.target.files[0]
+      const fd = new FormData()
+
+      fd.append('file', file)
+
+      axios.post(buildServiceUrl('/media/image'), fd)
         .then(response => {
           console.log(response)
+          this.logo_url = response.data.link
         })
         .catch(error => console.log(error))
     },
@@ -180,6 +189,7 @@ export default {
         name: this.name,
         description: this.description,
         user: this.userData.id,
+        logo_url: this.logo_url,
       }
       axios.post(buildServiceUrl('/provider'), data)
         .then(response => {

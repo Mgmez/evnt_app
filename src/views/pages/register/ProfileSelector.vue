@@ -178,6 +178,19 @@ export default {
     this.fetchRoles()
   },
   methods: {
+    login() {
+      const data = {
+        email: this.userEmail,
+        password: this.password,
+        role: this.selectedRole,
+        plan: 'free',
+      }
+      axios.post(buildServiceUrl('/auth/login'), data)
+        .then(response => {
+          localStorage.setItem('token', JSON.stringify(response.data))
+        })
+        .catch(error => console.log(error))
+    },
     registerUser() {
       const data = {
         email: this.userEmail,
@@ -189,7 +202,7 @@ export default {
         .then(response => {
           console.log(response)
           localStorage.setItem('lastNewUser', JSON.stringify(response.data))
-
+          this.login()
           if (response.data.role.name === 'Proveedor') {
             this.$router.push('/auth-register-v1/provider')
           } else {
