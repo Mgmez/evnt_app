@@ -1,9 +1,7 @@
-FROM node:10
+FROM steebchen/nginx-spa:stable
 
-WORKDIR /usr/src/app/api
+COPY dist/ /app
 
-COPY package*.json ./
+EXPOSE 80
 
-RUN npm install
-
-EXPOSE 3080
+CMD ["nginx"]
