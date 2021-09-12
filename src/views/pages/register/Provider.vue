@@ -30,37 +30,44 @@
           >
 
             <!-- Media -->
-            <b-media class="mb-2  align-items-end">
-              <template #aside>
-                <b-avatar
-                  ref="previewEl"
-                  :src="logo_url"
-                  size="90px"
-                  rounded
-                />
-              </template>
-              <div
-                class="d-flex flex-wrap"
-              >
-                <b-button
-                  variant="primary"
-                  @click="$refs.refInputEl.click()"
-                >
-                  <input
-                    ref="refInputEl"
-                    type="file"
-                    class="d-none"
-                    @input="inputImageRenderer"
-                    @change="uploadImage"
-                  >
-                  <span class="d-none d-sm-inline">Añadir</span>
-                  <feather-icon
-                    icon="EditIcon"
-                    class="d-inline d-sm-none"
+            <b-form-group
+              label-for="logo_url"
+              label="Logo de tu empresa"
+            >
+              <b-media class="mb-2  align-items-end">
+                <template #aside>
+                  <b-avatar
+                    ref="previewEl"
+                    :src="logo_url"
+                    size="90px"
+                    rounded
                   />
-                </b-button>
-              </div>
-            </b-media>
+                </template>
+                <div
+                  class="d-flex flex-wrap"
+                >
+                  <b-button
+                    variant="primary"
+                    @click="$refs.refInputEl.$el.childNodes[0].click()"
+                  >
+                    <b-form-file
+                      ref="refInputEl"
+                      accept="image/jpeg, image/png, image/gif"
+                      type="file"
+                      class="d-none"
+                      @input="inputImageRenderer"
+                      @change="uploadImage"
+                    />
+                    <span class="d-none d-sm-inline">Añadir</span>
+                    <feather-icon
+                      icon="EditIcon"
+                      class="d-inline d-sm-none"
+                    />
+                  </b-button>
+                </div>
+              </b-media>
+              <small class="text-danger">{{ error_file }}</small>
+            </b-form-group>
 
             <!-- NAME -->
             <b-form-group
@@ -126,7 +133,7 @@
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
-  BButton, BMedia, BAvatar, BForm, BFormGroup, BCard, BLink, BCardTitle, BCardText, BFormInput, BFormTextarea,
+  BButton, BMedia, BAvatar, BForm, BFormGroup, BCard, BLink, BCardTitle, BCardText, BFormInput, BFormTextarea, BFormFile,
 } from 'bootstrap-vue'
 import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required } from '@validations'
@@ -145,6 +152,7 @@ export default {
     BCard,
     BCardTitle,
     BLink,
+    BFormFile,
     VuexyLogo,
     BCardText,
     ValidationProvider,
@@ -159,6 +167,7 @@ export default {
       description: '',
       inputImageRenderer: '',
       logo_url: '',
+      error_file: '',
       userData: JSON.parse(localStorage.getItem('lastNewUser')),
       token: JSON.parse(localStorage.getItem('token')),
       // validation rules
@@ -176,7 +185,6 @@ export default {
       const fd = new FormData()
 
       fd.append('file', file)
-
       axios.post(buildServiceUrl('/media/image'), fd)
         .then(response => {
           console.log(response)
@@ -185,6 +193,12 @@ export default {
         .catch(error => console.log(error))
     },
     registerProvider() {
+      if (this.logo_url === '') {
+        this.error_file = 'Añade el logotipo de tu empresa'
+        return
+      }
+      this.error_file = ''
+
       const data = {
         name: this.name,
         description: this.description,
@@ -194,6 +208,7 @@ export default {
       axios.post(buildServiceUrl('/provider'), data)
         .then(response => {
           console.log(response)
+          this.$router.push('/login')
         })
         .catch(error => console.log(error))
     },

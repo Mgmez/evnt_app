@@ -1,51 +1,6 @@
 <template>
   <div>
 
-    <!-- Media -->
-    <b-media class="mb-2">
-      <template #aside>
-        <b-avatar
-          ref="previewEl"
-          :src="userData.avatar"
-          :text="avatarText(userData.fullName)"
-          :variant="`light-${resolveUserRoleVariant(userData.role)}`"
-          size="90px"
-          rounded
-        />
-      </template>
-      <h4 class="mb-1">
-        {{ userData.fullName }}
-      </h4>
-      <div class="d-flex flex-wrap">
-        <b-button
-          variant="primary"
-          @click="$refs.refInputEl.click()"
-        >
-          <input
-            ref="refInputEl"
-            type="file"
-            class="d-none"
-            @input="inputImageRenderer"
-          >
-          <span class="d-none d-sm-inline">Update</span>
-          <feather-icon
-            icon="EditIcon"
-            class="d-inline d-sm-none"
-          />
-        </b-button>
-        <b-button
-          variant="outline-secondary"
-          class="ml-1"
-        >
-          <span class="d-none d-sm-inline">Remove</span>
-          <feather-icon
-            icon="TrashIcon"
-            class="d-inline d-sm-none"
-          />
-        </b-button>
-      </div>
-    </b-media>
-
     <!-- User Info: Input Fields -->
     <b-form>
       <b-row>
@@ -91,10 +46,13 @@
             label="Birth Day"
             label-for="birthdayDate"
           >
-            <b-form-input
+            <b-form-datepicker
               id="birthdayDate"
               v-model="userData.birthdayDate"
-              type="date"
+              locale="
+              es"
+              placeholder="Fecha de nacimiento"
+              class="mb-1"
             />
           </b-form-group>
         </b-col>
@@ -144,11 +102,10 @@
 
 <script>
 import {
-  BButton, BMedia, BAvatar, BRow, BCol, BFormGroup, BFormInput, BForm,
+  BButton, BRow, BCol, BFormGroup, BFormInput, BForm, BFormDatepicker,
 } from 'bootstrap-vue'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
-import { useInputImageRenderer } from '@core/comp-functions/forms/form-utils'
 import { ref, onUnmounted } from '@vue/composition-api'
 import store from '@/store'
 import router from '@/router'
@@ -158,14 +115,13 @@ import customersStoreModule from './customersStoreModule'
 export default {
   components: {
     BButton,
-    BMedia,
-    BAvatar,
     BRow,
     BCol,
     BFormGroup,
     BFormInput,
     BForm,
     vSelect,
+    BFormDatepicker,
   },
   props: {
     userData: {
@@ -215,11 +171,6 @@ export default {
     const refInputEl = ref(null)
     const previewEl = ref(null)
 
-    const { inputImageRenderer } = useInputImageRenderer(refInputEl, base64 => {
-      // eslint-disable-next-line no-param-reassign
-      props.userData.avatar = base64
-    })
-
     return {
       resolveUserRoleVariant,
       onUpdate,
@@ -230,7 +181,6 @@ export default {
       //  ? Demo - Update Image on click of update button
       refInputEl,
       previewEl,
-      inputImageRenderer,
     }
   },
 }

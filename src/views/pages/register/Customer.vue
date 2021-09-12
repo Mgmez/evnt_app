@@ -171,6 +171,7 @@ export default {
       axios.post(buildServiceUrl('/customer'), data)
         .then(response => {
           console.log(response)
+          this.$router.push('/login')
         })
         .catch(error => console.log(error))
     },

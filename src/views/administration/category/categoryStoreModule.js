@@ -46,6 +46,7 @@ export default {
       console.log(data)
       const update = new Promise((resolve, reject) => {
         delete payload.user
+        delete payload.avatar
         axios
           .patch(buildServiceUrl(`/category/${id}`), payload)
           .then(response => resolve(response))

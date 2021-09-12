@@ -6,7 +6,7 @@
       <template #aside>
         <b-avatar
           ref="previewEl"
-          :src="userData.avatar"
+          :src="userLogo"
           :text="avatarText(userData.fullName)"
           :variant="`light-${resolveUserRoleVariant(userData.role)}`"
           size="90px"
@@ -26,6 +26,7 @@
             type="file"
             class="d-none"
             @input="inputImageRenderer"
+            @change="uploadImage"
           >
           <span class="d-none d-sm-inline">Update</span>
           <feather-icon
@@ -151,6 +152,8 @@ import { useInputImageRenderer } from '@core/comp-functions/forms/form-utils'
 import { ref, onUnmounted } from '@vue/composition-api'
 import store from '@/store'
 import router from '@/router'
+import axios from 'axios'
+import { buildServiceUrl } from '@/constants/urls'
 import useCustomersList from './useProviderList'
 import providerStoreModule from './providerStoreModule'
 
@@ -170,6 +173,27 @@ export default {
     userData: {
       type: Object,
       required: true,
+    },
+  },
+  data() {
+    return {
+      user: this.userData,
+      userLogo: this.userData.logo_url,
+    }
+  },
+  methods: {
+    uploadImage(event) {
+      const file = event.target.files[0]
+      const fd = new FormData()
+      fd.append('file', file)
+
+      axios.post(buildServiceUrl('/media/image'), fd)
+        .then(response => {
+          console.log(response)
+          this.userLogo = response.data.link
+          this.userData.logo_url = response.data.link
+        })
+        .catch(error => console.log(error))
     },
   },
   setup(props, { emit }) {

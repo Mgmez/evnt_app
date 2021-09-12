@@ -25,7 +25,8 @@ export default {
           .then(response => {
             const res = response
             const dates = response.data.items.map(e => {
-              e.birthdayDate = moment(e.birthdayDate).format('DD/MM/YYYY')
+              e.birthdayDate = moment.utc(e.birthdayDate).format('DD/MM/YYYY')
+              console.log(e)
               return e
             })
             res.data.items = dates
