@@ -85,12 +85,12 @@
               >
 
                 <div class="d-flex align-items-center">
-                  <b-form-datepicker
+                  <flat-pickr
                     id="example-datepicker"
                     v-model="birthdate"
                     locale="es"
                     placeholder="Fecha de nacimiento"
-                    class="mb-1"
+                    class="form-control"
                     :max="dateMinRange"
                   />
                 </div>
@@ -119,13 +119,19 @@
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
-  BButton, BForm, BFormGroup, BCard, BLink, BCardTitle, BCardText, BFormInput, BFormDatepicker,
+  BButton, BForm, BFormGroup, BCard, BLink, BCardTitle, BCardText, BFormInput,
 } from 'bootstrap-vue'
 import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import axios from 'axios'
 import { buildServiceUrl } from '@/constants/urls'
+import flatPickr from 'vue-flatpickr-component'
+import 'flatpickr/dist/flatpickr.css'
+import 'bootstrap/dist/css/bootstrap.css'
+// theme is optional
+// try more themes at - https://flatpickr.js.org/themes/
+import 'flatpickr/dist/themes/material_blue.css'
 
 export default {
   components: {
@@ -141,7 +147,7 @@ export default {
     ValidationProvider,
     ValidationObserver,
     BFormInput,
-    BFormDatepicker,
+    flatPickr,
   },
   mixins: [togglePasswordVisibility],
   data() {

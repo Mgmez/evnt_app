@@ -45,15 +45,14 @@
           <b-form-group
             label="Birth Day"
             label-for="birthdayDate"
-          >
-            <b-form-datepicker
-              id="birthdayDate"
-              v-model="userData.birthdayDate"
-              locale="
-              es"
-              placeholder="Fecha de nacimiento"
-              class="mb-1"
-            />
+          ><flat-pickr
+            id="example-datepicker"
+            v-model="userData.birthdayDate"
+            locale="es"
+            placeholder="Fecha de nacimiento"
+            class="form-control"
+            :max="dateMinRange"
+          />
           </b-form-group>
         </b-col>
 
@@ -102,15 +101,21 @@
 
 <script>
 import {
-  BButton, BRow, BCol, BFormGroup, BFormInput, BForm, BFormDatepicker,
+  BButton, BRow, BCol, BFormGroup, BFormInput, BForm,
 } from 'bootstrap-vue'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
 import { ref, onUnmounted } from '@vue/composition-api'
 import store from '@/store'
 import router from '@/router'
+import flatPickr from 'vue-flatpickr-component'
 import useCustomersList from './useCustomersList'
 import customersStoreModule from './customersStoreModule'
+import 'flatpickr/dist/flatpickr.css'
+import 'bootstrap/dist/css/bootstrap.css'
+// theme is optional
+// try more themes at - https://flatpickr.js.org/themes/
+import 'flatpickr/dist/themes/material_blue.css'
 
 export default {
   components: {
@@ -121,7 +126,7 @@ export default {
     BFormInput,
     BForm,
     vSelect,
-    BFormDatepicker,
+    flatPickr,
   },
   props: {
     userData: {
