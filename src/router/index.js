@@ -13,6 +13,7 @@ import formsTable from './routes/forms-tables'
 import others from './routes/others'
 import authentications from './authentication'
 import administration from './administration'
+import client from './client'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,7 @@ const router = new VueRouter({
     { path: '/', redirect: { name: 'dashboard-ecommerce' } },
     ...authentications,
     ...administration,
+    ...client,
     ...apps,
     ...dashboard,
     ...pages,
