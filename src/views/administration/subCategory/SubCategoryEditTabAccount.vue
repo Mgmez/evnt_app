@@ -94,7 +94,6 @@
             <b-form-input
               id="image_url"
               v-model="userData.image_url"
-              type="date"
             />
           </b-form-group>
         </b-col>

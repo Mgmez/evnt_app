@@ -2,7 +2,7 @@
   <section class="section">
     <b-form-input
       id="filterName"
-      placeholder="Busca una categoria"
+      placeholder="Busca una sub-categoria"
       size="lg"
       @input="dataFilter"
     />
@@ -16,15 +16,12 @@
         xl="3"
       >
         <b-card
-          :id="element.id"
-          :key="element.id"
           :img-src="element.image_url"
           overlay
           text-variant="white"
           img-alt="card img"
           body-class="bg-overlay"
           class="card"
-          @click="getSubCategory($event, element.name)"
         >
           <b-card-title class="text-white card-title">
             {{ element.name }}
@@ -50,6 +47,7 @@ export default {
     BCardTitle,
     BFormInput,
   },
+  props: ['id', 'name'],
   data() {
     return {
       fullData: [],
@@ -67,7 +65,8 @@ export default {
   },
   methods: {
     getInitialData() {
-      axios.get(buildServiceUrl(`/category?page=${this.page}&limit=${this.limit}`))
+      console.log(this.$route.params.name)
+      axios.get(buildServiceUrl(`/sub-category?category=${this.$route.params.name}&page=${this.page}&limit=${this.limit}`))
         .then(res => {
           this.filterData = res.data.items
           this.getFullData() // remove this when you get the backend whole data
@@ -104,13 +103,6 @@ export default {
           })
         }
       }
-    },
-
-    getSubCategory(event, name) {
-      this.$router.push({
-        name: 'subcategory-list',
-        params: { id: event.currentTarget.id, name },
-      })
     },
   },
 }
