@@ -10,4 +10,10 @@ export default [
     component: () => import('@/views/client/subcategory/SubCategoryList.vue'),
     props: true,
   },
+  {
+    path: '/provider-list/:name',
+    name: 'provider-list',
+    component: () => import('@/views/client/provider/ProviderList.vue'),
+    props: true,
+  },
 ]

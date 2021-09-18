@@ -14,6 +14,7 @@ import others from './routes/others'
 import authentications from './authentication'
 import administration from './administration'
 import client from './client'
+import provider from './provider'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,7 @@ const router = new VueRouter({
     ...authentications,
     ...administration,
     ...client,
+    ...provider,
     ...apps,
     ...dashboard,
     ...pages,

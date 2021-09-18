@@ -16,12 +16,15 @@
         xl="3"
       >
         <b-card
+          :id="element.id"
+          :key="element.id"
           :img-src="element.image_url"
           overlay
           text-variant="white"
           img-alt="card img"
           body-class="bg-overlay"
           class="card"
+          @click="getProvider($event, element.name)"
         >
           <b-card-title class="text-white card-title">
             {{ element.name }}
@@ -99,10 +102,19 @@ export default {
             if (response.data.items[0] !== undefined) {
               this.data.push(response.data.items[0])
               console.log(this.data)
+            } else {
+              this.page -= 1
             }
           })
         }
       }
+    },
+
+    getProvider(event, name) {
+      this.$router.push({
+        name: 'provider-list',
+        params: { id: event.currentTarget.id, name },
+      })
     },
   },
 }
@@ -112,6 +124,7 @@ export default {
 .card {
   text-align: center;
   display: inline-table;
+  cursor: pointer;
 }
 .card-title {
   margin-top: 30%;
