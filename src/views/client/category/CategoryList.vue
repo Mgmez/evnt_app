@@ -1,11 +1,13 @@
 <template>
   <section class="section">
+
+    <!-- input
     <b-form-input
       id="filterName"
       placeholder="Busca una categoria"
       size="lg"
       @input="dataFilter"
-    />
+    />-->
     <b-row>
 
       <!-- img overlay -->
@@ -13,7 +15,7 @@
         v-for="element in filterData"
         :key="element.id"
         md="6"
-        xl="3"
+        xl="6"
       >
         <b-card
           :id="element.id"
@@ -37,7 +39,7 @@
 
 <script>
 import {
-  BRow, BCol, BCard, BCardTitle, BFormInput,
+  BRow, BCol, BCard, BCardTitle,
 } from 'bootstrap-vue'
 import { buildServiceUrl } from '@/constants/urls'
 import axios from 'axios'
@@ -48,7 +50,6 @@ export default {
     BCol,
     BCard,
     BCardTitle,
-    BFormInput,
   },
   data() {
     return {
@@ -131,11 +132,20 @@ export default {
   text-align: center;
 }
 .card-img {
-  width: 300px !important;
+  width: 800px !important;
+  height: 400px !important;
+  max-width: 800px !important;
+  max-height: 20% !important;
+}
+
+@media (max-width: 1900px) {
+  .card-img {
+  width: 100% !important;
   height: 200px !important;
-  max-width: 300px !important;
+  max-width: 450px !important;
   max-height: 25% !important;
   display: block;
+}
 }
 #filterName {
   margin-bottom: 20px;

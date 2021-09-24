@@ -209,6 +209,7 @@ export default {
   methods: {
     login() {
       const result = sso.login(this.userEmail, this.password)
+      console.log('LOG ')
       console.log(result)
     },
     loginWithGoogle() {
@@ -228,7 +229,9 @@ export default {
         },
       ]
       localStorage.setItem('userData', JSON.stringify(user.idTokenPayload))
-
+      console.log('SESSION')
+      console.log(user)
+      console.log(user.idTokenPayload)
       this.$ability.update(user.idTokenPayload.ability)
       this.$router.push('/')
     },

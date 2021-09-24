@@ -26,7 +26,8 @@
     <b-navbar-nav class="nav align-items-center ml-auto">
       <locale />
       <dark-Toggler class="d-none d-lg-block" />
-      <search-bar />
+      <search-bar class="search" />
+      <search-bar-mobile class="search-mobile" />
       <cart-dropdown />
       <notification-dropdown />
       <user-dropdown />
@@ -42,6 +43,7 @@ import SearchBar from './components/SearchBar.vue'
 import DarkToggler from './components/DarkToggler.vue'
 import NotificationDropdown from './components/NotificationDropdown.vue'
 import UserDropdown from './components/UserDropdown.vue'
+import SearchBarMobile from './components/SearchBarMobile.vue'
 
 export default {
   components: {
@@ -53,6 +55,7 @@ export default {
     DarkToggler,
     NotificationDropdown,
     UserDropdown,
+    SearchBarMobile,
   },
   props: {
     toggleVerticalMenuActive: {
@@ -62,3 +65,21 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+
+.search-mobile{
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .search-mobile {
+    display: initial;
+  }
+
+  .search{
+    display: none;
+  }
+}
+
+</style>

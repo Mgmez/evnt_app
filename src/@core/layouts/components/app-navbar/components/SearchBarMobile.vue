@@ -1,6 +1,18 @@
 <template>
   <li class="nav-item nav-search">
 
+    <!-- Icon -->
+    <a
+      href="javascript:void(0)"
+      class="nav-link nav-link-search"
+      @click="showSearchBar = true"
+    >
+      <feather-icon
+        icon="SearchIcon"
+        size="21"
+      />
+    </a>
+
     <!-- Input -->
     <div
       class="search-input"
@@ -20,8 +32,16 @@
         autocomplete="off"
         @keyup.up="increaseIndex(false)"
         @keyup.down="increaseIndex"
+        @keyup.esc="showSearchBar = false; resetsearchQuery()"
         @keyup.enter="suggestionSelected"
+        @blur.stop="showSearchBar = false; resetsearchQuery()"
       />
+      <div
+        class="search-input-close"
+        @click="showSearchBar = false; resetsearchQuery()"
+      >
+        <feather-icon icon="XIcon" />
+      </div>
 
       <!-- Suggestions List -->
       <vue-perfect-scrollbar
@@ -127,7 +147,7 @@ export default {
     VuePerfectScrollbar,
   },
   setup() {
-    const showSearchBar = ref(true)
+    const showSearchBar = ref(false)
 
     const perfectScrollbarSettings = {
       maxScrollbarLength: 60,
@@ -149,6 +169,7 @@ export default {
       if (grpName === 'pages') router.push(suggestion.route).catch(() => {})
       // eslint-disable-next-line no-use-before-define
       resetsearchQuery()
+      showSearchBar.value = false
     }
 
     const {
@@ -256,18 +277,6 @@ ul
 }
 p {
   margin: 0;
-}
-
-.search-input.open {
-  left: 25% !important;
-  width: 40% !important;
-  background: top !important;
-}
-
-.search-input {
-  left: 25% !important;
-  width: 40% !important;
-  height: auto !important;
 }
 
 /* .app-auto-suggest {

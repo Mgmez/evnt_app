@@ -202,8 +202,7 @@ export default {
         .then(response => {
           console.log(response)
           localStorage.setItem('lastNewUser', JSON.stringify(response.data))
-          this.login()
-          if (response.data.role.name === 'Proveedor') {
+          if (this.role === 'Proveedor' || this.role === 'Provider') {
             this.$router.push('/auth-register-v1/provider')
           } else {
             this.$router.push('/auth-register-v1/customer')
@@ -217,7 +216,7 @@ export default {
         .catch(error => console.log(error))
 
       const rolesFilter = rolesReq.data.items
-        .filter(role => role.name === 'Cliente' || role.name === 'Proveedor')
+        .filter(role => role.name === 'Cliente' || role.name === 'Proveedor' || role.name === 'Customer' || role.name === 'Provider')
       console.log(rolesFilter)
       this.roles = rolesFilter.map(role => {
         const temp = {}
