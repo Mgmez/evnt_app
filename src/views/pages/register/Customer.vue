@@ -21,7 +21,7 @@
 
         <!-- form -->
         <validation-observer
-          ref="loginForm"
+          ref="CustomerRegistryForm"
           #default="{invalid}"
         >
           <b-form

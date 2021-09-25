@@ -16,4 +16,16 @@ export default [
     component: () => import('@/views/client/provider/ProviderList.vue'),
     props: true,
   },
+  {
+    path: '/my-events',
+    name: 'my-events-list',
+    component: () => import('@/views/client/events/Events.vue'),
+    props: true,
+  },
+  {
+    path: '/my-events/create',
+    name: 'my-events-create',
+    component: () => import('@/views/client/events/CreateForm.vue'),
+    props: true,
+  },
 ]
