@@ -119,12 +119,9 @@ export default {
   data() {
     return {
       elementsComponent: [],
-      piecesComponent: [],
       eventName: '',
       elements: [],
       elementsNoId: [],
-      requiredElements: [],
-      quantityElements: [],
       required,
       min,
       between,
@@ -147,8 +144,9 @@ export default {
       this.elementsComponent.push({
         id: idx,
         element: InputSubCategories,
+        value: '',
+        quantity: 0,
       })
-      console.log(this.elementsComponent)
     },
     getInitialData() {
       axios.get(buildServiceUrl('/sub-category?page=1&limit=15'))
@@ -171,12 +169,10 @@ export default {
       })
     },
     getSelectedCategory(id, val) {
-      console.log(id)
-      console.log(val)
+      this.elementsComponent.find(e => e.id === id).value = val
     },
     getSelectedPieces(id, val) {
-      console.log(id)
-      console.log(val)
+      this.elementsComponent.find(e => e.id === id).quantity = val
     },
     deleteCategoriesElement(id) {
       const idx = this.elementsComponent.findIndex(e => e.id === id)
