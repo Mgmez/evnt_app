@@ -6,15 +6,15 @@ class SSO {
       domain: 'corvux.us.auth0.com',
       clientID: 'pZMfX5rRrut76LLRQN5UnALov7yqCeYj',
       audience: 'https://corvux.us.auth0.com/api/v2/',
-      // redirectUri: 'https://evnt.andresg.me/login',
-      redirectUri: 'http://localhost:8080/login',
+      redirectUri: 'https://evnt.andresg.me/login',
+      // redirectUri: 'http://localhost:8080/login',
       scope: 'openid email profile',
       responseType: 'token id_token',
     })
   }
 
   login(username, password) {
-    this.auth0Client.client.login({
+    this.auth0Client.login({
       realm: 'Username-Password-Authentication',
       username,
       password,

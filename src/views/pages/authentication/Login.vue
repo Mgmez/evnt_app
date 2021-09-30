@@ -160,7 +160,8 @@ import {
 import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
-
+import axios from 'axios'
+import { buildServiceUrl } from '@/constants/urls'
 import sso from '@/auth/sso'
 import useJwt from '@/auth/jwt/useJwt'
 
@@ -208,9 +209,13 @@ export default {
   },
   methods: {
     login() {
-      const result = sso.login(this.userEmail, this.password)
-      console.log('LOG ')
-      console.log(result)
+      axios.post(buildServiceUrl('/auth/login'), { email: this.userEmail, password: this.password })
+        .then(response => {
+          const { data } = response
+          data.idTokenPayload = {}
+          this.setNewSession(data)
+        })
+        .catch(error => console.log(error))
     },
     loginWithGoogle() {
       sso.loginWithGoogle()
@@ -219,9 +224,10 @@ export default {
       sso.loginWithFacebook()
     },
     setNewSession(session) {
+      console.log(session)
       const user = session
       useJwt.setToken(user.accessToken)
-      useJwt.setRefreshToken(user.refreshToken)
+      useJwt.setRefreshToken(user.accessToken)
       user.idTokenPayload.ability = [
         {
           action: 'manage',
