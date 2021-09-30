@@ -1,18 +1,18 @@
-function checkPermission() {
+/* function checkPermission() {
   const role = JSON.parse(localStorage.getItem('lastNewUser')).role.name
   if (role === 'Proveedor' || role === 'Provider') return true
   return false
-}
+} */
 
 export default [
   {
     path: '/roles',
     name: 'roles',
     component: () => import('@/views/administration/roles/RoleList.vue'),
-    beforeEnter(to, _, next) {
-      if (checkPermission()) next()
+    /* beforeEnter(to, _, next) {
+     if (checkPermission()) next()
       else next({ name: 'error-404' })
-    },
+    }, */
   },
   {
     path: '/roles/edit/:id',
