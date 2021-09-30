@@ -14,7 +14,7 @@ class SSO {
   }
 
   login(username, password) {
-    this.auth0Client.client.login({
+    this.auth0Client.login({
       realm: 'Username-Password-Authentication',
       username,
       password,
