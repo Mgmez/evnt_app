@@ -201,6 +201,7 @@ export default {
       axios.post(buildServiceUrl('/user'), data)
         .then(response => {
           console.log(response)
+          this.role = response.data.role.name
           localStorage.setItem('lastNewUser', JSON.stringify(response.data))
           if (this.role === 'Proveedor' || this.role === 'Provider') {
             this.$router.push('/auth-register-v1/provider')
