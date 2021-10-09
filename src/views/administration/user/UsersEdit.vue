@@ -34,7 +34,7 @@
             size="16"
             class="mr-0 mr-sm-50"
           />
-          <span class="d-none d-sm-inline">Account</span>
+          <span class="d-none d-sm-inline">Usuario</span>
         </template>
         <user-edit-tab-account
           :user-data="userData"

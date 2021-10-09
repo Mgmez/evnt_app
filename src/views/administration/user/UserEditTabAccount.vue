@@ -11,7 +11,7 @@
           md="4"
         >
           <b-form-group
-            label="Email"
+            label="Correo"
             label-for="email"
           >
             <b-form-input
@@ -28,7 +28,7 @@
           md="4"
         >
           <b-form-group
-            label="User Role"
+            label="Rol"
             label-for="user-role"
           >
             <v-select
@@ -48,7 +48,7 @@
           md="4"
         >
           <b-form-group
-            label="User Plan"
+            label="Plan"
             label-for="user-role"
           >
             <v-select
@@ -92,14 +92,7 @@
       :block="$store.getters['app/currentBreakPoint'] === 'xs'"
       @click="onUpdate(userData)"
     >
-      Save Changes
-    </b-button>
-    <b-button
-      variant="outline-secondary"
-      type="reset"
-      :block="$store.getters['app/currentBreakPoint'] === 'xs'"
-    >
-      Reset
+      Guardar cambios
     </b-button>
   </div>
 </template>

@@ -7,17 +7,17 @@
       :show="userData === undefined"
     >
       <h4 class="alert-heading">
-        Error fetching user data
+        Error fetching sub category data
       </h4>
       <div class="alert-body">
-        No user found with this user id. Check
+        No user found with this sub category  id. Check
         <b-link
           class="alert-link"
           :to="{ name: 'apps-users-list'}"
         >
-          User List
+          sub category  List
         </b-link>
-        for other users.
+        for other sub category .
       </div>
     </b-alert>
 
@@ -34,7 +34,7 @@
             size="16"
             class="mr-0 mr-sm-50"
           />
-          <span class="d-none d-sm-inline">Sub Category</span>
+          <span class="d-none d-sm-inline">Sub Categoria</span>
         </template>
         <sub-category-edit-tab-account
           :user-data="userData"

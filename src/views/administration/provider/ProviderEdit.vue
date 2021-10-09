@@ -34,7 +34,7 @@
             size="16"
             class="mr-0 mr-sm-50"
           />
-          <span class="d-none d-sm-inline">Provider</span>
+          <span class="d-none d-sm-inline">Proveedor</span>
         </template>
         <provider-edit-tab-account
           :user-data="userData"

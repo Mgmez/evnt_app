@@ -26,7 +26,7 @@
             md="6"
             class="d-flex align-items-center justify-content-start mb-1 mb-md-0"
           >
-            <label>Show</label>
+            <label>Mostrar</label>
             <v-select
               v-model="perPage"
               :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
@@ -34,7 +34,7 @@
               :clearable="false"
               class="per-page-selector d-inline-block mx-50"
             />
-            <label>entries</label>
+            <label>entradas</label>
           </b-col>
 
           <!-- Search -->
@@ -46,13 +46,13 @@
               <b-form-input
                 v-model="searchQuery"
                 class="d-inline-block mr-1"
-                placeholder="Search..."
+                placeholder="Buscar..."
               />
               <b-button
                 variant="primary"
                 @click="isAddNewUserSidebarActive = true"
               >
-                <span class="text-nowrap">Add Role</span>
+                <span class="text-nowrap">Añadir Rol</span>
               </b-button>
             </div>
           </b-col>
@@ -74,21 +74,21 @@
       >
 
         <!-- Column: Name -->
-        <template #cell(name)="data">
+        <template #cell(nombre)="data">
           <div class="text-nowrap">
             <span class="align-text-top text-capitalize">{{ data.item.name }}</span>
           </div>
         </template>
 
         <!-- Column: Icon -->
-        <template #cell(icon)="data">
+        <template #cell(icono)="data">
           <div class="text-nowrap">
             <span class="align-text-top text-capitalize">{{ data.item.icon }}</span>
           </div>
         </template>
 
         <!-- Column: Actions -->
-        <template #cell(actions)="data">
+        <template #cell(opciones)="data">
           <b-dropdown
             variant="link"
             no-caret
@@ -105,12 +105,12 @@
 
             <b-dropdown-item :to="{ name: 'roles-edit', params: { id: data.item.id } }">
               <feather-icon icon="EditIcon" />
-              <span class="align-middle ml-50">Edit</span>
+              <span class="align-middle ml-50">Editar</span>
             </b-dropdown-item>
 
             <b-dropdown-item @click="onDelete(data.item.id)">
               <feather-icon icon="TrashIcon" />
-              <span class="align-middle ml-50">Delete</span>
+              <span class="align-middle ml-50">Borrar</span>
             </b-dropdown-item>
           </b-dropdown>
         </template>
@@ -124,7 +124,7 @@
             sm="6"
             class="d-flex align-items-center justify-content-center justify-content-sm-start"
           >
-            <span class="text-muted">Showing {{ dataMeta.from }} to {{ dataMeta.to }} of {{ dataMeta.of }} entries</span>
+            <span class="text-muted">Mostrando {{ dataMeta.from }} a {{ dataMeta.to }} de {{ dataMeta.of }} entradas</span>
           </b-col>
           <!-- Pagination -->
           <b-col

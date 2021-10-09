@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add New User
+          Añadir usuario
         </h5>
 
         <feather-icon
@@ -46,7 +46,7 @@
             rules="required|email"
           >
             <b-form-group
-              label="Email"
+              label="Correo"
               label-for="email"
             >
               <b-form-input
@@ -69,7 +69,7 @@
             rules="required"
           >
             <b-form-group
-              label="Password"
+              label="Contraseña"
               label-for="password"
             >
               <b-form-input
@@ -93,7 +93,7 @@
             rules="required"
           >
             <b-form-group
-              label="User Role"
+              label="Rol"
               label-for="user-role"
               :state="getValidationState(validationContext)"
             >
@@ -144,7 +144,7 @@
               class="mr-2"
               type="submit"
             >
-              Add
+              Añadir
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -152,7 +152,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              Cancelar
             </b-button>
           </div>
 

@@ -27,19 +27,9 @@
             @input="inputImageRenderer"
             @change="uploadImage"
           >
-          <span class="d-none d-sm-inline">Update</span>
+          <span class="d-none d-sm-inline">Actualizar</span>
           <feather-icon
             icon="EditIcon"
-            class="d-inline d-sm-none"
-          />
-        </b-button>
-        <b-button
-          variant="outline-secondary"
-          class="ml-1"
-        >
-          <span class="d-none d-sm-inline">Remove</span>
-          <feather-icon
-            icon="TrashIcon"
             class="d-inline d-sm-none"
           />
         </b-button>
@@ -56,7 +46,7 @@
           md="4"
         >
           <b-form-group
-            label="Name"
+            label="Nombre"
             label-for="name"
           >
             <b-form-input
@@ -72,7 +62,7 @@
           md="4"
         >
           <b-form-group
-            label="icon"
+            label="icono"
             label-for="icon"
           >
             <b-form-input
@@ -88,7 +78,7 @@
           md="4"
         >
           <b-form-group
-            label="Image"
+            label="Imagen"
             label-for="image_url"
           >
             <b-form-input
@@ -104,7 +94,7 @@
           md="4"
         >
           <b-form-group
-            label="Category"
+            label="Categoria"
             label-for="category"
           >
             <v-select
@@ -129,13 +119,6 @@
       @click="onUpdate(userData)"
     >
       Save Changes
-    </b-button>
-    <b-button
-      variant="outline-secondary"
-      type="reset"
-      :block="$store.getters['app/currentBreakPoint'] === 'xs'"
-    >
-      Reset
     </b-button>
   </div>
 </template>

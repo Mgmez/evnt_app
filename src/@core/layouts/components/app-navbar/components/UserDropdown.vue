@@ -36,7 +36,7 @@
         icon="UserIcon"
         class="mr-50"
       />
-      <span>Profile</span>
+      <span>Perfil</span>
     </b-dropdown-item>
     <b-dropdown-item
       :to="{ name: 'pages-account-setting' }"
@@ -47,7 +47,7 @@
         icon="SettingsIcon"
         class="mr-50"
       />
-      <span>Settings</span>
+      <span>Configuracion</span>
     </b-dropdown-item>
     <b-dropdown-item
       link-class="d-flex align-items-center"
@@ -58,7 +58,7 @@
         icon="LogOutIcon"
         class="mr-50"
       />
-      <span>Logout</span>
+      <span>Salir</span>
     </b-dropdown-item></b-nav-item-dropdown>
 </template>
 

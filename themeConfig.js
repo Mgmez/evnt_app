@@ -21,7 +21,7 @@ export const $themeConfig = {
     contentWidth: 'full', // full, boxed
     menu: {
       hidden: false,
-      isCollapsed: false,
+      isCollapsed: true,
     },
     navbar: {
       // ? For horizontal menu, navbar type will work for navMenu type
@@ -31,7 +31,7 @@ export const $themeConfig = {
     footer: {
       type: 'static', // static, sticky, hidden
     },
-    customizer: true,
+    customizer: false,
     enableScrollToTop: true,
   },
 }

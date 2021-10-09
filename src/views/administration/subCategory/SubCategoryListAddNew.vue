@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add New Sub Category
+          Añadir sub-categoria
         </h5>
 
         <feather-icon
@@ -46,7 +46,7 @@
             rules="required"
           >
             <b-form-group
-              label="Name"
+              label="Nombre"
               label-for="name"
             >
               <b-form-input
@@ -94,7 +94,7 @@
                       class="d-none"
                       @change="uploadImage"
                     >
-                    <span class="d-none d-sm-inline">Update</span>
+                    <span class="d-none d-sm-inline">Subir</span>
                     <feather-icon
                       icon="EditIcon"
                       class="d-inline d-sm-none"
@@ -114,7 +114,7 @@
             rules="required"
           >
             <b-form-group
-              label="Category"
+              label="Categoria"
               label-for="category"
               :state="getValidationState(validationContext)"
             >
@@ -140,7 +140,7 @@
               class="mr-2"
               type="submit"
             >
-              Add
+              Añadir
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -148,7 +148,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              Cancelar
             </b-button>
           </div>
 

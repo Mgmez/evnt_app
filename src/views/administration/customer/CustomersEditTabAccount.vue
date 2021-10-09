@@ -11,7 +11,7 @@
           md="4"
         >
           <b-form-group
-            label="First Name"
+            label="Nombre"
             label-for="firstName"
           >
             <b-form-input
@@ -27,7 +27,7 @@
           md="4"
         >
           <b-form-group
-            label="Last Name"
+            label="Apellido"
             label-for="lastName"
           >
             <b-form-input
@@ -43,7 +43,7 @@
           md="4"
         >
           <b-form-group
-            label="Birth Day"
+            label="Fecha de nacimiento"
             label-for="birthdayDate"
           ><flat-pickr
             id="example-datepicker"
@@ -62,7 +62,7 @@
           md="4"
         >
           <b-form-group
-            label="User"
+            label="usuario"
             label-for="user"
           >
             <v-select
@@ -87,14 +87,7 @@
       :block="$store.getters['app/currentBreakPoint'] === 'xs'"
       @click="onUpdate(userData)"
     >
-      Save Changes
-    </b-button>
-    <b-button
-      variant="outline-secondary"
-      type="reset"
-      :block="$store.getters['app/currentBreakPoint'] === 'xs'"
-    >
-      Reset
+      Guardar cambios
     </b-button>
   </div>
 </template>

@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add New User
+          Añadir rol
         </h5>
 
         <feather-icon
@@ -46,7 +46,7 @@
             rules="required"
           >
             <b-form-group
-              label="Name"
+              label="Nombre"
               label-for="name"
             >
               <b-form-input
@@ -65,7 +65,7 @@
           <!-- Icon -->
           <validation-provider
             #default="validationContext"
-            name="Icon"
+            name="Icono"
             rules="required"
           >
             <b-form-group
@@ -93,7 +93,7 @@
               class="mr-2"
               type="submit"
             >
-              Add
+              Añadir
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -101,7 +101,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              Cancelar
             </b-button>
           </div>
 

@@ -13,9 +13,9 @@ export default function useUsersList() {
 
   // Table Handlers
   const tableColumns = [
-    { key: 'name', sortable: true },
-    { key: 'icon', sortable: true },
-    { key: 'actions' },
+    { key: 'nombre', sortable: true },
+    { key: 'icono', sortable: true },
+    { key: 'opciones' },
   ]
   const perPage = ref(10)
   const totalUsers = ref(0)

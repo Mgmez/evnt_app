@@ -1,6 +1,6 @@
 export default [
   {
-    header: 'Administration',
+    header: 'Administracion',
   },
   {
     title: 'Roles',

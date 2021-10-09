@@ -11,7 +11,7 @@
           md="4"
         >
           <b-form-group
-            label="Name"
+            label="Nombre"
             label-for="name"
           >
             <b-form-input
@@ -27,7 +27,7 @@
           md="4"
         >
           <b-form-group
-            label="Icon"
+            label="Icono"
             label-for="icon"
           >
             <b-form-input
@@ -47,14 +47,7 @@
       :block="$store.getters['app/currentBreakPoint'] === 'xs'"
       @click="onUpdate(userData)"
     >
-      Save Changes
-    </b-button>
-    <b-button
-      variant="outline-secondary"
-      type="reset"
-      :block="$store.getters['app/currentBreakPoint'] === 'xs'"
-    >
-      Reset
+      Guardar cambios
     </b-button>
   </div>
 </template>

@@ -7,17 +7,17 @@
       :show="userData === undefined"
     >
       <h4 class="alert-heading">
-        Error fetching user data
+        Error fetching role data
       </h4>
       <div class="alert-body">
-        No user found with this user id. Check
+        No user found with this role id. Check
         <b-link
           class="alert-link"
           :to="{ name: 'apps-users-list'}"
         >
-          User List
+          Role List
         </b-link>
-        for other users.
+        for other role.
       </div>
     </b-alert>
 
@@ -34,7 +34,7 @@
             size="16"
             class="mr-0 mr-sm-50"
           />
-          <span class="d-none d-sm-inline">Category</span>
+          <span class="d-none d-sm-inline">Rol</span>
         </template>
         <role-edit-tab-account
           :user-data="userData"

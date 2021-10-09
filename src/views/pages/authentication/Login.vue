@@ -13,7 +13,7 @@
         </b-link>
 
         <b-card-title class="mb-1">
-          Welcome To Evnt! 👋
+          Bienvenido a Evnt! 👋
         </b-card-title>
         <b-card-text class="mb-2">
           Inicia sesión para comenzar la aventura
@@ -56,10 +56,7 @@
               <div class="d-flex justify-content-between">
                 <label
                   for="password"
-                >Password</label>
-                <b-link :to="{name:'auth-forgot-password-v1'}">
-                  <small class="text-secondary">Forgot Password?</small>
-                </b-link>
+                >Contraseña</label>
               </div>
               <validation-provider
                 #default="{ errors }"
@@ -99,7 +96,7 @@
                 v-model="status"
                 name="checkbox-1"
               >
-                Remember Me
+                Recordar
               </b-form-checkbox>
             </b-form-group>
 
@@ -111,15 +108,15 @@
               :disabled="invalid"
               @click="login"
             >
-              Sign in
+              Entrar
             </b-button>
           </b-form>
         </validation-observer>
 
         <b-card-text class="text-center mt-2">
-          <span>New on our platform? </span>
+          <span>Eres nuevo? </span>
           <b-link :to="{name:'auth-register-v1'}">
-            <span>Create an account</span>
+            <span>Crear una cuenta</span>
           </b-link>
         </b-card-text>
 

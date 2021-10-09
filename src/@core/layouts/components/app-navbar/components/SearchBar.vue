@@ -15,7 +15,7 @@
       <b-form-input
         v-if="showSearchBar"
         v-model="searchQuery"
-        placeholder="Explore Vuexy"
+        placeholder="Buscar (Categoria, subcategoria, proveedor)"
         autofocus
         autocomplete="off"
         @keyup.up="increaseIndex(false)"
@@ -97,7 +97,7 @@
               v-if="!suggestion_list.length && searchQuery"
               class="suggestion-group-suggestion no-results"
             >
-              <p>No Results Found.</p>
+              <p>No Hay Resultados.</p>
             </li>
           </ul>
         </li>

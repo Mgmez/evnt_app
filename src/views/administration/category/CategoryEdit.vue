@@ -34,7 +34,7 @@
             size="16"
             class="mr-0 mr-sm-50"
           />
-          <span class="d-none d-sm-inline">Category</span>
+          <span class="d-none d-sm-inline">Categoria</span>
         </template>
         <category-edit-tab-account
           :user-data="userData"

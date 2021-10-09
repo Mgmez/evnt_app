@@ -94,7 +94,7 @@
                       class="d-none"
                       @change="uploadImage"
                     >
-                    <span class="d-none d-sm-inline">Update</span>
+                    <span class="d-none d-sm-inline">Subir Imagen</span>
                     <feather-icon
                       icon="EditIcon"
                       class="d-inline d-sm-none"
@@ -115,7 +115,7 @@
               class="mr-2"
               type="submit"
             >
-              Add
+              Añadir
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -123,7 +123,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              Cancelar
             </b-button>
           </div>
 

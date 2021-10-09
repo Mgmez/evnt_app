@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add New User
+          Añadir Cliente
         </h5>
 
         <feather-icon
@@ -46,7 +46,7 @@
             rules="required"
           >
             <b-form-group
-              label="First Name"
+              label="Nombre"
               label-for="firstName"
             >
               <b-form-input
@@ -69,7 +69,7 @@
             rules="required"
           >
             <b-form-group
-              label="Last Name"
+              label="Apellido"
               label-for="firstName"
             >
               <b-form-input
@@ -92,7 +92,7 @@
             rules="required"
           >
             <b-form-group
-              label="Birth Day"
+              label="Fecha de nacimiento"
               label-for="firstName"
             >
               <b-form-input
@@ -116,7 +116,7 @@
             rules="required"
           >
             <b-form-group
-              label="User"
+              label="Usuario"
               label-for="user"
               :state="getValidationState(validationContext)"
             >
@@ -142,7 +142,7 @@
               class="mr-2"
               type="submit"
             >
-              Add
+              Añadir
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -150,7 +150,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              Cancelar
             </b-button>
           </div>
 
