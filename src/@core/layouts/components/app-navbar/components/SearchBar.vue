@@ -262,6 +262,8 @@ p {
   left: 25% !important;
   width: 40% !important;
   background: top !important;
+  background-color: white !important;
+  margin-top: 0.5px !important;
 }
 
 .search-input {

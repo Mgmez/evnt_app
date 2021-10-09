@@ -8,19 +8,21 @@
       size="lg"
       @input="dataFilter"
     />-->
-    <b-row>
+    <b-row class="row">
 
       <!-- img overlay -->
       <b-col
         v-for="element in filterData"
         :key="element.id"
         md="6"
-        xl="6"
+        xl="3"
+        class="col"
       >
         <b-card
           :id="element.id"
           :key="element.id"
           :img-src="element.image_url"
+          :img-fluid="true"
           overlay
           text-variant="white"
           img-alt="card img"
@@ -132,20 +134,11 @@ export default {
   text-align: center;
 }
 .card-img {
-  width: 800px !important;
-  height: 400px !important;
-  max-width: 800px !important;
-  max-height: 20% !important;
-}
-
-@media (max-width: 1900px) {
-  .card-img {
-  width: 100% !important;
+  width: 300px !important;
   height: 200px !important;
-  max-width: 450px !important;
+  max-width: 300px !important;
   max-height: 25% !important;
   display: block;
-}
 }
 #filterName {
   margin-bottom: 20px;
@@ -153,5 +146,11 @@ export default {
 }
 .section {
   text-align: -webkit-center;
+}
+.col{
+  max-width: fit-content;
+}
+.row{
+  display: inline-flex;
 }
 </style>

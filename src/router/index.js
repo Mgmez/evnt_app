@@ -25,7 +25,7 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   },
   routes: [
-    { path: '/', redirect: { name: 'dashboard-ecommerce' } },
+    { path: '/', redirect: { name: 'categories-list' } },
     ...authentications,
     ...administration,
     ...client,
@@ -46,6 +46,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, _, next) => {
   const isLoggedIn = isUserLoggedIn()
+  if (to.name.match('((.*cat.*|prov.*)list|provider-profile.*)')) {
+    return next()
+  }
 
   if (!canNavigate(to)) {
     // Redirect to login if not logged in

@@ -14,7 +14,6 @@ export default function useUsersList() {
   // Table Handlers
   const tableColumns = [
     { key: 'name', sortable: true },
-    { key: 'icon', sortable: true },
     { key: 'image_url', sortable: true },
     { key: 'actions' },
   ]

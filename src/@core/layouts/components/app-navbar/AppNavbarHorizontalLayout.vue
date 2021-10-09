@@ -22,7 +22,6 @@
       <dark-Toggler class="d-none d-lg-block" />
       <search-bar />
       <search-bar-mobile />
-      <notification-dropdown />
       <user-dropdown />
     </b-navbar-nav>
   </div>
@@ -36,7 +35,6 @@ import Locale from './components/Locale.vue'
 import DarkToggler from './components/DarkToggler.vue'
 import SearchBar from './components/SearchBar.vue'
 import SearchBarMobile from './components/SearchBarMobile.vue'
-import NotificationDropdown from './components/NotificationDropdown.vue'
 import UserDropdown from './components/UserDropdown.vue'
 
 export default {
@@ -49,7 +47,6 @@ export default {
     DarkToggler,
     SearchBar,
     SearchBarMobile,
-    NotificationDropdown,
     UserDropdown,
   },
   props: {

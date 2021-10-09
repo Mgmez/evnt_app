@@ -30,7 +30,6 @@ tag
 tagVariant
 
 */
-import dashboard from './dashboard'
 // import appsAndPages from './apps-and-pages'
 // import others from './others'
 // import chartsAndMaps from './charts-and-maps'
@@ -40,4 +39,4 @@ import admin from './routes/administration'
 import client from './routes/client'
 
 // Array of sections
-export default [...admin, ...dashboard, ...client] // ...appsAndPages, ...uiElements, ...formAndTable, ...chartsAndMaps, ...others]
+export default [...admin, ...client] // ...appsAndPages, ...uiElements, ...formAndTable, ...chartsAndMaps, ...others]

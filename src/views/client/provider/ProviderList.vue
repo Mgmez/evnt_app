@@ -1,12 +1,13 @@
 <template>
   <section class="section">
+    <!-- input
     <b-form-input
       id="filterName"
       placeholder="Busca un proveedor"
       size="lg"
       @input="dataFilter"
-    />
-    <b-row>
+    />-->
+    <b-row class="row">
 
       <!-- img overlay -->
       <b-col
@@ -14,11 +15,13 @@
         :key="element.id"
         md="6"
         xl="3"
+        class="col"
       >
         <b-card
           :id="element.id"
           :key="element.id"
           :img-src="element.logo_url"
+          :img-fluid="true"
           overlay
           text-variant="white"
           img-alt="card img"
@@ -37,7 +40,7 @@
 
 <script>
 import {
-  BRow, BCol, BCard, BCardTitle, BFormInput,
+  BRow, BCol, BCard, BCardTitle,
 } from 'bootstrap-vue'
 import { buildServiceUrl } from '@/constants/urls'
 import axios from 'axios'
@@ -48,7 +51,6 @@ export default {
     BCol,
     BCard,
     BCardTitle,
-    BFormInput,
   },
   props: ['id', 'name'],
   data() {
@@ -145,5 +147,11 @@ export default {
 }
 .section {
   text-align: -webkit-center;
+}
+.col{
+  max-width: fit-content;
+}
+.row{
+  display: inline-flex;
 }
 </style>

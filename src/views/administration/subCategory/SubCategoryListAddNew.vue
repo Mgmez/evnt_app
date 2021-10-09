@@ -62,29 +62,6 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Icon -->
-          <validation-provider
-            #default="validationContext"
-            name="Icon"
-            rules="required"
-          >
-            <b-form-group
-              label="Icon"
-              label-for="icon"
-            >
-              <b-form-input
-                id="icon"
-                v-model="userData.icon"
-                :state="getValidationState(validationContext)"
-                trim
-              />
-
-              <b-form-invalid-feedback>
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
           <!-- Image -->
           <validation-provider
             #default="validationContext"
@@ -92,16 +69,38 @@
             rules="required"
           >
             <b-form-group
-              label="Image"
+              label="Imagen"
               label-for="image_url"
             >
-              <b-form-input
-                id="image_url"
-                v-model="userData.image_url"
-                :state="getValidationState(validationContext)"
-                trim
-              />
-
+              <b-row>
+                <b-col>
+                  <b-form-input
+                    id="image_url"
+                    :value="userLogo"
+                    :v-model="userLogo"
+                    :state="getValidationState(validationContext)"
+                    readonly
+                    trim
+                  />
+                </b-col>
+                <b-col>
+                  <b-button
+                    variant="primary"
+                    @click="$refs.refInputEl.click()"
+                  >
+                    <input
+                      ref="refInputEl"
+                      type="file"
+                      class="d-none"
+                      @change="uploadImage"
+                    >
+                    <span class="d-none d-sm-inline">Update</span>
+                    <feather-icon
+                      icon="EditIcon"
+                      class="d-inline d-sm-none"
+                    />
+                  </b-button>
+                </b-col></b-row>
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
@@ -161,7 +160,7 @@
 
 <script>
 import {
-  BSidebar, BForm, BFormGroup, BFormInput, BFormInvalidFeedback, BButton,
+  BSidebar, BForm, BFormGroup, BFormInput, BFormInvalidFeedback, BButton, BCol, BRow,
 } from 'bootstrap-vue'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import { ref } from '@vue/composition-api'
@@ -171,6 +170,8 @@ import Ripple from 'vue-ripple-directive'
 import vSelect from 'vue-select'
 import countries from '@/@fake-db/data/other/countries'
 import store from '@/store'
+import axios from 'axios'
+import { buildServiceUrl } from '@/constants/urls'
 
 export default {
   components: {
@@ -181,6 +182,8 @@ export default {
     BFormInvalidFeedback,
     BButton,
     vSelect,
+    BRow,
+    BCol,
 
     // Form Validation
     ValidationProvider,
@@ -213,6 +216,7 @@ export default {
       alphaNum,
       email,
       countries,
+      userLogo: '',
     }
   },
   setup(props, { emit }) {
@@ -229,7 +233,14 @@ export default {
     }
 
     const onSubmit = () => {
-      store.dispatch('app-user/addCustomer', userData.value)
+      const data = {
+        name: userData.value.name,
+        image_url: userData.value.image_url,
+        icon: '',
+        category: userData.value.category,
+      }
+      console.log(data)
+      store.dispatch('app-user/addCustomer', data)
         .then(() => {
           emit('refetch-data')
           emit('update:is-add-new-user-sidebar-active', false)
@@ -250,6 +261,22 @@ export default {
       getValidationState,
       resetForm,
     }
+  },
+  methods: {
+    uploadImage(event) {
+      const file = event.target.files[0]
+      const fd = new FormData()
+      fd.append('file', file)
+
+      axios.post(buildServiceUrl('/media/image'), fd)
+        .then(response => {
+          console.log(response)
+          this.userLogo = response.data.link
+          // this.userData.logo_url = response.data.link
+          this.userData.image_url = response.data.link
+        })
+        .catch(error => console.log(error))
+    },
   },
 }
 </script>

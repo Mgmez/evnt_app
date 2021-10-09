@@ -80,13 +80,6 @@
           </div>
         </template>
 
-        <!-- Column: Icon -->
-        <template #cell(icon)="data">
-          <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">{{ data.item.icon }}</span>
-          </div>
-        </template>
-
         <!-- Column: Image -->
         <template #cell(image_url)="data">
           <div class="text-nowrap">

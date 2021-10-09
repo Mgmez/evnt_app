@@ -36,7 +36,8 @@ export default function useAppCustomizer() {
   ]
 
   // Navbar
-  const navbarColors = ['', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark']
+  // const navbarColors = ['', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark']
+  const navbarColors = ['primary', 'dark']
 
   // Navbar Types
   const navbarTypes = [
