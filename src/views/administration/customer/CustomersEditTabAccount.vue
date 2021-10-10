@@ -105,10 +105,10 @@ import flatPickr from 'vue-flatpickr-component'
 import useCustomersList from './useCustomersList'
 import customersStoreModule from './customersStoreModule'
 import 'flatpickr/dist/flatpickr.css'
-import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css'
 // theme is optional
 // try more themes at - https://flatpickr.js.org/themes/
-import 'flatpickr/dist/themes/material_blue.css'
+// import 'flatpickr/dist/themes/material_blue.css'
 
 export default {
   components: {
