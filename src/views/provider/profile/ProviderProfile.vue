@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :key="id">
 
     <!-- Alert: No item found -->
     <b-alert
@@ -74,7 +74,16 @@ export default {
   data() {
     return {
       userData: '',
+      id: this.$route.params.id,
     }
+  },
+  watch: {
+    $route(to, from) {
+      console.log(to)
+      console.log(from)
+      // this.$forceUpdate()
+      this.getInitialData()
+    },
   },
   beforeMount() {
     this.getInitialData()

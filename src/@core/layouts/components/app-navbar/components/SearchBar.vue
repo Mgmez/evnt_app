@@ -54,43 +54,52 @@
               @mousedown.prevent="suggestionSelected(grp_name, suggestion)"
             >
               <b-link
-                v-if="grp_name === 'pages'"
+                v-if="grp_name === 'categorias'"
                 class="p-0"
               >
-                <feather-icon
-                  :icon="suggestion.icon"
-                  class="mr-75"
-                />
-                <span class="align-middle">{{ suggestion.title }}</span>
-              </b-link>
-              <template v-else-if="grp_name === 'files'">
-                <div class="d-flex align-items-center">
-                  <b-img
-                    :src="suggestion.icon"
-                    class="mr-1"
-                    height="32"
-                  />
-                  <div>
-                    <p>{{ suggestion.file_name }}</p>
-                    <small>by {{ suggestion.from }}</small>
-                  </div>
-                  <small class="ml-auto">{{ suggestion.size }}</small>
-                </div>
-              </template>
-              <template v-else-if="grp_name === 'contacts'">
                 <div class="d-flex align-items-center">
                   <b-avatar
-                    :src="suggestion.img"
+                    :src="suggestion.icon"
                     class="mr-1"
                     size="32"
                   />
                   <div>
-                    <p>{{ suggestion.name }}</p>
+                    <p>{{ suggestion.title }}</p>
+                  </div>
+                </div>
+              </b-link>
+              <b-link
+                v-if="grp_name === 'subcategorias'"
+                class="p-0"
+              >
+                <div class="d-flex align-items-center">
+                  <b-avatar
+                    :src="suggestion.icon"
+                    class="mr-1"
+                    size="32"
+                  />
+                  <div>
+                    <p>{{ suggestion.title }}</p>
+                  </div>
+                </div>
+              </b-link>
+
+              <b-link
+                v-if="grp_name === 'proveedores'"
+                class="p-0"
+              >
+                <div class="d-flex align-items-center">
+                  <b-avatar
+                    :src="suggestion.icon"
+                    class="mr-1"
+                    size="32"
+                  />
+                  <div>
+                    <p>{{ suggestion.title }}</p>
                     <small>{{ suggestion.email }}</small>
                   </div>
-                  <small class="ml-auto">{{ suggestion.time }}</small>
                 </div>
-              </template>
+              </b-link>
             </li>
 
             <li
@@ -108,7 +117,7 @@
 
 <script>
 import {
-  BFormInput, BLink, BImg, BAvatar,
+  BFormInput, BLink, BAvatar,
 } from 'bootstrap-vue'
 import { ref, watch } from '@vue/composition-api'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
@@ -122,7 +131,6 @@ export default {
   components: {
     BFormInput,
     BLink,
-    BImg,
     BAvatar,
     VuePerfectScrollbar,
   },
@@ -146,7 +154,7 @@ export default {
           /* eslint-enable */
         }
       }
-      if (grpName === 'pages') router.push(suggestion.route).catch(() => {})
+      router.push(suggestion.route).catch(err => { console.log(err) })
       // eslint-disable-next-line no-use-before-define
       resetsearchQuery()
     }

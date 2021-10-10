@@ -38,10 +38,14 @@ export default function useAutoSuggest(props) {
       const dataGrps = Object.keys(props.data)
 
       dataGrps.forEach((grp, i) => {
-        queriedData[dataGrps[i]] = filterGrp(props.data[grp], val)
+        Promise.resolve(props.data[grp]).then(arr => {
+          Promise.resolve(arr.data).then(x => {
+            props.data[grp].data = x // eslint-disable-line no-param-reassign
+            queriedData[dataGrps[i]] = filterGrp(props.data[grp], val)
+            filteredData.value = queriedData
+          })
+        })
       })
-
-      filteredData.value = queriedData
     }
   }
 
