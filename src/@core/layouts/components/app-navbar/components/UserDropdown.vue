@@ -28,7 +28,8 @@
     </template>
 
     <b-dropdown-item
-      :to="{ name: 'pages-profile'}"
+      v-if="userData.data[0].role === 'Provider'"
+      :to="{ name: 'provider-profile', params: {id: userData.data[0].type_id}}"
       link-class="d-flex align-items-center"
     >
       <feather-icon

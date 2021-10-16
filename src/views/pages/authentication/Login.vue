@@ -231,6 +231,12 @@ export default {
           subject: 'all',
         },
       ]
+      user.idTokenPayload.data = [{
+        id: user.id,
+        role: user.role,
+        type_id: user.type_id,
+      },
+      ]
       localStorage.setItem('userData', JSON.stringify(user.idTokenPayload))
       console.log('SESSION')
       console.log(user)

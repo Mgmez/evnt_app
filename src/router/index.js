@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 // Routes
 import { canNavigate } from '@/libs/acl/routeProtection'
 import { isUserLoggedIn, getUserData, getHomeRouteForLoggedInUser } from '@/auth/utils'
+import useAppConfig from '@core/app-config/useAppConfig'
 import apps from './routes/apps'
 import dashboard from './routes/dashboard'
 import uiElements from './routes/ui-elements/index'
@@ -45,7 +46,16 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, _, next) => {
+  const { isNavMenuHidden } = useAppConfig()
+
   const isLoggedIn = isUserLoggedIn()
+
+  if (!isLoggedIn) {
+    isNavMenuHidden.value = true
+  } else {
+    isNavMenuHidden.value = false
+  }
+
   if (to.name.match('((.*cat.*|prov.*)list|provider-profile.*)')) {
     return next()
   }

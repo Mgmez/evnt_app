@@ -130,15 +130,15 @@ export default [
   {
     path: '/pages/account-setting',
     name: 'pages-account-setting',
-    component: () => import('@/views2/pages/account-setting/AccountSetting.vue'),
+    component: () => import('@/views/account-setting/AccountSetting.vue'),
     meta: {
-      pageTitle: 'Account Settings',
+      pageTitle: 'Configuracion de cuenta',
       breadcrumb: [
         {
-          text: 'Pages',
+          text: 'Paginas',
         },
         {
-          text: 'Account Settings',
+          text: 'Configuracion de cuenta',
           active: true,
         },
       ],

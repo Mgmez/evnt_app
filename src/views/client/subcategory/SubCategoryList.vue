@@ -100,7 +100,7 @@ export default {
         const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight
         if (bottomOfWindow) {
           this.page += 1
-          axios.get(buildServiceUrl(`/category?page=${this.page}&limit=${this.limit}`)).then(response => {
+          axios.get(buildServiceUrl(`/sub-category/category?page=${this.page}&limit=${this.limit}`)).then(response => {
             if (response.data.items[0] !== undefined) {
               this.data.push(response.data.items[0])
               console.log(this.data)

@@ -24,18 +24,15 @@
               </h4>
               <span class="card-text">{{ userData.description }}</span>
             </div>
-            <div class="d-flex flex-wrap">
+            <div
+              v-if="isMyProfile"
+              class="d-flex flex-wrap"
+            >
               <b-button
-                :to="{ name: 'apps-users-edit', params: { id: userData.id } }"
+                :to="{ name: 'provider-update-profile', params: { id: userData.id } }"
                 variant="primary"
               >
                 Edit
-              </b-button>
-              <b-button
-                variant="outline-danger"
-                class="ml-1"
-              >
-                Delete
               </b-button>
             </div>
           </div>
@@ -131,9 +128,20 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      isMyProfile: false,
+    }
+  },
   setup() {
     return {
       avatarText,
+    }
+  },
+  beforeMount() {
+    const sessionData = JSON.parse(localStorage.getItem('userData'))
+    if (sessionData.data[0].type_id === this.userData.id) {
+      this.isMyProfile = true
     }
   },
 }
