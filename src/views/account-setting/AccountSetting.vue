@@ -67,8 +67,8 @@
       </template>
 
       <account-setting-social
-        v-if="options.social"
-        :social-data="options.social"
+        v-if="options"
+        :social-data="options"
       />
     </b-tab>
 
@@ -105,20 +105,18 @@ export default {
   async beforeCreate() {
     const sessionData = JSON.parse(localStorage.getItem('userData'))
     const typeId = sessionData.data[0].type_id
-    const { role, id } = sessionData.data[0]
+    const { role } = sessionData.data[0]
     this.role = role
     if (role === 'Customer') {
       await axios.get(buildServiceUrl(`/customer/${typeId}`)).then(res => {
-        console.log('res.data')
-        console.log(res.data)
         this.options = {
           firstName: res.data.firstName,
           lastName: res.data.lastName,
           birthdayDate: res.data.birthdayDate,
         }
       })
-    } else {
-      await axios.get(buildServiceUrl(`/user/${id}`)).then(res => {
+    } else if (role === 'Provider') {
+      await axios.get(buildServiceUrl(`/provider/${typeId}`)).then(res => {
         this.options = res.data
       })
     }

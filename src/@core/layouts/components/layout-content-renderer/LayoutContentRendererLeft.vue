@@ -13,9 +13,6 @@
         class="content-area-wrapper"
         :class="contentWidth === 'boxed' ? 'container p-0' : null"
       >
-        <slot name="breadcrumb">
-          <app-breadcrumb />
-        </slot>
         <portal-target
           name="content-renderer-sidebar-left"
           slim
@@ -33,12 +30,10 @@
 </template>
 
 <script>
-import AppBreadcrumb from '@core/layouts/components/AppBreadcrumb.vue'
 import useAppConfig from '@core/app-config/useAppConfig'
 
 export default {
   components: {
-    AppBreadcrumb,
   },
   setup() {
     const { routerTransition, contentWidth } = useAppConfig()
