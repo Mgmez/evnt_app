@@ -97,20 +97,6 @@ export default {
     },
 
     getNextData() {
-      window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight
-        if (bottomOfWindow) {
-          this.page += 1
-          axios.get(buildServiceUrl(`/sub-category/category/${this.$route.params.id}`)).then(response => {
-            if (response.data.items[0] !== undefined) {
-              this.data.push(response.data.items[0])
-              console.log(this.data)
-            } else {
-              this.page -= 1
-            }
-          })
-        }
-      }
     },
 
     getProvider(event, name) {
