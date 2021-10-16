@@ -70,10 +70,10 @@ export default {
   },
   methods: {
     getInitialData() {
-      console.log(this.$route.params.name)
-      axios.get(buildServiceUrl(`/provider?subcategory=${this.$route.params.name}&page=${this.page}&limit=${this.limit}`))
+      console.log(this.$route.params.id)
+      axios.get(buildServiceUrl(`/provider/services/${this.$route.params.id}`))
         .then(res => {
-          this.filterData = res.data.items
+          this.filterData = res.data
           this.getFullData() // remove this when you get the backend whole data
         })
         .catch(err => console.log(err))
@@ -100,7 +100,7 @@ export default {
         const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight
         if (bottomOfWindow) {
           this.page += 1
-          axios.get(buildServiceUrl(`/provider?page=${this.page}&limit=${this.limit}`)).then(response => {
+          axios.get(buildServiceUrl(`/provider/services/${this.$route.params.id}`)).then(response => {
             if (response.data.items[0] !== undefined) {
               this.data.push(response.data.items[0])
               console.log(this.data)
