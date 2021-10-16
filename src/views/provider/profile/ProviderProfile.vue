@@ -30,12 +30,36 @@
       </b-row>
       <b-row>
         <b-col
+          v-for="(item, i) in services"
+          :key="i"
           cols="12"
           md="5"
           xl="3"
           lg="4"
         >
-          <service-card />
+          <service-card
+            :service-data="item"
+            :delete-service="onDelete"
+          />
+        </b-col>
+      </b-row>
+      <b-row
+        class="d-flex justify-content-center"
+        style="margin-bottom:25px"
+      >
+        <b-col
+          cols="12"
+          md="5"
+          xl="3"
+          lg="4"
+        >
+          <b-button
+            v-if="isMyProfile"
+            variant="primary"
+            :to="{name: 'provider-add-service'}"
+          >
+            Añadir servicio
+          </b-button>
         </b-col>
       </b-row>
       <b-row>
@@ -51,7 +75,7 @@
 
 <script>
 import {
-  BRow, BCol, BAlert, BLink,
+  BRow, BCol, BAlert, BLink, BButton,
 } from 'bootstrap-vue'
 import { buildServiceUrl } from '@/constants/urls'
 import axios from 'axios'
@@ -65,6 +89,7 @@ export default {
     BCol,
     BAlert,
     BLink,
+    BButton,
 
     // Local Components
     InfoCard,
@@ -74,7 +99,9 @@ export default {
   data() {
     return {
       userData: '',
+      services: '',
       id: this.$route.params.id,
+      isMyProfile: false,
     }
   },
   watch: {
@@ -82,15 +109,19 @@ export default {
       console.log(to)
       console.log(from)
       // this.$forceUpdate()
-      this.getInitialData()
+      this.getProfileData()
     },
   },
   beforeMount() {
-    this.getInitialData()
+    const sessionData = JSON.parse(localStorage.getItem('userData'))
+    if (sessionData.data[0].type_id === this.$route.params.id) {
+      this.isMyProfile = true
+    }
+    this.getProfileData()
+    this.getServices()
   },
   methods: {
-    getInitialData() {
-      console.log(this.$route.params.id)
+    getProfileData() {
       axios.get(buildServiceUrl(`/provider/${this.$route.params.id}`))
         .then(response => {
           console.log(response.data)
@@ -100,6 +131,33 @@ export default {
           if (error.response.status === 404) {
             this.userData.value = undefined
           }
+        })
+    },
+    getServices() {
+      axios.get(buildServiceUrl(`/service/provider/${this.$route.params.id}?page=1&limit=10`))
+        .then(response => {
+          this.services = [response.data, response.data, response.data]
+        })
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.services = []
+          }
+        })
+    },
+    onDelete(id) {
+      const config = {
+        method: 'delete',
+        url: buildServiceUrl(`/service/${id}`),
+        headers: { },
+      }
+
+      axios(config)
+        .then(response => {
+          console.log(JSON.stringify(response.data))
+          this.getServices()
+        })
+        .catch(error => {
+          console.log(error)
         })
     },
   },

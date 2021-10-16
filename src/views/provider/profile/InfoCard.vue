@@ -43,7 +43,7 @@
       <!-- Right Col: Table -->
       <b-col
         cols="12"
-        xl="2"
+        xl="5"
       >
         <table class="mt-2 mt-xl-0 w-100">
           <tr>

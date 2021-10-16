@@ -1,39 +1,53 @@
 <template>
-  <b-card
-    no-body
-    class="border-primary"
-  >
-    <b-card-header class="d-flex justify-content-between align-items-center pt-75 pb-25">
-      <h5 class="mb-0">
-        Current Plan
-      </h5>
-      <b-badge variant="light-primary">
-        Basic
-      </b-badge>
-      <small class="text-muted w-100">July 22, 2021</small>
-    </b-card-header>
+  <div class="container">
+    <b-card
+      no-body
+      class="border-primary"
+    >
+      <b-card-header class="d-flex justify-content-between align-items-center pt-75 pb-25 flex-row flex-wrap">
+        <img
+          class="card-img"
+          :src="serviceData.image_url"
+          alt=""
+        >
+        <h5 class="mb-0">
+          {{ serviceData.name }}
+        </h5>
+        <b-badge variant="light-primary">
+          {{ serviceData.subCategory.name }}
+        </b-badge>
+      </b-card-header>
 
-    <b-card-body>
-      <ul class="list-unstyled my-1">
-        <li>
-          <span class="align-middle">5 Users</span>
-        </li>
-        <li class="my-25">
-          <span class="align-middle">10 GB storage</span>
-        </li>
-        <li>
-          <span class="align-middle">Basic Support</span>
-        </li>
-      </ul>
-      <b-button
-        v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-        variant="primary"
-        block
-      >
-        Upgrade Plan
-      </b-button>
-    </b-card-body>
-  </b-card>
+      <b-card-body>
+        <ul class="list-unstyled my-1">
+          <li class="my-25">
+            <span class="align-middle">{{ serviceData.description }}</span>
+          </li>
+          <li>
+            <span class="align-middle">Costo {{ serviceData.cost }}</span>
+          </li>
+        </ul>
+        <b-button
+          v-if="isMyProfile"
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="primary"
+          :to="{name: 'provider-update-service', params:{id: serviceData.id}}"
+          block
+        >
+          Actualizar
+        </b-button>
+        <b-button
+          v-if="isMyProfile"
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="danger"
+          block
+          @click="deleteService(serviceData.id)"
+        >
+          Borrar
+        </b-button>
+      </b-card-body>
+    </b-card>
+  </div>
 </template>
 
 <script>
@@ -53,9 +67,34 @@ export default {
     BBadge,
     BButton,
   },
+  props: {
+    serviceData: {
+      type: Object,
+      required: true,
+    },
+    deleteService: {
+      type: Function,
+      required: true,
+    },
+  },
+  data() {
+    return {
+
+      isMyProfile: false,
+    }
+  },
+  beforeMount() {
+    const sessionData = JSON.parse(localStorage.getItem('userData'))
+    if (sessionData.data[0].type_id === this.$route.params.id) {
+      this.isMyProfile = true
+    }
+  },
 }
 </script>
 
 <style>
-
+.card-img{
+  height: 150px !important;
+  width: 100px !important;
+}
 </style>

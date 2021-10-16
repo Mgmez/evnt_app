@@ -21,4 +21,22 @@ export default [
       else next({ name: 'error-404' })
     },
   },
+  {
+    path: '/profile/service/update/:id',
+    name: 'provider-update-service',
+    component: () => import('@/views/provider/profile/service/edit/Service.vue'),
+    beforeEnter(to, _, next) {
+      if (checkProfile(to)) next()
+      else next({ name: 'error-404' })
+    },
+  },
+  {
+    path: '/profile/service/add',
+    name: 'provider-add-service',
+    component: () => import('@/views/provider/profile/service/add/Service.vue'),
+    beforeEnter(to, _, next) {
+      if (checkProfile(to)) next()
+      else next({ name: 'error-404' })
+    },
+  },
 ]
