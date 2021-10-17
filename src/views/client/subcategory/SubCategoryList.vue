@@ -70,14 +70,20 @@ export default {
   },
   methods: {
     getInitialData() {
-      console.log(this.$route.params.id)
+      if (this.$route.params.id === undefined) {
+        this.$router.push('/categories-list')
+        return
+      }
       axios.get(buildServiceUrl(`/sub-category/category/${this.$route.params.id}`))
         .then(res => {
           console.log(res.data)
           this.filterData = res.data
           this.getFullData() // remove this when you get the backend whole data
         })
-        .catch(err => console.log(err))
+        // eslint-disable-next-line no-unused-vars
+        .catch(_err => {
+          this.$router.push('/')
+        })
     },
 
     getFullData() {

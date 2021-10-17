@@ -70,6 +70,10 @@ export default {
   },
   methods: {
     getInitialData() {
+      if (this.$route.params.id === undefined) {
+        this.$router.push('/categories-list')
+        return
+      }
       console.log(this.$route.params.id)
       axios.get(buildServiceUrl(`/provider/services/${this.$route.params.id}`))
         .then(res => {
