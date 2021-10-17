@@ -25,7 +25,10 @@
       <!-- First Row -->
       <b-row>
         <b-col>
-          <info-card :user-data="userData" />
+          <info-card
+            :key="userData.id"
+            :user-data="userData"
+          />
         </b-col>
       </b-row>
       <b-row>
@@ -64,7 +67,13 @@
       </b-row>
       <b-row>
         <b-col>
-          <provider-location />
+          <provider-location
+            :key="userData.id"
+            :altitude="userData.altitude"
+            :latitude="userData.latitude"
+            :longitude="userData.longitude"
+            :user-id="userData.id"
+          />
         </b-col>
       </b-row>
 
@@ -108,8 +117,16 @@ export default {
     $route(to, from) {
       console.log(to)
       console.log(from)
-      // this.$forceUpdate()
+      this.userData = ''
+      this.services = ''
+      this.id = this.$route.params.id
+      this.isMyProfile = false
+      const sessionData = JSON.parse(localStorage.getItem('userData'))
+      if (sessionData.data[0].type_id === this.$route.params.id) {
+        this.isMyProfile = true
+      }
       this.getProfileData()
+      this.getServices()
     },
   },
   beforeMount() {
@@ -124,7 +141,10 @@ export default {
     getProfileData() {
       axios.get(buildServiceUrl(`/provider/${this.$route.params.id}`))
         .then(response => {
+          console.log('PROFILE DATA')
           console.log(response.data)
+          console.log(response.data.latitude)
+          console.log(response.data.altitude)
           this.userData = response.data
         })
         .catch(error => {
@@ -136,7 +156,8 @@ export default {
     getServices() {
       axios.get(buildServiceUrl(`/service/provider/${this.$route.params.id}?page=1&limit=10`))
         .then(response => {
-          this.services = [response.data, response.data, response.data]
+          console.log(response)
+          this.services = response.data
         })
         .catch(error => {
           if (error.response.status === 404) {
