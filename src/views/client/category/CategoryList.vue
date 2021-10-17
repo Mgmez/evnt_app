@@ -45,6 +45,8 @@ import {
 } from 'bootstrap-vue'
 import { buildServiceUrl } from '@/constants/urls'
 import axios from 'axios'
+import store from '@/store'
+import { onUnmounted } from '@vue/composition-api'
 
 export default {
   components: {
@@ -67,6 +69,12 @@ export default {
   },
   mounted() {
     this.getNextData()
+  },
+  setup() {
+    const USER_APP_STORE_MODULE_NAME = 'app-user'
+    onUnmounted(() => {
+      if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
+    })
   },
   methods: {
     getInitialData() {

@@ -88,6 +88,8 @@ import {
 } from 'bootstrap-vue'
 import { buildServiceUrl } from '@/constants/urls'
 import axios from 'axios'
+import store from '@/store'
+import { onUnmounted } from '@vue/composition-api'
 import InfoCard from './InfoCard.vue'
 import ServiceCard from './ServiceCard.vue'
 import ProviderLocation from './ProviderLocation.vue'
@@ -136,6 +138,12 @@ export default {
     }
     this.getProfileData()
     this.getServices()
+  },
+  setup() {
+    const USER_APP_STORE_MODULE_NAME = 'app-user'
+    onUnmounted(() => {
+      if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
+    })
   },
   methods: {
     getProfileData() {
