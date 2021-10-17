@@ -143,7 +143,14 @@ export default {
         .then(() => {
           emit('app-user/fetchUsers')
           emit('refetch-data')
-        }).catch(e => console.log(e))
+        }).catch(e => {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al actualizar',
+          })
+          console.log(e)
+        })
       router.replace({ name: 'users' })
     }
 

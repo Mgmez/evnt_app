@@ -175,7 +175,14 @@ export default {
           // this.userData.logo_url = response.data.link
           this.userData.image_url = response.data.link
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al subir imagen, porfavor intente de nuevo o mande una imagen mas pequeña',
+          })
+          console.log(error)
+        })
     },
   },
   setup(props, { emit }) {
@@ -196,7 +203,14 @@ export default {
         .then(() => {
           emit('app-user/fetchUsers')
           emit('refetch-data')
-        }).catch(e => console.log(e))
+        }).catch(e => {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al actualizar',
+          })
+          console.log(e)
+        })
       router.replace({ name: 'subcategories' })
     }
 

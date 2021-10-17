@@ -331,13 +331,14 @@ export default {
     onDelete(id) {
       console.log(this)
       this.$swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Estas seguro de querer borrar esto?',
+        text: 'No sera posible revertir el cambio!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonText: 'Borrar',
+        cancelButtonText: 'Cancelar',
       }).then(result => {
         if (result.isConfirmed) {
           this.$store.dispatch('app-user/deleteCustomer', id)

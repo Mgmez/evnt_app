@@ -212,7 +212,14 @@ export default {
           data.idTokenPayload = {}
           this.setNewSession(data)
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          console.log(error)
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Usuario o contraseña incorrectos',
+          })
+        })
     },
     loginWithGoogle() {
       sso.loginWithGoogle()

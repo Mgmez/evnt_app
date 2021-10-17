@@ -209,7 +209,15 @@ export default {
         .then(() => {
           emit('refetch-data')
           emit('update:is-add-new-user-sidebar-active', false) // esto hace que se oculte
-        }).catch(e => { console.log(e) })
+        }).catch(e => {
+          emit('update:is-add-new-user-sidebar-active', true)
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al registrar, porfavor intente de nuevo',
+          })
+          console.log(e)
+        })
     }
 
     const {
@@ -240,7 +248,14 @@ export default {
           // this.userData.logo_url = response.data.link
           this.userData.image_url = response.data.link
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al subir imagen, porfavor intente de nuevo o mande una imagen mas pequeña',
+          })
+          console.log(error)
+        })
     },
   },
 }

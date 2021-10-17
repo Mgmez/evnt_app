@@ -201,12 +201,20 @@ export default {
       axios.post(buildServiceUrl('/user'), data)
         .then(response => {
           console.log(response)
-          this.role = response.data.role.name
-          localStorage.setItem('lastNewUser', JSON.stringify(response.data))
-          if (this.role === 'Proveedor' || this.role === 'Provider') {
-            this.$router.push('/auth-register-v1/provider')
-          } else {
-            this.$router.push('/auth-register-v1/customer')
+          try {
+            this.role = response.data.role.name
+            localStorage.setItem('lastNewUser', JSON.stringify(response.data))
+            if (this.role === 'Proveedor' || this.role === 'Provider') {
+              this.$router.push('/auth-register-v1/provider')
+            } else {
+              this.$router.push('/auth-register-v1/customer')
+            }
+          } catch (error) {
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Probablemente el usuario ya existe, intente con otro',
+            })
           }
         })
         .catch(error => console.log(error))

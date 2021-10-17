@@ -210,7 +210,14 @@ export default {
           console.log(response)
           this.$router.push('/login')
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al registrar, porfavor intente de nuevo',
+          })
+          console.log(error)
+        })
     },
   },
 }

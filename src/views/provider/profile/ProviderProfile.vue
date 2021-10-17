@@ -166,20 +166,33 @@ export default {
         })
     },
     onDelete(id) {
-      const config = {
-        method: 'delete',
-        url: buildServiceUrl(`/service/${id}`),
-        headers: { },
-      }
+      this.$swal.fire({
+        title: 'Estas seguro de querer borrar esto?',
+        text: 'No sera posible revertir el cambio!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Borrar',
+        cancelButtonText: 'Cancelar',
+      }).then(result => {
+        if (result.isConfirmed) {
+          const config = {
+            method: 'delete',
+            url: buildServiceUrl(`/service/${id}`),
+            headers: { },
+          }
 
-      axios(config)
-        .then(response => {
-          console.log(JSON.stringify(response.data))
-          this.getServices()
-        })
-        .catch(error => {
-          console.log(error)
-        })
+          axios(config)
+            .then(response => {
+              console.log(JSON.stringify(response.data))
+              this.getServices()
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }
+      })
     },
   },
 }
