@@ -93,6 +93,11 @@ export default {
           this.serviceData.subCategory = response.data.subCategory
         })
         .catch(error => {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al subir imagen, porfavor intente de nuevo o mande una imagen mas pequeña',
+          })
           console.log(error)
         })
     },

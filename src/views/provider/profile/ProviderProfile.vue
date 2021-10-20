@@ -66,12 +66,19 @@
         </b-col>
       </b-row>
       <b-row>
+        <b-col
+          cols="12"
+        >
+          <carousel-basic :images-url="userData.images_url" />
+        </b-col>
+      </b-row>
+      <b-row>
         <b-col>
           <provider-location
             :key="userData.id"
-            :altitude="userData.altitude"
-            :latitude="userData.latitude"
-            :longitude="userData.longitude"
+            :altitude="Number(userData.altitude)"
+            :latitude="Number(userData.latitude)"
+            :longitude="Number(userData.longitude)"
             :user-id="userData.id"
           />
         </b-col>
@@ -93,6 +100,7 @@ import { onUnmounted } from '@vue/composition-api'
 import InfoCard from './InfoCard.vue'
 import ServiceCard from './ServiceCard.vue'
 import ProviderLocation from './ProviderLocation.vue'
+import CarouselBasic from './CarouselBasic.vue'
 
 export default {
   components: {
@@ -106,6 +114,7 @@ export default {
     InfoCard,
     ServiceCard,
     ProviderLocation,
+    CarouselBasic,
   },
   data() {
     return {

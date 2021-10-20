@@ -12,7 +12,14 @@
         :draggable="true"
         @mouseleave="alert"
       >
-        <l-popup>You're here!</l-popup>
+        <l-popup>Estas aqui</l-popup>
+      </l-marker>
+      <l-marker
+        v-else
+        :lat-lng="markerLatLng"
+        :draggable="false"
+      >
+        <l-popup>Ubicacion de la empresa</l-popup>
       </l-marker>
     </l-map>
     <b-button
@@ -79,16 +86,16 @@ export default {
     return {
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 15,
-      center: [this.latitude, this.longitude],
-      markerLatLng: [this.latitude, this.longitude, { draggable: 'true' }],
+      center: [Number(this.latitude), Number(this.longitude)],
+      markerLatLng: [Number(this.latitude), Number(this.longitude), { draggable: 'true' }],
       code,
       isMyProfile: false,
     }
   },
   beforeMount() {
-    console.log('sadidasji')
+    console.log('sadasdas')
     console.log(this.latitude)
-    console.log(this.altitude)
+    console.log(this.longitude)
     const sessionData = JSON.parse(localStorage.getItem('userData'))
     if (sessionData.data[0].type_id === this.userId) {
       this.isMyProfile = true
@@ -129,9 +136,19 @@ export default {
 
       axios(config)
         .then(response => {
+          this.$swal.fire({
+            icon: 'info',
+            title: 'Actualizado',
+            text: 'Tu ubicacion ha sido actualizada',
+          })
           console.log(JSON.stringify(response.data))
         })
         .catch(error => {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al actualizar la localizacion',
+          })
           console.log(error)
         })
     },
