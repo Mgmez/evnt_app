@@ -40,6 +40,7 @@
           :user-data="userData"
           class="mt-2 pt-75"
         />
+        <gallery :images-url="userData.images_url" />
       </b-tab>
     </b-tabs>
   </component>
@@ -54,6 +55,7 @@ import router from '@/router'
 import store from '@/store'
 import providerStoreModule from './providerStoreModule'
 import ProviderEditTabAccount from './ProviderEditTabAccount.vue'
+import Gallery from './Gallery.vue'
 
 export default {
   components: {
@@ -62,6 +64,7 @@ export default {
     BCard,
     BAlert,
     BLink,
+    Gallery,
 
     ProviderEditTabAccount,
   },
