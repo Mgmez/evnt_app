@@ -63,6 +63,11 @@ export default {
       limit: 10,
     }
   },
+  watch: {
+    '$route.params.id': function () {
+      this.getInitialData()
+    },
+  },
   beforeMount() {
     this.getInitialData()
     // this.getFullData()

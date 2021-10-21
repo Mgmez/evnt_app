@@ -55,7 +55,7 @@
                 class="mr-1"
                 @click="addElement"
               >
-                Añadir elemento
+                Añadir servicio
               </b-button>
             </div>
           </b-col>
@@ -145,7 +145,7 @@ export default {
         id: idx,
         element: InputSubCategories,
         value: '',
-        quantity: 0,
+        quantity: '',
       })
     },
     getInitialData() {
@@ -161,12 +161,31 @@ export default {
         })
     },
     validationForm() {
-      this.$refs.eventForm.validate().then(success => {
-        if (success) {
-        // eslint-disable-next-line
-          alert('form submitted!')
+      if (this.elementsComponent.length === 0) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Añade servicios para tu evento',
+        })
+      } else {
+        this.elementsComponent.forEach(e => {
+          if (e.quantity.trim() === '' || e.value.trim() === '') {
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Llena todos los campos',
+            })
+          }
+        })
+
+        if (this.eventName.trim() === '') {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Llena todos los campos',
+          })
         }
-      })
+      }
     },
     getSelectedCategory(id, val) {
       this.elementsComponent.find(e => e.id === id).value = val

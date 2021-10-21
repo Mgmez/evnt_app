@@ -171,6 +171,9 @@ import formValidation from '@core/comp-functions/forms/form-validation'
 import Ripple from 'vue-ripple-directive'
 import vSelect from 'vue-select'
 import countries from '@/@fake-db/data/other/countries'
+import axios from '@axios'
+import { buildServiceUrl } from '@/constants/urls'
+// eslint-disable-next-line no-unused-vars
 import store from '@/store'
 
 export default {
@@ -216,6 +219,29 @@ export default {
       countries,
     }
   },
+  methods: {
+    onSubmit() {
+      console.log('assdoplaskdopask')
+
+      axios
+        .post(buildServiceUrl('/customer'), this.userData)
+        .then(response => {
+          console.log(response)
+          this.isAddNewUserSidebarActive = false
+          this.$emit('refetch-data')
+        })
+        .catch(error => {
+          console.log(error)
+          this.isAddNewUserSidebarActive = true
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al registrar, porfavor intente de nuevo',
+          })
+        })
+    },
+  },
+  // eslint-disable-next-line no-unused-vars
   setup(props, { emit }) {
     const blankUserData = {
       email: '',
@@ -229,21 +255,27 @@ export default {
       userData.value = JSON.parse(JSON.stringify(blankUserData))
     }
 
-    const onSubmit = () => {
+    /* vonst onSubmit = () => {
       store.dispatch('app-user/addCustomer', userData.value)
-        .then(() => {
+        .then(response => {
+          console.log('response')
+          console.log(response)
           emit('refetch-data')
           emit('update:is-add-new-user-sidebar-active', false)
-        }).catch(e => {
-          emit('update:is-add-new-user-sidebar-active', true)
-          this.$swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Error al registrar, porfavor intente de nuevo',
+        }, error => {
+          console.log(error)
+          console.error('Got nothing from server. Prompt user to check internet connection and try again')
+        }) .catch(e => {
+            console.log('assdoplaskdopask222')
+            emit('update:is-add-new-user-sidebar-active', true)
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Error al registrar, porfavor intente de nuevo',
+            })
+            console.log(e)
           })
-          console.log(e)
-        })
-    }
+    } */
 
     const {
       refFormObserver,
@@ -253,7 +285,7 @@ export default {
 
     return {
       userData,
-      onSubmit,
+      // onSubmit,
 
       refFormObserver,
       getValidationState,

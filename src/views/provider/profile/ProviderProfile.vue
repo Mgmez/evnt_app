@@ -142,7 +142,9 @@ export default {
   },
   beforeMount() {
     const sessionData = JSON.parse(localStorage.getItem('userData'))
-    if (sessionData.data[0].type_id === this.$route.params.id) {
+    if (sessionData === null) {
+      this.isMyProfile = false
+    } else if (sessionData.data[0].type_id === this.$route.params.id) {
       this.isMyProfile = true
     }
     this.getProfileData()

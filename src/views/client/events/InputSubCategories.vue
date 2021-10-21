@@ -9,7 +9,6 @@
       >
         <validation-provider
           #default="{ errors }"
-          rules="required"
           name="Elemento"
         >
           <v-select
@@ -26,20 +25,16 @@
       cols="5"
     >
       <b-form-group
-        label="Piezas"
+        label="Que requieres?"
         label-for="pieces"
       >
         <validation-provider
           #default="{ errors }"
-          rules="required|min:1|between:0,100000"
-          name="Numero de piezas"
+          name="Descripcion"
         >
-          <b-form-input
+          <b-form-textarea
             label="pieces"
-            type="number"
-            placeholder="Ej 1"
-            min="1"
-            step="1"
+            placeholder="5 horas de mariachi"
             @input="sendPieces(idx, $event)"
           />
           <small class="text-danger">{{ errors[0] }}</small>
@@ -48,12 +43,13 @@
     </b-col>
     <b-col
       cols="1"
+      style="margin-top:35px;"
     >
       <b-button
         class="btn btn-danger"
         @click="removeElement(idx)"
       >
-        Borrar
+        X
       </b-button>
     </b-col>
   </b-row>
@@ -67,7 +63,7 @@ import {
 } from '@validations'
 import {
   BFormGroup,
-  BFormInput,
+  BFormTextarea,
   BRow,
   BCol,
   BButton,
@@ -78,7 +74,7 @@ export default {
   components: {
     BFormGroup,
     ValidationProvider,
-    BFormInput,
+    BFormTextarea,
     vSelect,
     BRow,
     BCol,
