@@ -1,8 +1,5 @@
 echo "Let's deploy the new frontend version"
 
-echo "Running es lint"
-echo "Build new files"
-npm run build
 
 
 uuid=$(uuidgen)

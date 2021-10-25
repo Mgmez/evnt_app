@@ -66,7 +66,10 @@ import store from '@/store'
 import router from '@/router'
 import { ref, onUnmounted } from '@vue/composition-api'
 import {
-  BRow, BCol, BAlert, BLink,
+  BRow,
+  BCol,
+  BAlert,
+  BLink,
 } from 'bootstrap-vue'
 import InvoiceList from '@/views2/apps/invoice/invoice-list/InvoiceList.vue'
 import userStoreModule from '../userStoreModule'
@@ -96,18 +99,19 @@ export default {
     const USER_APP_STORE_MODULE_NAME = 'app-user'
 
     // Register module
-    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) { store.registerModule(USER_APP_STORE_MODULE_NAME, userStoreModule) }
-
+    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) {
+      store.registerModule(USER_APP_STORE_MODULE_NAME, userStoreModule)
+    }
     // UnRegister on leave
     onUnmounted(() => {
-      if (store.hasModule(USER_APP_STORE_MODULE_NAME)) { store.unregisterModule(USER_APP_STORE_MODULE_NAME) }
+      if (store.hasModule(USER_APP_STORE_MODULE_NAME)) {
+        store.unregisterModule(USER_APP_STORE_MODULE_NAME)
+      }
     })
 
     store
       .dispatch('app-user/fetchUser', { id: router.currentRoute.params.id })
-      .then(response => {
-        userData.value = response.data
-      })
+      .then(response => { userData.value = response.data })
       .catch(error => {
         if (error.response.status === 404) {
           userData.value = undefined
