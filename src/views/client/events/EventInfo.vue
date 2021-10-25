@@ -285,7 +285,7 @@ export default {
         // this.getInitialData()
       }
     },
-    createEventResources() {
+    async createEventResources() {
       for (let idx = 0; idx < this.elementsComponent.length; idx += 1) {
         const element = this.elementsComponent[idx]
         const config = {
@@ -298,18 +298,8 @@ export default {
             subCategory: element.subCategoryId,
           },
         }
-        axios(config)
-          .then(response => {
-            console.log(JSON.stringify(response.data))
-          })
-          .catch(function (error) {
-            console.log(error)
-            this.$swal.fire({
-              icon: 'error',
-              title: 'Oops... Error al pedir el servicio',
-              text: error.response.data.error,
-            })
-          })
+        // eslint-disable-next-line no-await-in-loop
+        await axios(config)
       }
       this.getInitialData()
     },
