@@ -26,30 +26,32 @@
 
                     <!-- Providers -->
                     <b-col
-                      v-for="x in 2"
-                      :key="x"
+                      v-for="quote in element.quotes"
+                      :key="quote.id"
                       md="6"
                       xl="3"
                       class="col"
                     >
                       <b-card
-                        :id="x + x"
-                        :key="x + x"
-                        :img-src="require('@/assets/images/slider/01.jpg')"
+                        :id=" quote.id"
+                        :key="quote.id"
+                        :img-src="quote.provider.logo_url"
+                        :text="avatarText(quote.provider.name)"
                         :img-fluid="true"
                         overlay
                         text-variant="white"
                         img-alt="card img"
                         body-class="bg-overlay"
                         class="card"
+                        @click="getProfile(quote.provider.id)"
                       >
                         <b-card-title class="text-white card-title">
-                          Proveedor
+                          {{ quote.provider.name }}
                         </b-card-title>
                         <b-card-text>
-                          <p>Description goes here </p>
+                          <p> {{ quote.description }}</p>
 
-                          <span>$$$$ </span>
+                          <span>${{ quote.price }} </span>
                         </b-card-text>
                       </b-card>
                     </b-col>
@@ -144,6 +146,7 @@ import {
 } from '@validations'
 import router from '@/router'
 import { v4 as uuidv4 } from 'uuid'
+import { avatarText } from '@core/utils/filter'
 import InputSubCategories from './InputSubCategories.vue'
 
 export default {
@@ -192,6 +195,12 @@ export default {
         return true
       }
       return false
+    },
+    getProfile(id) {
+      this.$router.push({
+        name: 'provider-profile',
+        params: { id },
+      })
     },
     addElement() {
       const idx = uuidv4()
@@ -335,6 +344,11 @@ export default {
         })
     },
   },
+  setup() {
+    return {
+      avatarText,
+    }
+  },
 }
 </script>
 
@@ -344,5 +358,10 @@ export default {
 }
 .section {
   text-align: center;
+}
+.card {
+  text-align: center;
+  display: inline-table;
+  cursor: pointer;
 }
 </style>
