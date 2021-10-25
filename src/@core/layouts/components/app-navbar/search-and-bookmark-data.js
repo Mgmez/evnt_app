@@ -6,7 +6,7 @@ import { buildServiceUrl } from '@/constants/urls'
 const getCategories = async () =>{
 
   try {
-    const res = await axios.get(buildServiceUrl(`/category?page=${1}&limit=${100}`))
+    const res = await axios.get(buildServiceUrl(`/category?q=&page=${1}&limit=${100}`))
     const routes = []
   
     for (let idx = 0; idx < res.data.items.length; idx++) {
@@ -36,7 +36,7 @@ const getCategories = async () =>{
 const getSubCategories = async() =>{
   
   try {
-    const res = await axios.get(buildServiceUrl(`/sub-category?page=${1}&limit=${100}`))
+    const res = await axios.get(buildServiceUrl(`/sub-category?q=&page=${1}&limit=${100}`))
   
     console.log('object sub cats');
     console.log(res.data.items)
@@ -73,7 +73,7 @@ const getSubCategories = async() =>{
 const getProviders = async() =>{
   
   try {
-    const res = await axios.get(buildServiceUrl(`/provider?page=${1}&limit=${100}`))
+    const res = await axios.get(buildServiceUrl(`/provider?q=&page=${1}&limit=${100}`))
     const routes = []
   
     for (let idx = 0; idx < res.data.items.length; idx++) {

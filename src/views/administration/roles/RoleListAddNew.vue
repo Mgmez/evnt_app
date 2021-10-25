@@ -121,7 +121,9 @@ import { required, alphaNum, email } from '@validations'
 import formValidation from '@core/comp-functions/forms/form-validation'
 import Ripple from 'vue-ripple-directive'
 import countries from '@/@fake-db/data/other/countries'
-import store from '@/store'
+// import store from '@/store'
+import axios from 'axios'
+import { buildServiceUrl } from '@/constants/urls'
 
 export default {
   components: {
@@ -165,6 +167,35 @@ export default {
       countries,
     }
   },
+  methods: {
+    onSubmit() {
+      const config = {
+        method: 'post',
+        url: buildServiceUrl('/role'),
+        headers: { },
+        data: {
+          name: this.userData.name,
+          icon: this.userData.icon,
+        },
+      }
+      axios(config)
+        .then(response => {
+          console.log(response)
+          this.isAddNewUserSidebarActive = false
+          this.$emit('refetch-data')
+        })
+        .catch(error => {
+          console.log(error)
+          this.isAddNewUserSidebarActive = true
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al registrar, porfavor intente de nuevo',
+          })
+        })
+    },
+  },
+  // eslint-disable-next-line no-unused-vars
   setup(props, { emit }) {
     const blankUserData = {
       email: '',
@@ -178,7 +209,7 @@ export default {
       userData.value = JSON.parse(JSON.stringify(blankUserData))
     }
 
-    const onSubmit = () => {
+    /* const onSubmit = () => {
       store.dispatch('app-user/addCustomer', userData.value)
         .then(() => {
           emit('refetch-data')
@@ -192,7 +223,7 @@ export default {
           })
           console.log(e)
         })
-    }
+    } */
 
     const {
       refFormObserver,
@@ -202,7 +233,7 @@ export default {
 
     return {
       userData,
-      onSubmit,
+      // onSubmit,
 
       refFormObserver,
       getValidationState,

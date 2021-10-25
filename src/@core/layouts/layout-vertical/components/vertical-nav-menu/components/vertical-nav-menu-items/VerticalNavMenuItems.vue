@@ -2,7 +2,7 @@
   <ul>
     <component
       :is="resolveNavItemComponent(item)"
-      v-for="item in items"
+      v-for="item in items()"
       :key="item.header || item.title"
       :item="item"
     />
@@ -24,7 +24,7 @@ export default {
   },
   props: {
     items: {
-      type: Array,
+      type: Function,
       required: true,
     },
   },

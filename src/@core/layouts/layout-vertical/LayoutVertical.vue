@@ -46,7 +46,6 @@
     <!-- /Vertical Nav Menu Overlay -->
 
     <!-- Content -->
-
     <!-- CONTENT TYPE: Left -->
     <transition
       :name="routerTransition"

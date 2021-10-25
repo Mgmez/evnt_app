@@ -221,8 +221,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('assdoplaskdopask')
-
       axios
         .post(buildServiceUrl('/customer'), this.userData)
         .then(response => {

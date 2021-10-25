@@ -83,7 +83,12 @@
         <!-- Column: Image -->
         <template #cell(imagen)="data">
           <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">{{ data.item.image_url }}</span>
+
+            <b-avatar
+              size="70px"
+              badge-variant="success"
+              :src="data.item.image_url "
+            />
           </div>
         </template>
 
@@ -174,7 +179,7 @@
 
 <script>
 import {
-  BCard, BRow, BCol, BFormInput, BButton, BTable, BDropdown, BDropdownItem, BPagination,
+  BCard, BRow, BCol, BFormInput, BButton, BTable, BDropdown, BDropdownItem, BPagination, BAvatar,
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import store from '@/store'
@@ -197,6 +202,7 @@ export default {
     BDropdown,
     BDropdownItem,
     BPagination,
+    BAvatar,
 
     vSelect,
   },
@@ -309,6 +315,9 @@ export default {
           this.$store.dispatch('app-user/deleteCustomer', id)
             .then(() => {
               this.refetchData()
+
+              // eslint-disable-next-line no-restricted-globals
+              location.reload()
             }).catch(e => console.log(e))
           this.$swal.fire(
             'Deleted!',

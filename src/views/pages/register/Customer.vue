@@ -128,10 +128,10 @@ import axios from 'axios'
 import { buildServiceUrl } from '@/constants/urls'
 import flatPickr from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
-import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css'
 // theme is optional
 // try more themes at - https://flatpickr.js.org/themes/
-import 'flatpickr/dist/themes/material_blue.css'
+// import 'flatpickr/dist/themes/material_blue.css'
 
 export default {
   components: {

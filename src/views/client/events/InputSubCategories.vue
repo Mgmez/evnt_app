@@ -4,7 +4,7 @@
       cols="6"
     >
       <b-form-group
-        label="Solicitando"
+        label="Solicitud de servicio"
         label-for="categories"
       >
         <validation-provider

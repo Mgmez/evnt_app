@@ -170,7 +170,8 @@ import formValidation from '@core/comp-functions/forms/form-validation'
 import Ripple from 'vue-ripple-directive'
 import vSelect from 'vue-select'
 import countries from '@/@fake-db/data/other/countries'
-import store from '@/store'
+import { buildServiceUrl } from '@/constants/urls'
+import axios from 'axios'
 
 export default {
   components: {
@@ -215,6 +216,30 @@ export default {
       countries,
     }
   },
+  methods: {
+    onSubmit() {
+      axios
+        .post(buildServiceUrl('/provider'), this.userData)
+        .then(response => {
+          console.log(response)
+          this.isAddNewUserSidebarActive = false
+
+          // eslint-disable-next-line no-restricted-globals
+          location.reload()
+          this.$emit('refetch-data')
+        })
+        .catch(error => {
+          console.log(error)
+          this.isAddNewUserSidebarActive = true
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al registrar, porfavor intente de nuevo',
+          })
+        })
+    },
+  },
+  // eslint-disable-next-line no-unused-vars
   setup(props, { emit }) {
     const blankUserData = {
       email: '',
@@ -228,22 +253,6 @@ export default {
       userData.value = JSON.parse(JSON.stringify(blankUserData))
     }
 
-    const onSubmit = () => {
-      store.dispatch('app-user/addCustomer', userData.value)
-        .then(() => {
-          emit('refetch-data')
-          emit('update:is-add-new-user-sidebar-active', false)
-        }).catch(e => {
-          emit('update:is-add-new-user-sidebar-active', true)
-          this.$swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Error al registrar, porfavor intente de nuevo',
-          })
-          console.log(e)
-        })
-    }
-
     const {
       refFormObserver,
       getValidationState,
@@ -252,7 +261,6 @@ export default {
 
     return {
       userData,
-      onSubmit,
 
       refFormObserver,
       getValidationState,

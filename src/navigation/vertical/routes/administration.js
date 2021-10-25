@@ -32,4 +32,12 @@ export default [
     route: 'subcategories',
     icon: 'LayersIcon',
   },
+  {
+    header: 'Global',
+  },
+  {
+    title: 'Categorias',
+    route: 'categories-list',
+    icon: 'LayersIcon',
+  },
 ]

@@ -200,32 +200,32 @@ export default {
       }
       axios.post(buildServiceUrl('/user'), data)
         .then(response => {
-          console.log(response)
-          try {
-            this.role = response.data.role.name
-            localStorage.setItem('lastNewUser', JSON.stringify(response.data))
-            if (this.role === 'Proveedor' || this.role === 'Provider') {
-              this.$router.push('/auth-register-v1/provider')
-            } else {
-              this.$router.push('/auth-register-v1/customer')
-            }
-          } catch (error) {
-            this.$swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Probablemente el usuario ya existe, intente con otro',
-            })
+          this.role = response.data.role.name
+          const provPattern = '(P|p)ro.*'
+          localStorage.setItem('lastNewUser', JSON.stringify(response.data))
+          if (this.role.match(provPattern)) {
+            this.$router.push('/auth-register-v1/provider')
+          } else {
+            this.$router.push('/auth-register-v1/customer')
           }
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.name,
+          })
+          console.log(error.response.data)
+        })
     },
     async fetchRoles() {
-      const rolesReq = await axios.get(buildServiceUrl('/role?page=1&limit=10'))
+      const rolesReq = await axios.get(buildServiceUrl('/role?q=&page=1&limit=10'))
         .then(response => response)
         .catch(error => console.log(error))
 
+      const profPattern = '((P|p)ro.*|C.*)'
       const rolesFilter = rolesReq.data.items
-        .filter(role => role.name === 'Cliente' || role.name === 'Proveedor' || role.name === 'Customer' || role.name === 'Provider')
+        .filter(role => role.name.match(profPattern))
       console.log(rolesFilter)
       this.roles = rolesFilter.map(role => {
         const temp = {}

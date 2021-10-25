@@ -6,6 +6,13 @@ function checkProfile(to) {
   return true
 }
 
+function checkPermission() {
+  const provPattern = '(P|p)ro.*'
+  const { role } = JSON.parse(localStorage.getItem('userData')).data[0]
+  if (role.match(provPattern)) return true
+  return false
+}
+
 export default [
   {
     path: '/profile/:id',
@@ -17,7 +24,7 @@ export default [
     name: 'provider-update-profile',
     component: () => import('@/views/provider/updateInformation/ProviderEdit.vue'),
     beforeEnter(to, _, next) {
-      if (checkProfile(to)) next()
+      if (checkProfile(to) && checkPermission()) next()
       else next({ name: 'error-404' })
     },
   },
@@ -26,7 +33,7 @@ export default [
     name: 'provider-update-service',
     component: () => import('@/views/provider/profile/service/edit/Service.vue'),
     beforeEnter(to, _, next) {
-      if (checkProfile(to)) next()
+      if (checkProfile(to) && checkPermission()) next()
       else next({ name: 'error-404' })
     },
   },
@@ -35,7 +42,17 @@ export default [
     name: 'provider-add-service',
     component: () => import('@/views/provider/profile/service/add/Service.vue'),
     beforeEnter(to, _, next) {
-      if (checkProfile(to)) next()
+      if (checkProfile(to) && checkPermission()) next()
+      else next({ name: 'error-404' })
+    },
+  },
+  {
+    path: '/events-provider',
+    name: 'events-provider',
+    component: () => import('@/views/provider/Events.vue'),
+    props: true,
+    beforeEnter(to, _, next) {
+      if (checkPermission()) next()
       else next({ name: 'error-404' })
     },
   },

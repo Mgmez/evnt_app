@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     getInitialData() {
-      axios.get(buildServiceUrl(`/category?page=${this.page}&limit=${this.limit}`))
+      axios.get(buildServiceUrl(`/category?q=&page=${this.page}&limit=${this.limit}`))
         .then(res => {
           this.filterData = res.data.items
           this.getFullData() // remove this when you get the backend whole data

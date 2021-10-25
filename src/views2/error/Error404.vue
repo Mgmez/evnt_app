@@ -4,17 +4,17 @@
     <b-link class="brand-logo">
       <vuexy-logo />
       <h2 class="brand-text text-primary ml-1">
-        Vuexy
+        Evnt
       </h2>
     </b-link>
 
     <div class="misc-inner p-2 p-sm-3">
       <div class="w-100 text-center">
         <h2 class="mb-1">
-          Page Not Found 🕵🏻‍♀️
+          Pagina no encontrada🕵🏻‍♀️
         </h2>
         <p class="mb-2">
-          Oops! 😖 The requested URL was not found on this server.
+          Oops! 😖 No tienes permisos para ver esta pagina o no existe
         </p>
 
         <b-button
@@ -22,7 +22,7 @@
           class="mb-2 btn-sm-block"
           :to="{path:'/'}"
         >
-          Back to home
+          Regresar a la pagina principal
         </b-button>
 
         <!-- image -->

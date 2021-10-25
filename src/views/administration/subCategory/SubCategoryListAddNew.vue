@@ -169,7 +169,6 @@ import formValidation from '@core/comp-functions/forms/form-validation'
 import Ripple from 'vue-ripple-directive'
 import vSelect from 'vue-select'
 import countries from '@/@fake-db/data/other/countries'
-import store from '@/store'
 import axios from 'axios'
 import { buildServiceUrl } from '@/constants/urls'
 
@@ -219,6 +218,7 @@ export default {
       userLogo: '',
     }
   },
+  // eslint-disable-next-line no-unused-vars
   setup(props, { emit }) {
     const blankUserData = {
       email: '',
@@ -232,21 +232,6 @@ export default {
       userData.value = JSON.parse(JSON.stringify(blankUserData))
     }
 
-    const onSubmit = () => {
-      const data = {
-        name: userData.value.name,
-        image_url: userData.value.image_url,
-        icon: '',
-        category: userData.value.category,
-      }
-      console.log(data)
-      store.dispatch('app-user/addCustomer', data)
-        .then(() => {
-          emit('refetch-data')
-          emit('update:is-add-new-user-sidebar-active', false)
-        }).catch(e => console.log(e))
-    }
-
     const {
       refFormObserver,
       getValidationState,
@@ -255,7 +240,6 @@ export default {
 
     return {
       userData,
-      onSubmit,
 
       refFormObserver,
       getValidationState,
@@ -276,6 +260,32 @@ export default {
           this.userData.image_url = response.data.link
         })
         .catch(error => console.log(error))
+    },
+    onSubmit() {
+      const data = {
+        name: this.userData.name,
+        image_url: this.userData.image_url,
+        icon: '',
+        category: this.userData.category,
+      }
+      axios
+        .post(buildServiceUrl('/sub-category'), data)
+        .then(response => {
+          console.log(response)
+          this.isAddNewUserSidebarActive = false
+          // eslint-disable-next-line no-restricted-globals
+          location.reload()
+          this.$emit('refetch-data')
+        })
+        .catch(error => {
+          console.log(error)
+          this.isAddNewUserSidebarActive = true
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al registrar, porfavor intente de nuevo',
+          })
+        })
     },
   },
 }

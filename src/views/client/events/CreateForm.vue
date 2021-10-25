@@ -28,6 +28,28 @@
               </validation-provider>
             </b-form-group>
           </b-col>
+          <!-- description -->
+          <b-col cols="12">
+            <b-form-group
+              label="Descripcion del evento"
+              label-for="Description"
+            >
+              <validation-provider
+                #default="{ errors }"
+                rules="required"
+                name="Descripcion del evento"
+              >
+                <b-form-input
+                  id="description"
+                  v-model="descriptionEvent"
+                  class="form-control-merge"
+                  :state="errors.length > 0 ? false:null"
+                  placeholder="Descripcion del evento"
+                />
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+          </b-col>
 
           <!-- elements -->
           <!-- category -->
@@ -69,14 +91,7 @@
               class="mr-1"
               @click.prevent="validationForm"
             >
-              Submit
-            </b-button>
-            <b-button
-              v-ripple.400="'rgba(186, 191, 199, 0.15)'"
-              type="reset"
-              variant="outline-secondary"
-            >
-              Reset
+              Crear
             </b-button>
           </b-col>
         </b-row>
@@ -120,6 +135,7 @@ export default {
     return {
       elementsComponent: [],
       eventName: '',
+      descriptionEvent: '',
       elements: [],
       elementsNoId: [],
       required,
@@ -144,17 +160,15 @@ export default {
       this.elementsComponent.push({
         id: idx,
         element: InputSubCategories,
-        value: '',
-        quantity: '',
+        subCategory: '',
+        description: '',
       })
     },
     getInitialData() {
       axios.get(buildServiceUrl('/sub-category?page=1&limit=15'))
         .then(res => {
-          console.log(res.data.items)
           this.elements = res.data.items
           this.elementsNoId = res.data.items.map(e => e.name)
-          console.log(this.elementsNoId)
         })
         .catch(err => {
           console.log(err)
@@ -169,7 +183,7 @@ export default {
         })
       } else {
         this.elementsComponent.forEach(e => {
-          if (e.quantity.trim() === '' || e.value.trim() === '') {
+          if (e.description.trim() === '' || e.subCategory.trim() === '') {
             this.$swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -184,14 +198,74 @@ export default {
             title: 'Oops...',
             text: 'Llena todos los campos',
           })
+        } else {
+          this.createEvent().then(eventData => {
+            this.createEventResources(eventData.id)
+            this.$router.push('/my-events')
+          })
         }
       }
     },
+    async createEvent() {
+      console.log(JSON.parse(localStorage.getItem('userData')))
+      const config = {
+        method: 'post',
+        url: buildServiceUrl('/event'),
+        headers: { },
+        data: {
+          name: this.eventName,
+          description: this.descriptionEvent,
+          customer: JSON.parse(localStorage.getItem('userData')).data[0].type_id,
+        },
+      }
+      const res = await axios(config)
+        .then(response => response)
+        .catch(error => {
+          console.log(error)
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops... Error al crear el evento',
+            text: error.response.message,
+          })
+        })
+      return res.data
+    },
+    createEventResources(eventId) {
+      for (let idx = 0; idx < this.elementsComponent.length; idx += 1) {
+        const element = this.elementsComponent[idx]
+        console.log(element.subCategoryId)
+        console.log('eventId')
+        const config = {
+          method: 'post',
+          url: buildServiceUrl('/event-resource'),
+          headers: { },
+          data: {
+            description: element.description,
+            event: eventId,
+            subCategory: element.subCategoryId,
+          },
+        }
+        axios(config)
+          .then(response => {
+            console.log(JSON.stringify(response.data))
+          })
+          .catch(function (error) {
+            console.log(error)
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops... Error al pedir el servicio',
+              text: error.response.data.error,
+            })
+          })
+      }
+    },
     getSelectedCategory(id, val) {
-      this.elementsComponent.find(e => e.id === id).value = val
+      const subCategory = this.elements.find(e => e.name === val)
+      this.elementsComponent.find(e => e.id === id).subCategory = val
+      this.elementsComponent.find(e => e.id === id).subCategoryId = subCategory.id
     },
     getSelectedPieces(id, val) {
-      this.elementsComponent.find(e => e.id === id).quantity = val
+      this.elementsComponent.find(e => e.id === id).description = val
     },
     deleteCategoriesElement(id) {
       const idx = this.elementsComponent.findIndex(e => e.id === id)

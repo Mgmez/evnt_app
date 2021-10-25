@@ -143,7 +143,6 @@ import { required, alphaNum, email } from '@validations'
 import formValidation from '@core/comp-functions/forms/form-validation'
 import Ripple from 'vue-ripple-directive'
 import countries from '@/@fake-db/data/other/countries'
-import store from '@/store'
 import axios from 'axios'
 import { buildServiceUrl } from '@/constants/urls'
 
@@ -191,6 +190,7 @@ export default {
       userLogo: '',
     }
   },
+  // eslint-disable-next-line no-unused-vars
   setup(props, { emit }) {
     const blankUserData = {
       email: '',
@@ -204,22 +204,6 @@ export default {
       userData.value = JSON.parse(JSON.stringify(blankUserData))
     }
 
-    const onSubmit = () => {
-      store.dispatch('app-user/addCustomer', userData.value)
-        .then(() => {
-          emit('refetch-data')
-          emit('update:is-add-new-user-sidebar-active', false) // esto hace que se oculte
-        }).catch(e => {
-          emit('update:is-add-new-user-sidebar-active', true)
-          this.$swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Error al registrar, porfavor intente de nuevo',
-          })
-          console.log(e)
-        })
-    }
-
     const {
       refFormObserver,
       getValidationState,
@@ -228,7 +212,6 @@ export default {
 
     return {
       userData,
-      onSubmit,
 
       refFormObserver,
       getValidationState,
@@ -246,6 +229,7 @@ export default {
           console.log(response)
           this.userLogo = response.data.link
           // this.userData.logo_url = response.data.link
+
           this.userData.image_url = response.data.link
         })
         .catch(error => {
@@ -255,6 +239,36 @@ export default {
             text: 'Error al subir imagen, porfavor intente de nuevo o mande una imagen mas pequeña',
           })
           console.log(error)
+        })
+    },
+    onSubmit() {
+      const config = {
+        method: 'post',
+        url: buildServiceUrl('/category'),
+        headers: { },
+        data: {
+          name: this.userData.name,
+          icon: this.userData.icon,
+          image_url: this.userData.image_url,
+        },
+      }
+      axios(config)
+        .then(response => {
+          console.log(response)
+
+          this.isAddNewUserSidebarActive = false
+          this.$emit('refetch-data')
+          // eslint-disable-next-line no-restricted-globals
+          location.reload()
+        })
+        .catch(error => {
+          console.log(error)
+          this.isAddNewUserSidebarActive = true
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al registrar, porfavor intente de nuevo',
+          })
         })
     },
   },

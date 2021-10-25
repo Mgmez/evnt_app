@@ -119,14 +119,13 @@
             <span>Crear una cuenta</span>
           </b-link>
         </b-card-text>
-
+        <!--
         <div class="divider my-2">
           <div class="divider-text">
             or
           </div>
         </div>
 
-        <!-- social button -->
         <div class="auth-footer-btn d-flex justify-content-center">
           <b-button
             href="javascript:void(0)"
@@ -143,6 +142,7 @@
             <feather-icon icon="FacebookIcon" />
           </b-button>
         </div>
+        -->
       </b-card>
       <!-- /Login v1 -->
     </div>

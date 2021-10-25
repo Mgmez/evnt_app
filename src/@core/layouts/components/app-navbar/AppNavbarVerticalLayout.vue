@@ -2,7 +2,10 @@
   <div class="navbar-container d-flex content align-items-center">
 
     <!-- Nav Menu Toggler -->
-    <ul class="nav navbar-nav d-xl-none">
+    <ul
+      v-if="isLoggedIn"
+      class="nav navbar-nav d-xl-none"
+    >
       <li class="nav-item">
         <b-link
           class="nav-link"
@@ -40,27 +43,29 @@
     >
       <search-bar class="search" />
       <search-bar-mobile class="search-mobile" />
-      <b-button
-        v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-        variant="secondary"
-        :to="{ name: 'auth-register-v1' }"
-      >
-        Registrate
-      </b-button>
-      <b-button
-        v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-        variant="primary"
-        :to="{ name: 'auth-login' }"
-      >
-        Inicia sesion
-      </b-button>
+      <b-button-group>
+        <b-button
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="secondary"
+          :to="{ name: 'auth-register-v1' }"
+        >
+          Registrate
+        </b-button>
+        <b-button
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="primary"
+          :to="{ name: 'auth-login' }"
+        >
+          Inicia sesion
+        </b-button>
+      </b-button-group>
     </b-navbar-nav>
   </div>
 </template>
 
 <script>
 import {
-  BLink, BNavbarNav, BButton,
+  BLink, BNavbarNav, BButton, BButtonGroup,
 } from 'bootstrap-vue'
 import { isUserLoggedIn } from '@/auth/utils'
 import SearchBar from './components/SearchBar.vue'
@@ -74,6 +79,7 @@ export default {
 
     // Navbar Components
     BNavbarNav,
+    BButtonGroup,
     SearchBar,
     DarkToggler,
     UserDropdown,

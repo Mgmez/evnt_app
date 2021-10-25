@@ -9,7 +9,7 @@
 
     <!-- general tab -->
     <b-tab
-      v-if="role==='Customer'"
+      v-if="isCustomer()"
       active
     >
 
@@ -51,7 +51,7 @@
 
     <!-- social links -->
     <b-tab
-      v-if="role === 'Provider'"
+      v-if="isProvider()"
     >
 
       <!-- title -->
@@ -120,6 +120,19 @@ export default {
         this.options = res.data
       })
     }
+  },
+  methods: {
+
+    isCustomer() {
+      const clientPattern = '(C|c).*'
+      if (this.role.match(clientPattern)) return true
+      return false
+    },
+    isProvider() {
+      const provPattern = '(P|p)ro.*'
+      if (this.role.match(provPattern)) return true
+      return false
+    },
   },
 }
 </script>

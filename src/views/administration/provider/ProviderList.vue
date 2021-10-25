@@ -302,6 +302,8 @@ export default {
           this.$store.dispatch('app-user/deleteCustomer', id)
             .then(() => {
               this.refetchData()
+              // eslint-disable-next-line no-restricted-globals
+              location.reload()
             }).catch(e => console.log(e))
           this.$swal.fire(
             'Deleted!',

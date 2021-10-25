@@ -28,7 +28,7 @@
     </template>
 
     <b-dropdown-item
-      v-if="userData.data[0].role === 'Provider'"
+      v-if="isProvider()"
       :to="{ name: 'provider-profile', params: {id: userData.data[0].type_id}}"
       link-class="d-flex align-items-center"
     >
@@ -84,6 +84,12 @@ export default {
     }
   },
   methods: {
+    isProvider() {
+      if (this.userData.data[0].role.match('Prov.*')) {
+        return true
+      }
+      return false
+    },
     logout() {
       // Remove userData from localStorage
       // ? You just removed token from localStorage. If you like, you can also make API call to backend to blacklist used token

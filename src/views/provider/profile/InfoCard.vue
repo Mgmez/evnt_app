@@ -32,7 +32,7 @@
                 :to="{ name: 'provider-update-profile', params: { id: userData.id } }"
                 variant="primary"
               >
-                Edit
+                Editar
               </b-button>
             </div>
           </div>
