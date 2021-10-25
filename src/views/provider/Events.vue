@@ -1,30 +1,30 @@
 <template>
   <section class="section">
-    <h1>Eventos a los que puedo pertenecer</h1>
+    <h1>Servicios a los que puedo cotizar</h1>
 
     <b-card class="mt-2">
       <b-list-group>
         <b-list-group-item
-          v-for="i in 10"
-          :key="i"
+          v-for="service in eventResources"
+          :key="service.id"
           class="flex-column align-items-start"
         >
           <div class="d-flex w-100 justify-content-between">
 
             <b-col md="12">
               <b-card-actions
-                title="Event"
+                :title="service.subCategory.name"
                 action-collapse
               >
                 <b-card-text>
-                  <span>Description goes here </span>
+                  <span>{{ service.description }} </span>
                 </b-card-text>
                 <br>
                 <b-button-group class="mt-2">
                   <b-button
                     v-ripple.400="'rgba(113, 102, 240, 0.15)'"
                     variant="outline-primary"
-                    @click="createQuote"
+                    @click="createQuote(service.id)"
                   >
                     Cotizar
                   </b-button>
@@ -42,8 +42,8 @@ import BCardActions from '@core/components/b-card-actions/BCardActions.vue'
 import {
   BCol, BCard, BListGroup, BListGroupItem, BButton, BButtonGroup,
 } from 'bootstrap-vue'
-// import { buildServiceUrl } from '@/constants/urls'
-// import axios from 'axios'
+import { buildServiceUrl } from '@/constants/urls'
+import axios from 'axios'
 
 export default {
   components: {
@@ -57,10 +57,10 @@ export default {
   },
   data() {
     return {
-      fullData: [],
-      filterData: [],
+      eventResources: [],
       page: 1,
       limit: 10,
+      profileId: JSON.parse(localStorage.getItem('userData')).data[0].type_id,
     }
   },
   beforeMount() {
@@ -69,7 +69,7 @@ export default {
   mounted() {
   },
   methods: {
-    createQuote() {
+    createQuote(eventResourceId) {
       const htmlForm = `
         <div class="form-group">
             <label for="price">Costo</label>
@@ -97,7 +97,55 @@ export default {
         confirmButtonText: 'Enviar',
         cancelButtonText: 'Cancelar',
         showLoaderOnConfirm: true,
+        preConfirm: () => {
+          const price = this.$swal.getPopup().querySelector('#price').value
+          const description = this.$swal.getPopup().querySelector('#message').value
+          if (!price || !description) {
+            this.$swal.showValidationMessage('Por favor llena los campos')
+          }
+          return { price, description }
+        },
+      }).then(result => {
+        if (result.isConfirmed) {
+          const config = {
+            method: 'post',
+            url: buildServiceUrl('/quote'),
+            headers: { },
+            data: {
+              price: Number(result.value.price),
+              description: result.value.description,
+              provider: this.profileId,
+              eventResource: eventResourceId,
+            },
+          }
+
+          axios(config)
+            .then(response => {
+              console.log(JSON.stringify(response.data))
+            })
+            .catch(error => {
+              console.log(error)
+              this.$swal.showValidationMessage('Error al enviar la cotizacion, por favor intente mas tarde')
+            })
+        }
       })
+    },
+    getInitialData() {
+      const config = {
+        method: 'get',
+        url: buildServiceUrl(`/provider/participate/${this.profileId}`),
+        headers: { },
+      }
+
+      axios(config)
+        .then(response => {
+          console.log('JSON.stringify(response.data)')
+          console.log(JSON.stringify(response.data))
+          this.eventResources = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
   },
 }

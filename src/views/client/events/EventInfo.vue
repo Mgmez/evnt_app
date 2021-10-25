@@ -282,7 +282,7 @@ export default {
           }
         })
         this.createEventResources()
-        this.getInitialData()
+        // this.getInitialData()
       }
     },
     createEventResources() {
@@ -311,6 +311,7 @@ export default {
             })
           })
       }
+      this.getInitialData()
     },
     getSelectedCategory(id, val) {
       const subCategory = this.elements.find(e => e.name === val)
@@ -357,11 +358,20 @@ export default {
   display: inherit;
 }
 .section {
-  text-align: center;
+  text-align: -webkit-center;
 }
 .card {
   text-align: center;
-  display: inline-table;
   cursor: pointer;
+}
+#card-images{
+  text-align: center;
+}
+.card-img {
+  width: 300px !important;
+  height: 200px !important;
+  max-width: 300px !important;
+  max-height: 25% !important;
+  display: block;
 }
 </style>
