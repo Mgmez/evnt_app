@@ -193,16 +193,6 @@ export default {
             return
           }
         }
-        /* this.elementsComponent.forEach(e => {
-          if (e.description.trim() === '' || e.subCategory.trim() === '') {
-            this.$swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Llena todos los campos',
-            })
-          }
-        }) */
-
         if (this.eventName.trim() === '') {
           this.$swal.fire({
             icon: 'error',
