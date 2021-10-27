@@ -182,7 +182,18 @@ export default {
           text: 'Añade servicios para tu evento',
         })
       } else {
-        this.elementsComponent.forEach(e => {
+        for (let idx = 0; idx < this.elementsComponent.length; idx += 1) {
+          const e = this.elementsComponent[idx]
+          if (e.description.trim() === '' || e.subCategory.trim() === '') {
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Llena todos los campos',
+            })
+            return
+          }
+        }
+        /* this.elementsComponent.forEach(e => {
           if (e.description.trim() === '' || e.subCategory.trim() === '') {
             this.$swal.fire({
               icon: 'error',
@@ -190,7 +201,7 @@ export default {
               text: 'Llena todos los campos',
             })
           }
-        })
+        }) */
 
         if (this.eventName.trim() === '') {
           this.$swal.fire({
