@@ -48,7 +48,7 @@
               name="noResult"
               :group_name="grp_name"
             >
-              <p>No Results Found.</p>
+              <p>No hay resultados.</p>
             </slot>
           </li>
         </ul>
