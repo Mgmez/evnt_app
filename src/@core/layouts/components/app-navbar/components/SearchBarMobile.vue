@@ -174,10 +174,9 @@ export default {
           /* eslint-enable */
         }
       }
-      if (grpName === 'pages') router.push(suggestion.route).catch(() => {})
+      router.push(suggestion.route).catch(err => { console.log(err) })
       // eslint-disable-next-line no-use-before-define
       resetsearchQuery()
-      showSearchBar.value = false
     }
 
     const {
