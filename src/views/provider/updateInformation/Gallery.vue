@@ -112,6 +112,15 @@ export default {
   methods: {
 
     uploadImage(event) {
+      if (this.imagesCarrousel.length === 10) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Solo se permiten 10 imagenes',
+        })
+        return
+      }
+
       const file = event.target.files[0]
       const fd = new FormData()
       fd.append('file', file)

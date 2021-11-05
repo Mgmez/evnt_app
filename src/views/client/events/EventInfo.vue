@@ -22,7 +22,7 @@
                     <span>{{ element.subCategory.name }} </span>
                   </b-card-text>
 
-                  <b-row class="row mt-2  justify-content-center">
+                  <b-row class="row mt-2  justify-content-center quotes">
 
                     <!-- Providers -->
                     <b-col
@@ -360,8 +360,19 @@ export default {
 .card-img {
   width: 300px !important;
   height: 200px !important;
-  max-width: 300px !important;
+  max-width: 290px !important;
   max-height: 25% !important;
   display: block;
+}
+
+@media (max-width: 480px) {
+  .quotes{
+    display:grid !important;
+  }
+
+  .quotes{
+    width : fit-content !important;
+  }
+
 }
 </style>

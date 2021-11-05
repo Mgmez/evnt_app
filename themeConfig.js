@@ -12,11 +12,13 @@ export const $themeConfig = {
     appName: 'Evnt', // Will update name in navigation menu (Branding)
     // eslint-disable-next-line global-require
     appLogoImage: require('@/assets/images/logo/logo_png_01.svg'), // Will update logo in navigation menu (Branding)
+    // eslint-disable-next-line global-require
+    appLogoFooter: require('@/assets/images/logo/logo_png_02.svg'), // Will update logo in navigation menu (Branding)
   },
   layout: {
     isRTL: false,
     skin: 'light', // light, dark, bordered, semi-dark
-    routerTransition: 'zoom-fade', // zoom-fade, slide-fade, fade-bottom, fade, zoom-out, none
+    routerTransition: 'zoom-out', // zoom-fade, slide-fade, fade-bottom, fade, zoom-out, none
     type: 'vertical', // vertical, horizontal
     contentWidth: 'boxed', // full, boxed
     menu: {

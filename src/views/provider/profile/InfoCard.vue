@@ -45,14 +45,14 @@
         cols="12"
         xl="5"
       >
-        <table class="mt-2 mt-xl-0 w-100">
+        <table class="mt-2 mt-xl-0 w-100 info-profile-display">
           <tr>
             <th class="pb-50">
               <feather-icon
                 icon="UserIcon"
                 class="mr-75"
               />
-              <span class="font-weight-bold">Username</span>
+              <span class="font-weight-bold">Nombre</span>
             </th>
             <td class="pb-50">
               {{ userData.name }}
@@ -66,9 +66,11 @@
               />
               <span class="font-weight-bold">Email</span>
             </th>
-            <td>
-              {{ userData.user.email }}
-            </td>
+              <a :href="'mailto:' + userData.user.email">
+                <td>
+                  {{ userData.user.email }}
+                </td>
+             </a>
           </tr>
           <tr>
             <th class="pb-50">
@@ -78,9 +80,12 @@
               />
               <span class="font-weight-bold">Facebook</span>
             </th>
-            <td class="pb-50 text-capitalize">
-              {{ userData.facebook_url }}
-            </td>
+
+              <a :href="userData.facebook_url">
+                <td class="pb-50 text-capitalize">
+                  {{ userData.facebook_url }}
+                </td>
+             </a>
           </tr>
           <tr>
             <th class="pb-50">
@@ -90,9 +95,11 @@
               />
               <span class="font-weight-bold">Instagram</span>
             </th>
-            <td class="pb-50 text-capitalize">
-              {{ userData.instagram_url }}
-            </td>
+              <a :href="userData.instagram_url">
+                <td class="pb-50 text-capitalize">
+                  {{ userData.instagram_url }}
+                </td>
+             </a>
           </tr>
           <tr>
             <th class="pb-50">
@@ -102,9 +109,11 @@
               />
               <span class="font-weight-bold">Whatsapp</span>
             </th>
-            <td class="pb-50">
-              {{ userData.whatspapp_url }}
-            </td>
+              <a :href="'tel:' + userData.whatspapp_url">
+                <td class="pb-50">
+                  {{ userData.whatspapp_url }}
+                </td>
+             </a>
           </tr>
         </table>
       </b-col>
@@ -148,5 +157,13 @@ export default {
 </script>
 
 <style>
+@media (max-width: 680px) {
+  .row{
+    display: block;
+  }
 
+  .info-profile-display{
+    display: grid;
+  }
+}
 </style>

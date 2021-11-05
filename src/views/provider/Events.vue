@@ -13,11 +13,13 @@
 
             <b-col md="12">
               <b-card-actions
-                :title="service.subCategory.name"
+                :title="service.event.name + ' - ' +new Date(service.createdAt).toLocaleDateString()"
                 action-collapse
               >
                 <b-card-text>
                   <span>{{ service.description }} </span>
+                  <br>
+                  <span>{{ service.subCategory.name }} </span>
                 </b-card-text>
                 <br>
                 <b-button-group class="mt-2">
@@ -71,14 +73,17 @@ export default {
   methods: {
     createQuote(eventResourceId) {
       const htmlForm = `
-        <div class="form-group">
-            <label for="price">Costo</label>
-            <input type="number" min="0" class="form-control" id="price" placeholder="$$$">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="number" min="0" step="1" class="form-control" id="price" placeholder="$$$" aria-label="Amount (to the nearest dollar)">
         </div>
         <div class="form-group">
           <label for="message">Mensaje</label>
           <textarea class="form-control" id="message" rows="3"></textarea>
         </div>
+
           `
       this.$swal.fire({
         title: 'Cotizar Evento',

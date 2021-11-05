@@ -22,6 +22,18 @@
     <!-- Left Col -->
     <div class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex">
 
+      <b-link
+        class="navbar-brand"
+        to="/"
+      >
+        <span class="brand-logo">
+          <b-img
+            :src="appLogoImage"
+            alt="logo"
+            class="logo"
+          />
+        </span>
+      </b-link>
       <!-- Bookmarks Container -->
       <bookmarks />
     </div>
@@ -64,8 +76,9 @@
 </template>
 
 <script>
+import { $themeConfig } from '@themeConfig'
 import {
-  BLink, BNavbarNav, BButton, BButtonGroup,
+  BLink, BNavbarNav, BButton, BButtonGroup, BImg,
 } from 'bootstrap-vue'
 import { isUserLoggedIn } from '@/auth/utils'
 import SearchBar from './components/SearchBar.vue'
@@ -76,7 +89,7 @@ import SearchBarMobile from './components/SearchBarMobile.vue'
 export default {
   components: {
     BLink,
-
+    BImg,
     // Navbar Components
     BNavbarNav,
     BButtonGroup,
@@ -100,6 +113,15 @@ export default {
   beforeMount() {
     this.isLoggedIn = isUserLoggedIn()
   },
+  // eslint-disable-next-line no-unused-vars
+  setup(props) {
+    const { appName, appLogoImage } = $themeConfig.app
+
+    return {
+      appName,
+      appLogoImage,
+    }
+  },
 }
 </script>
 
@@ -108,7 +130,10 @@ export default {
 .search-mobile{
   display: none;
 }
-
+.logo{
+  height:50px;
+  filter: invert(1);
+}
 @media (max-width: 480px) {
   .search-mobile {
     display: initial;

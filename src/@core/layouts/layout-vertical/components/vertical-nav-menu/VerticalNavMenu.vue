@@ -159,4 +159,8 @@ export default {
 
 <style lang="scss">
 @import "~@core/scss/base/core/menu/menu-types/vertical-menu.scss";
+
+.navbar-header{
+  padding-bottom: 90px !important;
+}
 </style>

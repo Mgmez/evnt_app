@@ -157,4 +157,9 @@ export default {
 .row{
   display: inline-flex;
 }
+@media (max-width: 680px) {
+  .row{
+    display: block;
+  }
+}
 </style>

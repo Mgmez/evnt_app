@@ -40,6 +40,21 @@ export default {
 </script>
 <style>
 .img-fluid {
-  max-height: 850px !important;
+  height: 500px !important;
 }
+
+.carousel-example-generic{
+  height: 500px !important;
+}
+
+@media (max-width: 480px) {
+  .img-fluid {
+    height: 300px !important;
+  }
+
+  .carousel-example-generic{
+    height: 300px !important;
+  }
+}
+
 </style>
