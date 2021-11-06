@@ -359,10 +359,7 @@ export default {
   text-align: center;
 }
 .card-img {
-  width: 300px !important;
   height: 200px !important;
-  max-width: 290px !important;
-  max-height: 25% !important;
   display: block;
 }
 
