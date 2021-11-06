@@ -2,6 +2,7 @@
   <section class="section">
     <b-card
       :title="eventName"
+      class="event-card-data"
     >
       <p>{{ eventDescription }}</p>
       <b-card class="mt-2">
@@ -42,7 +43,7 @@
                         text-variant="white"
                         img-alt="card img"
                         body-class="bg-overlay"
-                        class="card"
+                        class="card card-event"
                         @click="getProfile(quote.provider.id)"
                       >
                         <b-card-title class="text-white card-title">
@@ -350,7 +351,7 @@ export default {
 .section {
   text-align: -webkit-center;
 }
-.card {
+.card-event {
   text-align: center;
   cursor: pointer;
 }
@@ -374,5 +375,8 @@ export default {
     width : fit-content !important;
   }
 
+  .event-card-data{
+    width: fit-content !important;
+  }
 }
 </style>
