@@ -155,7 +155,8 @@ export default {
   text-align: -webkit-center;
 }
 .col{
-  max-width: fit-content;
+  max-width: inherit !important;
+  text-align: center;
 }
 .row{
   display: inline-flex;
