@@ -37,7 +37,7 @@
           :key="i"
           cols="12"
           md="5"
-          xl="3"
+          xl="4"
           lg="4"
         >
           <service-card
