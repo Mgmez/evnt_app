@@ -95,12 +95,34 @@
               label="Logo"
               label-for="logo_url"
             >
-              <b-form-input
-                id="logo_url"
-                v-model="userData.logo_url"
-                :state="getValidationState(validationContext)"
-                trim
-              />
+              <b-row>
+                <b-col>
+                  <b-form-input
+                    id="logo_url"
+                    :value="userLogo"
+                    :v-model="userLogo"
+                    :state="getValidationState(validationContext)"
+                    trim
+                  />
+                </b-col>
+                <b-col>
+                  <b-button
+                    variant="primary"
+                    @click="$refs.refInputEl.click()"
+                  >
+                    <input
+                      ref="refInputEl"
+                      type="file"
+                      class="d-none"
+                      @change="uploadImage"
+                    >
+                    <span class="d-none d-sm-inline">Subir</span>
+                    <feather-icon
+                      icon="EditIcon"
+                      class="d-inline d-sm-none"
+                    />
+                  </b-button>
+                </b-col></b-row>
 
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
@@ -214,6 +236,7 @@ export default {
       alphaNum,
       email,
       countries,
+      userLogo: '',
     }
   },
   methods: {
@@ -237,6 +260,20 @@ export default {
             text: 'Error al registrar, porfavor intente de nuevo',
           })
         })
+    },
+    uploadImage(event) {
+      const file = event.target.files[0]
+      const fd = new FormData()
+      fd.append('file', file)
+
+      axios.post(buildServiceUrl('/media/image'), fd)
+        .then(response => {
+          console.log(response)
+          this.userLogo = response.data.link
+          // this.userData.logo_url = response.data.link
+          this.userData.logo_url = response.data.link
+        })
+        .catch(error => console.log(error))
     },
   },
   // eslint-disable-next-line no-unused-vars

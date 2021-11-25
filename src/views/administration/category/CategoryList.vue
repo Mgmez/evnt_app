@@ -311,8 +311,8 @@ export default {
               location.reload()
             }).catch(e => console.log(e))
           this.$swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
+            'Borrado!',
+            'Elemento borrado exitosamente.',
             'success',
           )
         }

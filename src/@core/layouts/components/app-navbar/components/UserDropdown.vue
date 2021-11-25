@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     isProvider() {
-      if (this.userData.data[0].role.match('Prov.*')) {
+      if (this.userData.data[0].role.match('(P|p)ro.*')) {
         return true
       }
       return false

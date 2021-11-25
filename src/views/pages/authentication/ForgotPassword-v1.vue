@@ -75,6 +75,7 @@ import VuexyLogo from '@core/layouts/components/Logo.vue'
 import {
   BCard, BLink, BCardText, BCardTitle, BFormGroup, BFormInput, BForm, BButton,
 } from 'bootstrap-vue'
+import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import { required, email } from '@validations'
 import axios from 'axios'
 import { buildServiceUrl } from '@/constants/urls'
@@ -106,6 +107,14 @@ export default {
     validationForm() {
       this.$refs.simpleRules.validate().then(success => {
         if (success) {
+          this.$toast({
+            component: ToastificationContent,
+            props: {
+              title: 'Se ha cambiado la contraseña',
+              icon: 'EditIcon',
+              variant: 'success',
+            },
+          })
           const config = {
             method: 'post',
             url: buildServiceUrl('/auth/recover-password'),
