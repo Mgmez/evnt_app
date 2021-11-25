@@ -118,6 +118,11 @@
           <b-link :to="{name:'auth-register-v1'}">
             <span>Crear una cuenta</span>
           </b-link>
+          <br>
+          <span>Olvidaste la contraseña? </span>
+          <b-link :to="{name:'auth-forgot-password'}">
+            <span>Recuperar contraseña</span>
+          </b-link>
         </b-card-text>
         <!--
         <div class="divider my-2">

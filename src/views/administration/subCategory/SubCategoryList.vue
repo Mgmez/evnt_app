@@ -94,8 +94,48 @@
 
         <!-- Column: Category -->
         <template #cell(categoria)="data">
-          <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">{{ data.item.category.name }}</span>
+          <div
+            v-if="data.item.categories.length <= 10"
+            class="text-nowrap"
+          >
+
+            <b-avatar-group v-if="data.item.categories.length > 0 && data.item.categories.length < 10" size="50px">
+              <b-avatar
+                v-for="i in data.item.categories"
+                :key="i.id"
+                class="pull-up"
+                badge-variant="success"
+                :src="i.image_url "
+              />
+              <b-avatar
+                v-if="data.item.categories.length > 2"
+                :badge="data.item.categories.length - 2"
+                badge-variant="primary"
+                text="+"
+              />
+            </b-avatar-group>
+            <span v-else class="text-nowrap">Ninguna Categoria</span>
+          </div>
+
+          <div
+            v-else
+            class="text-nowrap"
+          >
+            <b-avatar-group size="32px">
+              <b-avatar
+                v-for="i in 10"
+                :key="i"
+                class="pull-up"
+                badge-variant="success"
+                :src="data.item.categories[i].image_url "
+              />
+              <b-avatar
+                v-if="data.item.categories.length > 2"
+                :badge="data.item.categories.length - 2"
+                badge-variant="primary"
+                text="+"
+              />
+            </b-avatar-group>
           </div>
         </template>
 
@@ -179,7 +219,7 @@
 
 <script>
 import {
-  BCard, BRow, BCol, BFormInput, BButton, BTable, BDropdown, BDropdownItem, BPagination, BAvatar,
+  BCard, BRow, BCol, BFormInput, BButton, BTable, BDropdown, BDropdownItem, BPagination, BAvatar, BAvatarGroup,
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import store from '@/store'
@@ -203,6 +243,7 @@ export default {
     BDropdownItem,
     BPagination,
     BAvatar,
+    BAvatarGroup,
 
     vSelect,
   },

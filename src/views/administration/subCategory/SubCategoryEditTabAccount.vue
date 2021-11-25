@@ -95,15 +95,16 @@
         >
           <b-form-group
             label="Categoria"
-            label-for="category"
+            label-for="categories"
           >
             <v-select
-              v-model="userData.category.id"
+              v-model="userData.categoriesIds"
               :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
               :options="$store.getters['app-user/getUsers']"
               :reduce="val => val.value"
               :clearable="false"
-              input-id="category"
+              input-id="categories"
+              multiple
             />
           </b-form-group>
         </b-col>

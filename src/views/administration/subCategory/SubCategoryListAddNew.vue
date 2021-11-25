@@ -125,6 +125,7 @@
                 :reduce="val => val.value"
                 :clearable="false"
                 input-id="category"
+                multiple
               />
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
@@ -266,7 +267,7 @@ export default {
         name: this.userData.name,
         image_url: this.userData.image_url,
         icon: '',
-        category: this.userData.category,
+        categories: this.userData.category,
       }
       axios
         .post(buildServiceUrl('/sub-category'), data)

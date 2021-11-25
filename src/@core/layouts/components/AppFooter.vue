@@ -4,6 +4,7 @@
       <b-img
         :src="appLogoFooter"
         alt="logo"
+        class="footer-logo"
       />
     </span>
   </p>
@@ -40,5 +41,10 @@ p{
 
 footer{
   height: 50px;
+}
+
+.footer-logo{
+  padding-bottom: 10px;
+  width: 300px;
 }
 </style>

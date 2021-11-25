@@ -30,7 +30,13 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(buildServiceUrl(`/sub-category/${id}`))
-          .then(response => resolve(response))
+          .then(response => {
+            const { categories } = response.data
+            // eslint-disable-next-line no-param-reassign
+            response.data.categoriesIds = categories.map(c => c.id)
+            console.log(response)
+            resolve(response)
+          })
           .catch(error => reject(error))
       })
     },
@@ -44,7 +50,8 @@ export default {
       const payload = data
       console.log(id)
       console.log(data)
-      payload.category = data.category.id
+      payload.categories = data.categoriesIds
+      console.log(payload)
       const update = new Promise((resolve, reject) => {
         delete payload.avatar
         axios
