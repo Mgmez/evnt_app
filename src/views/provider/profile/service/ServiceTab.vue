@@ -93,14 +93,17 @@
         <b-col
           cols="12"
           md="4"
+          hidden
         >
           <b-form-group
             label="Imagen"
             label-for="image_url"
+            hidden
           >
             <b-form-input
               id="image_url"
               v-model="serviceData.image_url"
+              hidden
             />
           </b-form-group>
         </b-col>

@@ -77,14 +77,17 @@
         <b-col
           cols="12"
           md="4"
+          hidden
         >
           <b-form-group
             label="Logo"
             label-for="logo_url"
+            hidden
           >
             <b-form-input
               id="logo_url"
               v-model="userData.logo_url"
+              hidden
             />
           </b-form-group>
         </b-col>

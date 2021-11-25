@@ -66,11 +66,11 @@
               />
               <span class="font-weight-bold">Email</span>
             </th>
-              <a :href="'mailto:' + userData.user.email">
-                <td>
-                  {{ userData.user.email }}
-                </td>
-             </a>
+            <a :href="'mailto:' + userData.user.email">
+              <td>
+                {{ userData.user.email }}
+              </td>
+            </a>
           </tr>
           <tr>
             <th class="pb-50">
@@ -81,11 +81,11 @@
               <span class="font-weight-bold">Facebook</span>
             </th>
 
-              <a :href="userData.facebook_url">
-                <td class="pb-50 text-capitalize">
-                  {{ userData.facebook_url }}
-                </td>
-             </a>
+            <a :href="userData.facebook_url">
+              <td class="pb-50">
+                {{ userData.facebook_url }}
+              </td>
+            </a>
           </tr>
           <tr>
             <th class="pb-50">
@@ -95,11 +95,11 @@
               />
               <span class="font-weight-bold">Instagram</span>
             </th>
-              <a :href="userData.instagram_url">
-                <td class="pb-50 text-capitalize">
-                  {{ userData.instagram_url }}
-                </td>
-             </a>
+            <a :href="userData.instagram_url">
+              <td class="pb-50">
+                {{ userData.instagram_url }}
+              </td>
+            </a>
           </tr>
           <tr>
             <th class="pb-50">
@@ -109,11 +109,11 @@
               />
               <span class="font-weight-bold">Whatsapp</span>
             </th>
-              <a :href="'tel:' + userData.whatspapp_url">
-                <td class="pb-50">
-                  {{ userData.whatspapp_url }}
-                </td>
-             </a>
+            <a :href="'tel:' + userData.whatspapp_url">
+              <td class="pb-50">
+                {{ userData.whatspapp_url }}
+              </td>
+            </a>
           </tr>
         </table>
       </b-col>

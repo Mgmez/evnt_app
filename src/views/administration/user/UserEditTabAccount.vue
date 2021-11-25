@@ -49,7 +49,7 @@
         >
           <b-form-group
             label="Plan"
-            label-for="user-role"
+            label-for="user-plan"
           >
             <v-select
               v-model="userData.plan"

@@ -10,10 +10,13 @@
           :src="serviceData.image_url"
           alt=""
         >
-        <h5 class="mb-0">
+        <h5 class="mb-0 mt-75">
           {{ serviceData.name }}
         </h5>
-        <b-badge variant="light-primary">
+        <b-badge
+          variant="light-primary"
+          class="mb-0 mt-75"
+        >
           {{ serviceData.subCategory.name }}
         </b-badge>
       </b-card-header>

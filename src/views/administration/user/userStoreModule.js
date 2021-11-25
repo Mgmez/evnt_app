@@ -55,11 +55,20 @@ export default {
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
+      const plan = new Promise((resolve, reject) => {
+        axios
+          .patch(buildServiceUrl(`/user/plan/${id}`), { plan: data.plan })
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
       if (data.email !== '' || data.email !== undefined) {
         Promise.resolve(email)
       }
-      if (data.role !== '' || data.role !== undefined) {
+      if (data.plan !== '' || data.plan !== undefined) {
         Promise.resolve(role)
+      }
+      if (data.plan !== '' || data.plan !== undefined) {
+        Promise.resolve(plan)
       }
     },
     deleteUser(ctx, id) {

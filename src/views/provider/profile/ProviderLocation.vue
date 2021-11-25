@@ -100,7 +100,7 @@ export default {
     if (sessionData.data[0].type_id === this.userId) {
       this.isMyProfile = true
     }
-    if (this.latitude === null || this.altitude === null) {
+    if (this.latitude === null || this.altitude === null || this.latitude === 0 || this.altitude === 0) {
       navigator.geolocation.getCurrentPosition(this.createCurrentPosition)
     }
   },
