@@ -32,7 +32,7 @@
             label-for="user-role"
           >
             <v-select
-              v-model="userData.role.name"
+              v-model="userData.role.id"
               :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
               :options="roleOptions"
               :reduce="val => val.value"
@@ -106,6 +106,8 @@ import vSelect from 'vue-select'
 import { ref, onUnmounted } from '@vue/composition-api'
 import store from '@/store'
 import router from '@/router'
+import axios from 'axios'
+import { buildServiceUrl } from '@/constants/urls'
 import useUsersList from './useUsersList'
 import userStoreModule from './userStoreModule'
 
@@ -125,6 +127,40 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      roleOptions: [],
+      planOptions: [
+        { label: 'Free', value: 'Free' },
+        { label: 'Enterprise', value: 'Enterprise' },
+      ],
+    }
+  },
+  async beforeMount() {
+    this.roleOptions = await axios.get(buildServiceUrl('/role'), { params: { page: 1, limit: 100 } }).then(response => response.data.items.map(e => ({ label: e.name, value: e.id }))).catch(error => console.log(error))
+    console.log('roleOptions')
+    console.log(this.roleOptions)
+  },
+  methods: {
+    onUpdate(data) {
+      console.log('data')
+      console.log(data)
+      store.dispatch('app-user/updateUser', { id: router.currentRoute.params.id, data })
+        .then(() => {
+          this.$emit('app-user/fetchUsers')
+          this.$emit('refetch-data')
+        }).catch(e => {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al actualizar',
+          })
+          console.log(e)
+        })
+      router.replace({ name: 'users' })
+    },
+  },
+  // eslint-disable-next-line no-unused-vars
   setup(props, { emit }) {
     const { resolveUserRoleVariant } = useUsersList()
 
@@ -138,33 +174,6 @@ export default {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
 
-    const onUpdate = data => {
-      store.dispatch('app-user/updateUser', { id: router.currentRoute.params.id, data })
-        .then(() => {
-          emit('app-user/fetchUsers')
-          emit('refetch-data')
-        }).catch(e => {
-          this.$swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Error al actualizar',
-          })
-          console.log(e)
-        })
-      router.replace({ name: 'users' })
-    }
-
-    const roleOptions = [
-      { label: 'Administrator', value: '1b75aab3-51e3-4a32-a4c2-5a09d0e27df3' },
-      { label: 'Provider', value: '5c6ad3c1-de22-49ef-b88c-66ad2915a205' },
-      { label: 'Customer', value: '7fc5f24b-8b61-460f-a8bf-24ac59722198' },
-    ]
-
-    const planOptions = [
-      { label: 'Free', value: 'Free' },
-      { label: 'Enterprise', value: 'Enterprise' },
-    ]
-
     const statusOptions = [
       { label: 'Pending', value: 'pending' },
       { label: 'Active', value: 'active' },
@@ -176,10 +185,7 @@ export default {
 
     return {
       resolveUserRoleVariant,
-      onUpdate,
       avatarText,
-      roleOptions,
-      planOptions,
       statusOptions,
       //  ? Demo - Update Image on click of update button
       refInputEl,

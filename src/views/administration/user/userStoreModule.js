@@ -51,7 +51,7 @@ export default {
       })
       const role = new Promise((resolve, reject) => {
         axios
-          .patch(buildServiceUrl(`/user/role/${id}`), { role: data.role.name })
+          .patch(buildServiceUrl(`/user/role/${id}`), { role: data.role.id })
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
