@@ -1,6 +1,9 @@
 <template>
   <b-card-code title="Direccion del proveedor">
-    <small v-if="isMyProfile">Arrastra el icono a tu ubicacion</small>
+    <h6
+      v-if="isMyProfile"
+      class="text-primary"
+    >Arrastra el icono a tu ubicacion</h6>
     <l-map
       :zoom="zoom"
       :center="center"
@@ -22,13 +25,22 @@
         <l-popup>Ubicacion de la empresa</l-popup>
       </l-marker>
     </l-map>
-    <b-button
-      v-if="isMyProfile"
-      variant="primary"
-      @click="updatePosition"
-    >
-      Actualizar ubicacion
-    </b-button>
+    <b-button-group>
+      <b-button
+        v-if="isMyProfile"
+        variant="primary"
+        @click="updatePosition"
+      >
+        Actualizar ubicacion
+      </b-button>
+      <b-button
+        v-if="isMyProfile"
+        variant="secundary"
+        @click="getMyCurrentPosition"
+      >
+        Obtener mi ubicacion
+      </b-button>
+    </b-button-group>
   </b-card-code>
 </template>
 
@@ -39,6 +51,7 @@ import {
 } from 'vue2-leaflet'
 import {
   BButton,
+  BButtonGroup,
 } from 'bootstrap-vue'
 import 'leaflet/dist/leaflet.css'
 import { Icon } from 'leaflet'
@@ -63,6 +76,7 @@ export default {
     LMarker,
     BCardCode,
     BButton,
+    BButtonGroup,
   },
   props: {
     latitude: {
@@ -101,7 +115,7 @@ export default {
       this.isMyProfile = true
     }
     if (this.latitude === null || this.altitude === null || this.latitude === 0 || this.altitude === 0) {
-      navigator.geolocation.getCurrentPosition(this.createCurrentPosition)
+      navigator.geolocation.getCurrentPosition(this.createCurrentPosition, this.showError)
     }
   },
   methods: {
@@ -118,6 +132,16 @@ export default {
       this.longitude = pos.coords.longitude
       this.center = [pos.coords.latitude, pos.coords.longitude]
       this.markerLatLng = [pos.coords.latitude, pos.coords.longitude, { draggable: 'true' }]
+    },
+    getMyCurrentPosition() {
+      navigator.geolocation.getCurrentPosition(this.createCurrentPosition, this.showError)
+    },
+    showError() {
+      this.$swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al obtener tu ubicacion, verifica las preferencias de tu navegador. Tambien puedes actualizar tu ubicacion moviendo el cursor del mapa',
+      })
     },
     updatePosition() {
       console.log('this.center')
