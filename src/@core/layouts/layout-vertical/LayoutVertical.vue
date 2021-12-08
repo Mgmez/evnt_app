@@ -159,4 +159,7 @@ export default {
 
 <style lang="scss">
 @import "~@core/scss/base/themes/bordered-layout.scss";
+.header-navbar{
+  background-color: rgb(236, 95, 113) !important;
+}
 </style>

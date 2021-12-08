@@ -110,7 +110,7 @@ export default {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: 'Se ha cambiado la contraseña',
+              title: 'Se ha enviado un email para recuperar la contraseña',
               icon: 'EditIcon',
               variant: 'success',
             },
