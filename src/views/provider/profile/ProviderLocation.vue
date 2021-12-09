@@ -139,7 +139,6 @@ export default {
 
       const searchBox = new google.maps.places.SearchBox(input)
 
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input)
       // Bias the SearchBox results towards current map's viewport.
       map.addListener('bounds_changed', () => {
         searchBox.setBounds(map.getBounds())
@@ -170,12 +169,13 @@ export default {
           return
         }
 
+        myMarker.setMap(null)
+
         // For each place, get the icon, name and location.
         const bounds = new google.maps.LatLngBounds()
         const place = places[0]
         this.myLat = place.geometry.location.lat()
         this.myLong = place.geometry.location.lng()
-
         myMarker = new google.maps.Marker({
           position: new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()),
           draggable: this.isMyProfile,
@@ -285,5 +285,10 @@ export default {
 
 #map {
   height: 100%;
+}
+
+#pac-input{
+  top: 10px !important;
+  max-width: 100%;
 }
 </style>
