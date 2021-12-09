@@ -10,6 +10,6 @@ export default [
   {
     title: 'Mis Eventos',
     route: 'my-events-list',
-    icon: 'LayersIcon',
+    icon: 'GiftIcon',
   },
 ]

@@ -15,7 +15,7 @@ export default [
   {
     title: 'Clientes',
     route: 'customers',
-    icon: 'GiftIcon',
+    icon: 'UserIcon',
   },
   {
     title: 'Provedores',
@@ -23,7 +23,7 @@ export default [
     icon: 'HexagonIcon',
   },
   {
-    title: 'Categories',
+    title: 'Categorias',
     route: 'categories',
     icon: 'TagIcon',
   },
@@ -36,8 +36,8 @@ export default [
     header: 'Global',
   },
   {
-    title: 'Categorias',
+    title: 'Ver Categorias',
     route: 'categories-list',
-    icon: 'LayersIcon',
+    icon: 'TagIcon',
   },
 ]

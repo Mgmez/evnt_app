@@ -5,6 +5,6 @@ export default [
   {
     title: 'Eventos',
     route: 'events-provider',
-    icon: 'LayersIcon',
+    icon: 'GiftIcon',
   },
 ]
