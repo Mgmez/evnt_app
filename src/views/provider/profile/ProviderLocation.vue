@@ -6,10 +6,11 @@
     >Arrastra el icono a tu ubicacion</h6>
 
     <b-form-input
+      v-if="isMyProfile"
       id="pac-input"
       class="controls"
       type="text"
-      placeholder="Search Box"
+      placeholder="Busca tu direccion"
     />
     <div
       id="map"
@@ -152,7 +153,7 @@ export default {
        */
       let myMarker = new google.maps.Marker({
         position: new google.maps.LatLng(this.myLat, this.myLong),
-        draggable: true,
+        draggable: this.isMyProfile,
       })
       console.log('myMarker')
       console.log(myMarker)
@@ -185,7 +186,7 @@ export default {
 
         myMarker = new google.maps.Marker({
           position: new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()),
-          draggable: true,
+          draggable: this.isMyProfile,
           title: place.name,
         })
         google.maps.event.addListener(myMarker, 'dragend', evt => {
