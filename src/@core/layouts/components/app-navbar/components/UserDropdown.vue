@@ -28,6 +28,11 @@
     </template>
 
     <b-dropdown-item
+      link-class="d-flex align-items-center"
+    >
+      <span style="font-size: 10px">{{ userData.data[0].role }} {{ userName }}</span>
+    </b-dropdown-item>
+    <b-dropdown-item
       v-if="isProvider()"
       :to="{ name: 'provider-profile', params: {id: userData.data[0].type_id}}"
       link-class="d-flex align-items-center"
@@ -70,6 +75,8 @@ import {
 import { initialAbility } from '@/libs/acl/config'
 import useJwt from '@/auth/jwt/useJwt'
 import { avatarText } from '@core/utils/filter'
+import axios from 'axios'
+import { buildServiceUrl } from '@/constants/urls'
 
 export default {
   components: {
@@ -80,7 +87,23 @@ export default {
   data() {
     return {
       userData: JSON.parse(localStorage.getItem('userData')),
+      userName: '',
       avatarText,
+    }
+  },
+  beforeMount() {
+    if (this.isProvider()) {
+      axios.get(buildServiceUrl(`/provider/${this.userData.data[0].type_id}`))
+        .then(res => {
+          this.userName = res.data.name
+        })
+        .catch(err => console.log(err))
+    } else {
+      axios.get(buildServiceUrl(`/customer/${this.userData.data[0].type_id}`))
+        .then(res => {
+          this.userName = `${res.data.firstName} ${res.data.lastName}`
+        })
+        .catch(err => console.log(err))
     }
   },
   methods: {
