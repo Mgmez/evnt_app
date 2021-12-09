@@ -95,28 +95,27 @@ export default {
     }
   },
   beforeMount() {
-    console.log('sadasdas')
-    console.log(this.myLat)
-    console.log(this.myLong)
     const sessionData = JSON.parse(localStorage.getItem('userData'))
-    if (sessionData.data[0].type_id === this.userId) {
-      this.isMyProfile = true
+    try {
+      if (sessionData.data[0].type_id === this.userId) {
+        this.isMyProfile = true
+      }
+    } catch (error) {
+      this.isMyProfile = false
     }
     if (this.myLat === null || this.myLong === null || this.myLat === 0 || this.myLong === 0) {
       navigator.geolocation.getCurrentPosition(this.createCurrentPosition, this.showError)
     }
   },
   mounted() {
-    this.initMap()
+    if (this.isMyProfile) { this.initMap() } else { this.initMapNotMyProfile() }
   },
   methods: {
     alert(e) {
-      console.log(e)
       this.myLat = e.latlng.lat
       this.myLong = e.latlng.lng
     },
     createCurrentPosition(pos) {
-      console.log(pos)
       this.myLat = pos.coords.latitude
       this.myLong = pos.coords.longitude
       this.center = [pos.coords.latitude, pos.coords.longitude]
@@ -124,7 +123,6 @@ export default {
       this.initMap()
     },
     async initMap() {
-      console.log('object')
       const loader = new Loader({
         apiKey: 'AIzaSyAkp6YqJgpYVe2iDsTuXMxkfCNwzFSUOwk',
         version: 'weekly',
@@ -155,13 +153,10 @@ export default {
         position: new google.maps.LatLng(this.myLat, this.myLong),
         draggable: this.isMyProfile,
       })
-      console.log('myMarker')
-      console.log(myMarker)
 
       google.maps.event.addListener(myMarker, 'dragend', evt => {
         this.myLat = evt.latLng.lat()
         this.myLong = evt.latLng.lng()
-        console.log('change')
         map.panTo(evt.latLng)
       })
       map.setCenter(myMarker.position)
@@ -171,9 +166,6 @@ export default {
       // more details for that place.
       searchBox.addListener('places_changed', () => {
         const places = searchBox.getPlaces()
-        console.log('places')
-        console.log(places)
-
         if (places.length === 0) {
           return
         }
@@ -209,6 +201,36 @@ export default {
         }
         map.fitBounds(bounds)
       })
+    },
+    async initMapNotMyProfile() {
+      const loader = new Loader({
+        apiKey: 'AIzaSyAkp6YqJgpYVe2iDsTuXMxkfCNwzFSUOwk',
+        version: 'weekly',
+        libraries: ['places'],
+      })
+      const google = await loader.load()
+      // eslint-disable-next-line no-unused-vars
+      const map = new google.maps.Map(document.getElementById('map'), {
+        center: new google.maps.LatLng(this.myLat, this.myLong),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoom: 17,
+      })
+      /**
+       * NOTA
+       * myMarker solo si el usuario tiene ubicacion guarda en la base de datos
+       */
+      const myMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(this.myLat, this.myLong),
+        draggable: this.isMyProfile,
+      })
+
+      google.maps.event.addListener(myMarker, 'dragend', evt => {
+        this.myLat = evt.latLng.lat()
+        this.myLong = evt.latLng.lng()
+        map.panTo(evt.latLng)
+      })
+      map.setCenter(myMarker.position)
+      myMarker.setMap(map)
     },
     async getMyCurrentPosition() {
       navigator.geolocation.getCurrentPosition(this.createCurrentPosition, this.showError)

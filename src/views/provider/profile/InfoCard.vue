@@ -149,8 +149,12 @@ export default {
   },
   beforeMount() {
     const sessionData = JSON.parse(localStorage.getItem('userData'))
-    if (sessionData.data[0].type_id === this.userData.id) {
-      this.isMyProfile = true
+    try {
+      if (sessionData.data[0].type_id === this.userData.id) {
+        this.isMyProfile = true
+      }
+    } catch (error) {
+      this.isMyProfile = false
     }
   },
 }
