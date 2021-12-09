@@ -20,7 +20,7 @@
     </ul>
 
     <!-- Left Col -->
-    <div class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex">
+    <div class="align-items-center flex-grow-1 d-lg-flex">
 
       <b-link
         class="navbar-brand"
@@ -30,47 +30,46 @@
           <b-img
             :src="appLogoImage"
             alt="logo"
-            class="logo"
+            class="logo logo-mynav"
           />
         </span>
       </b-link>
-      <!-- Bookmarks Container -->
-      <bookmarks />
     </div>
 
     <b-navbar-nav
       v-if="isLoggedIn"
       class="nav align-items-center ml-auto"
     >
-      <locale />
       <dark-Toggler class="d-none d-lg-block" />
       <search-bar class="search" />
       <search-bar-mobile class="search-mobile" />
-      <cart-dropdown />
       <user-dropdown />
     </b-navbar-nav>
     <b-navbar-nav
       v-else
       class="nav align-items-center ml-auto"
     >
-      <search-bar class="search" />
-      <search-bar-mobile class="search-mobile" />
-      <b-button-group>
-        <b-button
-          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-          variant="secondary"
-          :to="{ name: 'auth-register-v1' }"
-        >
-          Registrate
-        </b-button>
-        <b-button
-          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-          variant="primary"
-          :to="{ name: 'auth-login' }"
-        >
-          Inicia sesion
-        </b-button>
-      </b-button-group>
+      <b-row>
+        <search-bar-mobile class="search-mobile" />
+      </b-row>
+      <b-row>
+        <b-button-group>
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            variant="secondary"
+            :to="{ name: 'auth-register-v1' }"
+          >
+            Registrate
+          </b-button>
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            variant="primary"
+            :to="{ name: 'auth-login' }"
+          >
+            Inicia sesion
+          </b-button>
+        </b-button-group>
+      </b-row>
     </b-navbar-nav>
   </div>
 </template>
@@ -78,7 +77,7 @@
 <script>
 import { $themeConfig } from '@themeConfig'
 import {
-  BLink, BNavbarNav, BButton, BButtonGroup, BImg,
+  BLink, BNavbarNav, BButton, BButtonGroup, BImg, BRow,
 } from 'bootstrap-vue'
 import { isUserLoggedIn } from '@/auth/utils'
 import SearchBar from './components/SearchBar.vue'
@@ -90,6 +89,7 @@ export default {
   components: {
     BLink,
     BImg,
+    BRow,
     // Navbar Components
     BNavbarNav,
     BButtonGroup,
