@@ -13,13 +13,13 @@ export default [
     component: () => import('@/views/client/category/CategoryList.vue'),
   },
   {
-    path: '/subcategory-list/:name',
+    path: '/subcategory-list/:id',
     name: 'subcategory-list',
     component: () => import('@/views/client/subcategory/SubCategoryList.vue'),
     props: true,
   },
   {
-    path: '/provider-list/:name',
+    path: '/provider-list/:id',
     name: 'provider-list',
     component: () => import('@/views/client/provider/ProviderList.vue'),
     props: true,
