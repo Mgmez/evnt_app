@@ -8,6 +8,19 @@
       @input="dataFilter"
     />-->
     <b-row class="row">
+      <b-link
+        :to="{name:'categories-list'}"
+      >Ir a eventos
+      </b-link>
+      >
+      <b-link
+        :to="{name:'subcategory-list', params: {id: categoryData.id}}"
+      >
+        ir a servicios
+      </b-link>
+      > estas visitando {{ subcategoryData.name }}
+    </b-row>
+    <b-row class="row row-cat">
 
       <!-- img overlay -->
       <b-col
@@ -34,13 +47,20 @@
           </b-card-title>
         </b-card>
       </b-col>
+
+      <h1
+        v-if="filterData.length === 0"
+        class="mt-25"
+      >
+        No hay proveedores disponibles para {{ subcategoryData.name }}, vuelve mas tarde
+      </h1>
     </b-row>
   </section>
 </template>
 
 <script>
 import {
-  BRow, BCol, BCard, BCardTitle,
+  BRow, BCol, BCard, BCardTitle, BLink,
 } from 'bootstrap-vue'
 import { buildServiceUrl } from '@/constants/urls'
 import axios from 'axios'
@@ -53,6 +73,7 @@ export default {
     BCol,
     BCard,
     BCardTitle,
+    BLink,
   },
   props: ['id', 'name'],
   data() {
@@ -60,11 +81,17 @@ export default {
       fullData: [],
       filterData: [],
       page: 1,
-      limit: 10,
+      limit: 100,
+      subcategoryData: {
+        id: this.$route.params.idSubcategory,
+      },
+      categoryData: {
+        id: this.$route.params.idCategory,
+      },
     }
   },
   watch: {
-    '$route.params.id': function () {
+    '$route.params.idSubcategory': function () {
       this.getInitialData()
     },
   },
@@ -83,15 +110,22 @@ export default {
   },
   methods: {
     getInitialData() {
-      if (this.$route.params.id === undefined) {
+      if (this.$route.params.idSubcategory === undefined) {
         this.$router.push('/categories-list')
         return
       }
-      console.log(this.$route.params.id)
-      axios.get(buildServiceUrl(`/provider/services/${this.$route.params.id}`))
+      console.log(this.$route.params.idSubcategory)
+      axios.get(buildServiceUrl(`/provider/services/${this.$route.params.idSubcategory}`))
         .then(res => {
           this.filterData = res.data
           this.getFullData() // remove this when you get the backend whole data
+        })
+        .catch(err => console.log(err))
+      axios.get(buildServiceUrl(`/sub-category/${this.$route.params.idSubcategory}`))
+        .then(res => {
+          this.subcategoryData = res.data
+          console.log('subcategoryData')
+          console.log(this.subcategoryData)
         })
         .catch(err => console.log(err))
     },
@@ -155,7 +189,7 @@ export default {
   max-width: inherit !important;
   text-align: center;
 }
-.row{
+.row-cat{
   display: inline-flex;
 }
 @media (max-width: 680px) {

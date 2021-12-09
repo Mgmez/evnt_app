@@ -8,6 +8,13 @@
       @input="dataFilter"
     />-->
     <b-row class="row">
+      <b-link
+        :to="{name:'categories-list'}"
+      >Ir a eventos
+      </b-link>
+      > estas visitando {{ categoryData.name }}
+    </b-row>
+    <b-row class="row row-cat">
 
       <!-- img overlay -->
       <b-col
@@ -40,7 +47,7 @@
 
 <script>
 import {
-  BRow, BCol, BCard, BCardTitle,
+  BRow, BCol, BCard, BCardTitle, BLink,
 } from 'bootstrap-vue'
 import { buildServiceUrl } from '@/constants/urls'
 import axios from 'axios'
@@ -53,6 +60,7 @@ export default {
     BCol,
     BCard,
     BCardTitle,
+    BLink,
   },
   props: ['id', 'name'],
   data() {
@@ -60,7 +68,8 @@ export default {
       fullData: [],
       filterData: [],
       page: 1,
-      limit: 10,
+      limit: 100,
+      categoryData: {},
     }
   },
   watch: {
@@ -89,8 +98,10 @@ export default {
       }
       axios.get(buildServiceUrl(`/sub-category/category/${this.$route.params.id}`))
         .then(res => {
-          console.log(res.data)
           this.filterData = res.data
+          this.categoryData = this.filterData[0].categories.filter(c => c.id === this.$route.params.id)
+          // eslint-disable-next-line prefer-destructuring
+          this.categoryData = this.categoryData[0]
           this.getFullData() // remove this when you get the backend whole data
         })
         // eslint-disable-next-line no-unused-vars
@@ -101,7 +112,6 @@ export default {
 
     getFullData() {
       // this.fullData = res.data.items
-      console.log('get full data from backend')
       this.fullData = this.filterData
       console.log(this.fullData)
     },
@@ -121,7 +131,7 @@ export default {
     getProvider(event, name) {
       this.$router.push({
         name: 'provider-list',
-        params: { id: event.currentTarget.id, name },
+        params: { idCategory: this.categoryData.id, idSubcategory: event.currentTarget.id, name },
       })
     },
   },
@@ -158,7 +168,7 @@ export default {
   max-width: inherit !important;
   text-align: center;
 }
-.row{
+.row-cat{
   display: inline-flex;
 }
 @media (max-width: 680px) {

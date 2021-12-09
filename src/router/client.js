@@ -19,7 +19,7 @@ export default [
     props: true,
   },
   {
-    path: '/provider-list/:id',
+    path: '/provider-list/:idCategory/:idSubcategory',
     name: 'provider-list',
     component: () => import('@/views/client/provider/ProviderList.vue'),
     props: true,
