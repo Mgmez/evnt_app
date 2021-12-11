@@ -41,6 +41,12 @@
           </b-card-title>
         </b-card>
       </b-col>
+      <h1
+        v-if="filterData.length === 0"
+        class="mt-25"
+      >
+        No hay servicios disponibles para  {{ categoryData.name }}, intenta mas tarde
+      </h1>
     </b-row>
   </section>
 </template>
@@ -99,13 +105,35 @@ export default {
       axios.get(buildServiceUrl(`/sub-category/category/${this.$route.params.id}`))
         .then(res => {
           this.filterData = res.data
-          this.categoryData = this.filterData[0].categories.filter(c => c.id === this.$route.params.id)
-          // eslint-disable-next-line prefer-destructuring
-          this.categoryData = this.categoryData[0]
-          this.getFullData() // remove this when you get the backend whole data
+          try {
+            // this.categoryData = this.filterData[0].categories.filter(c => c.id === this.$route.params.id)
+            // eslint-disable-next-line prefer-destructuring
+            // this.categoryData = this.categoryData[0]
+            this.getFullData() // remove this when you get the backend whole data
+          } catch (error) {
+            this.categoryData = []
+            console.log(error)
+          }
         })
         // eslint-disable-next-line no-unused-vars
         .catch(_err => {
+          console.log(_err)
+          this.$router.push('/')
+        })
+      axios.get(buildServiceUrl(`/category/${this.$route.params.id}`))
+        .then(res => {
+          try {
+            this.categoryData = res.data
+          } catch (error) {
+            this.categoryData = {
+              name: 'el evento',
+            }
+            console.log(error)
+          }
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch(_err => {
+          console.log(_err)
           this.$router.push('/')
         })
     },
