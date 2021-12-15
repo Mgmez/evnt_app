@@ -48,7 +48,7 @@ const getSubCategories = async() =>{
       route.title = element.name
       route.route = {
         name : `provider-list`,
-        params: { id: element.id, name: element.name },
+        params: { idSubcategory: element.id, idCategory: element.categories[0].id },
       }
       route.icon = element.image_url
       route.isBookmarked = false
