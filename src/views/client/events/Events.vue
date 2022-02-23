@@ -86,16 +86,14 @@ export default {
     async getInitialData() {
       const config = {
         method: 'get',
-        url: buildServiceUrl(`/event?page=${this.page}&limit=${this.limit}&q`),
-        // url: buildServiceUrl(`/event/customer/${JSON.parse(localStorage.getItem('userData')).data[0].type_id}`),
-
-        headers: { },
+        url: buildServiceUrl(`/event/customer/${JSON.parse(localStorage.getItem('userData')).data[0].type_id}`),
+        headers: [],
       }
 
       await axios(config)
         .then(response => {
-          console.log(response.data.items)
-          this.events = response.data.items
+          console.log(response.data)
+          this.events = response.data
         })
         .catch(error => {
           console.log(error)
