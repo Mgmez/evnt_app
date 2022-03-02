@@ -1,11 +1,10 @@
-FROM node:10 as builder
+FROM node:14 as builder
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
-RUN npx eslint --fix .
+RUN npm ci
 RUN npm run build
 
 FROM steebchen/nginx-spa:stable
