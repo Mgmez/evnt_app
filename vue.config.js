@@ -18,8 +18,8 @@ module.exports = {
         '@core': path.resolve(__dirname, 'src/@core'),
         '@validations': path.resolve(__dirname, 'src/@core/utils/validations/validations.js'),
         '@axios': path.resolve(__dirname, 'src/libs/axios'),
-	'@': path.resolve(__dirname, './src'),
-	'/^@vue\/composition-api$/': '@vue/composition-api/dist/vue-composition-api.mjs'
+        '@': path.resolve(__dirname, './src'),
+        '/^@vue/composition-api$/': '@vue/composition-api/dist/vue-composition-api.mjs',
       },
     },
   },
@@ -47,4 +47,3 @@ module.exports = {
   },
   transpileDependencies: ['vue-echarts', 'resize-detector'],
 }
-
