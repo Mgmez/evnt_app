@@ -18,6 +18,8 @@ module.exports = {
         '@core': path.resolve(__dirname, 'src/@core'),
         '@validations': path.resolve(__dirname, 'src/@core/utils/validations/validations.js'),
         '@axios': path.resolve(__dirname, 'src/libs/axios'),
+        '@': path.resolve(__dirname, './src'),
+        '/^@vue/composition-api$/': '@vue/composition-api/dist/vue-composition-api.mjs',
       },
     },
   },
