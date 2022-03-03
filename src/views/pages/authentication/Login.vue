@@ -209,6 +209,15 @@ export default {
     const user = await sso.parseHash(hash)
     this.setNewSession(user)
   },
+  beforeMount() {
+    console.log(this.$route.query)
+    if (this.$route.query.autologin) {
+      console.log('hola')
+      this.userEmail = this.$route.query.email
+      this.password = this.$route.query.password
+      this.login()
+    }
+  },
   methods: {
     login() {
       axios.post(buildServiceUrl('/auth/login'), { email: this.userEmail, password: this.password })
@@ -254,7 +263,7 @@ export default {
       console.log(user)
       console.log(user.idTokenPayload)
       this.$ability.update(user.idTokenPayload.ability)
-      this.$router.push('/')
+      this.$router.push('/my-events')
     },
   },
 }

@@ -30,6 +30,11 @@ export default [
     component: () => import('@/views/client/events/Events.vue'),
     props: true,
     beforeEnter(to, _, next) {
+      const token = to.query.login
+      if (token) {
+        localStorage.setItem('token', token)
+        next()
+      }
       if (checkPermission()) next()
       else next({ name: 'error-404' })
     },

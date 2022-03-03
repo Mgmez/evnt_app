@@ -24,7 +24,7 @@
 
       <b-link
         class="navbar-brand"
-        to="/"
+        href="https://evnt.com.mx/"
       >
         <span class="brand-logo">
           <b-img

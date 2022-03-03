@@ -9,52 +9,61 @@
     >
       Crear evento
     </router-link>
-
-    <b-card class="mt-2">
-      <b-list-group>
-        <b-list-group-item
+    <br>
+    <br>
+    <div>
+      <b-card-group deck>
+        <b-card
           v-for="event in events"
           :key="event.id"
-          class="flex-column align-items-start"
+          img-src="https://ep01.epimg.net/verne/imagenes/2018/12/03/articulo/1543853044_168056_1544110723_sumario_normal.jpg"
+          img-alt="card img"
+          :img-fluid="true"
+          body-class="bg-overlay"
+          tag="article"
+          style="max-width: 25rem;"
+          class="card"
+          :title="event.name"
         >
-          <div class="d-flex w-100 justify-content-between">
+          Fecha del evento:
+          <div>
 
             <b-col md="12">
-              <b-card-actions
-                :title="event.name"
-                :collapsed="true"
-                action-collapse
-              >
-                <b-card-text>
-                  <span> {{ event.description }} </span>
-                </b-card-text>
-                <br>
-                <b-button-group class="mt-2">
-                  <b-button
-                    variant="outline-primary"
-                    :to="{ name: 'my-event-info', params:{id: event.id}}"
-                  >
-                    Ver
-                  </b-button>
-                  <b-button
-                    variant="outline-danger"
-                    @click="deleteEvent(event.id)"
-                  >
-                    Borrar
-                  </b-button>
-                </b-button-group>
-              </b-card-actions>
+              <b-card-text>
+                <span>{{ event.date }} </span>
+              </b-card-text>
+              <br>
+              <b-button
+                pill
+                variant="outline-info"
+                :to="{ name: 'my-event-info', params:{id: event.id}}"
+              ><feather-icon
+                size="16"
+                icon="EyeIcon"
+                class="mr-50"
+              />Ver
+              </b-button>
+              <b-button
+                pill
+                variant="outline-danger"
+                @click="deleteEvent(event.id)"
+              ><feather-icon
+                size="16"
+                icon="Trash2Icon"
+                class="mr-50"
+              />Borrar
+              </b-button>
             </b-col>
-          </div></b-list-group-item>
-      </b-list-group>
-    </b-card>
+          </div>
+        </b-card>
+      </b-card-group>
+    </div>
   </section>
 </template>
 
 <script>
-import BCardActions from '@core/components/b-card-actions/BCardActions.vue'
 import {
-  BCol, BCard, BListGroup, BListGroupItem, BButton, BButtonGroup, BCardText,
+  BCol, BCard, BButton, BCardText, BCardGroup,
 } from 'bootstrap-vue'
 import { buildServiceUrl } from '@/constants/urls'
 import axios from 'axios'
@@ -63,12 +72,9 @@ export default {
   components: {
     BCol,
     BCard,
-    BListGroup,
-    BListGroupItem,
-    BCardActions,
     BCardText,
-    BButtonGroup,
     BButton,
+    BCardGroup,
   },
   data() {
     return {
@@ -126,5 +132,8 @@ export default {
 <style lang="scss" scoped>
 .section {
   text-align: center;
+}
+.img {
+  height: 300px;
 }
 </style>

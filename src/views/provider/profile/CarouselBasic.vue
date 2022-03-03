@@ -9,6 +9,7 @@
         v-for="image_url in imagesUrl"
         :key="image_url"
         :img-src="image_url"
+        :class="'image_cover'"
       />
     </b-carousel>
 
@@ -42,19 +43,18 @@ export default {
 .img-fluid {
   height: 500px !important;
 }
-
 .carousel-example-generic{
   height: 500px !important;
 }
-
 @media (max-width: 480px) {
   .img-fluid {
     height: 300px !important;
   }
-
   .carousel-example-generic{
     height: 300px !important;
   }
 }
-
+.image_cover img{
+  object-fit: scale-down;
+}
 </style>
