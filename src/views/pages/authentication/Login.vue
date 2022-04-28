@@ -46,6 +46,7 @@
                   :state="errors.length > 0 ? false:null"
                   placeholder="john@example.com"
                   autofocus
+
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
